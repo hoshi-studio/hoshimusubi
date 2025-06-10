@@ -1,0 +1,37 @@
+@charset "UTF-8";
+.footer {
+background-color: #f5f0fc;
+color: #444;
+text-align: center;
+padding: 40px 20px;
+font-size: 14px;
+border-top: 1px solid #ccc;
+}
+
+.footer-logo {
+width: 40px;
+vertical-align: middle;
+margin-right: 10px;
+}
+
+.footer-title {
+font-size: 20px;
+font-weight: bold;
+vertical-align: middle;
+}
+
+.footer-links a {
+color: #6c63ff;
+text-decoration: none;
+margin-top: 10px;
+display: inline-block;
+}
+
+.footer-links a:hover {
+text-decoration: underline;
+}
+
+.footer-info {
+margin-top: 20px;
+line-height: 1.6;
+}

@@ -8,6 +8,7 @@ public class Main {
 
     @GetMapping("/")
     public String home() {
-        return "Home"; // → /WEB-INF/views/Home.jsp 를 의미함
+    	System.out.println(">>> home controller called");
+        return "home"; // → /WEB-INF/views/Home.jsp 를 의미함
     }
 }

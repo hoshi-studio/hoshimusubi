@@ -1,0 +1,53 @@
+@charset "UTF-8";
+/* 헤더css 시작 */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #e9dcf7;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    position: relative; /* 꼭 필요! */
+    height: 60px;
+}
+
+/* 왼쪽 로고 */
+.header-left .header-logo {
+    height: 40px;
+    transition: transform 0.2s;
+}
+
+.header-logo:hover {
+    transform: scale(1.05);
+}
+
+/* 가운데 제목 */
+.header-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 100%;
+    pointer-events: none; /* 클릭 방지 */
+}
+
+.header-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+/* 오른쪽 로그인 */
+.header-right .header-login {
+    height: 30px;
+}
+
+
+
+/* 메인 css시작 */
+body {
+    margin: 0;
+    background: linear-gradient(to bottom, #e7d3f5, #c9d6f3);
+    min-height: 100vh;
+}

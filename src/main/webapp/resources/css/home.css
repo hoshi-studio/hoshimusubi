@@ -1,0 +1,29 @@
+/* 전체 화면을 꽉 채우는 유연한 레이아웃 */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: sans-serif;
+}
+
+/* 바디 전체를 감싸는 wrapper: flex 컬럼 레이아웃 */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #e7d3f5, #c9d6f3); /* 배경 그라데이션 */
+}
+
+/* 메인 콘텐츠는 유동적으로 확장 */
+.main-content {
+    padding: 30px;
+    flex-grow: 1;
+}
+
+/* 푸터는 내용만큼 높이 자동으로 설정됨 */
+.footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+    border-top: 1px solid #ccc;
+}
