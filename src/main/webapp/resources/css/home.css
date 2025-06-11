@@ -7,12 +7,12 @@ html, body {
 }
 
 /* 바디 전체를 감싸는 wrapper: flex 컬럼 레이아웃 */
-.wrapper {
+/*.wrapper {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background: linear-gradient(to bottom, #e7d3f5, #c9d6f3); /* 배경 그라데이션 */
-}
+    background: linear-gradient(to bottom, #e7d3f5, #c9d6f3);  배경 그라데이션 
+}*/
 
 /* 메인 콘텐츠는 유동적으로 확장 */
 .main-content {
@@ -26,4 +26,43 @@ html, body {
     text-align: center;
     font-size: 14px;
     border-top: 1px solid #ccc;
+}
+
+/* ⭐⭐ 별자리 아이콘 클릭 스타일 ⭐⭐ */
+.zodiac-link {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    border-radius: 12px;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    text-decoration: none;  /* 밑줄 제거 */
+    color: inherit;         /* 파란 글씨 제거 */
+}
+
+.zodiac-link:hover {
+    transform: translateY(-5px);
+    background-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 4px 12px rgba(120, 120, 200, 0.2);
+}
+
+.zodiac-link img {
+    width: 56px;
+    height: 56px;
+    transition: transform 0.3s ease;
+}
+
+.zodiac-link:hover img {
+    transform: scale(1.1);
+}
+
+.zodiac-link div {
+    margin-top: 6px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: inherit; /* 혹시 모를 링크색 남아 있을 때 방지 */
+}
+
+
+
+
 }

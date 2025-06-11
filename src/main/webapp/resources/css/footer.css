@@ -33,3 +33,12 @@ text-decoration: underline;
 margin-top: 20px;
 line-height: 1.6;
 }
+
+footer {
+  background: linear-gradient(to bottom, #c9d6f3 0%, #e5d8fc 100%);
+  /* 윗 배경 색상에 맞춰서 색만 맞춰주면 OK! */
+  padding: 36px 0 24px 0;
+  text-align: center;
+  color: #444;
+  border-top: 1px solid rgba(180,180,255,0.09);
+}
