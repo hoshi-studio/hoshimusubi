@@ -22,7 +22,7 @@
 			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
 		<property name="jdbcUrl"
 			value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"></property>
-		<property name="username" value="hoshimusubi"></property>
+		<property name="username" value="C##hoshimusubi"></property>
 		<property name="password" value="12345678"></property>
 
 	</bean>
@@ -36,6 +36,7 @@
 	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
+		<property name="mapperLocations" value="classpath:/mappers/*.xml" />
 	</bean>
 
 	<bean id="transactionManager"
@@ -46,7 +47,7 @@
 	<tx:annotation-driven />
 
 	<mybatis-spring:scan
-		base-package="com.hoshimusubi.mapper" />
+		base-package="com.hoshimusubi.seunga.mapper" />
 
 	<context:component-scan
 		base-package="com.hoshimusubi.service"></context:component-scan>
