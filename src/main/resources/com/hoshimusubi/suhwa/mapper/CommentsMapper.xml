@@ -5,6 +5,7 @@
 
 <mapper namespace="com.hoshimusubi.suhwa.mapper.CommentsMapper">
 
+	<!-- 전체 댓글 조회 -->
     <select id="getCommentById" resultType="com.hoshimusubi.suhwa.dto.CommentsDTO">
         SELECT 
 	        c.id AS id,
@@ -19,13 +20,26 @@
 	    ORDER BY c.created_at ASC
     </select>
     
+    <!-- 댓글 등록 -->
     <insert id="insertComment" parameterType="com.hoshimusubi.suhwa.dto.CommentsDTO">
 	    INSERT INTO Comments (post_id, user_id, content)
 	    VALUES (#{postId}, 33, #{content})
 	</insert>
 	
+	<!-- 작성자 값 찾기 -->
 	<select id="getNicknameByUserId" parameterType="Long" resultType="String">
 	    SELECT nickname FROM Users WHERE id = 33
 	</select>
+	
+	<!-- 댓글 수정 -->
+	<update id="updateComment">
+	    UPDATE Comments SET content = #{content} WHERE id = 33
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteComment" parameterType="long">
+	    DELETE FROM Comments WHERE id = #{id}
+	</delete>
+	
 
 </mapper>

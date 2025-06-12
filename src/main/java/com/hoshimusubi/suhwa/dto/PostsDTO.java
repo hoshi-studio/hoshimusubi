@@ -21,4 +21,6 @@ public class PostsDTO {
     private Integer commentCount;
     private String imageUrl;
     private String nickname;
+    private boolean likedByCurrentUser;
+    private boolean bookmarkedByCurrentUser;
 }

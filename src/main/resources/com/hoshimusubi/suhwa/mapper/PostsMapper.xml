@@ -8,7 +8,7 @@
     <select id="getPostById" parameterType="long" resultType="com.hoshimusubi.suhwa.dto.PostsDTO">
          SELECT 
 	        p.id,
-	        p.user_id,
+	        p.user_Id,
 	        p.title,
 	        p.content,
 	        p.created_at,
@@ -40,5 +40,17 @@
             0
         )
     </insert>
+    
+    <update id="updatePost" parameterType="com.hoshimusubi.dto.PostsDTO">
+	    UPDATE Posts
+	    SET title = #{title},
+	        content = #{content},
+	        image_url = #{imageUrl}
+	    WHERE id = #{id}
+	</update>
+
+	<delete id="deletePost" parameterType="long">
+	    DELETE FROM Posts WHERE id = #{id}
+	</delete>
 
 </mapper>

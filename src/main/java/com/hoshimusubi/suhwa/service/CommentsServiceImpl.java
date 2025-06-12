@@ -27,4 +27,14 @@ public class CommentsServiceImpl implements CommentsService{
 		String nickname = CommentsMapper.getNicknameByUserId(comment.getUserId());
 	    comment.setNickname(nickname); 
     }
+	
+	@Override
+	public void updateComment(Long id, String content) {
+		CommentsMapper.updateComment(id, content);
+	}
+
+	@Override
+	public void deleteComment(Long id) {
+		CommentsMapper.deleteComment(id);
+	}
 }

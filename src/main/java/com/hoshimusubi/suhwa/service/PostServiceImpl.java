@@ -23,6 +23,18 @@ public class PostServiceImpl implements PostsService {
     public void savePost(PostsDTO post) {
     	PostsMapper.insertPost(post);
     }
+
+
+	public void updatePost(PostsDTO post) {
+		PostsMapper.updatePost(post);
+		
+	}
+
+
+	public void deletePost(Long id) {
+		PostsMapper.deletePost(id);
+		
+	}
     
     
 }

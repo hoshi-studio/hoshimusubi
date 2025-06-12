@@ -10,4 +10,6 @@ import com.hoshimusubi.suhwa.dto.PostsDTO;
 public interface PostsMapper {
     PostsDTO getPostById(Long id);
     void insertPost(PostsDTO post);
+    void updatePost(PostsDTO post);
+    void deletePost(Long id);
 }

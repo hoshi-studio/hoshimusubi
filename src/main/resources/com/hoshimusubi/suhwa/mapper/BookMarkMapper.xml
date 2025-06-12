@@ -1,1 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hoshimusubi.suhwa.mapper.BookMarkMapper">
+
+    <insert id="insertBookmark">
+        INSERT INTO BookMark (post_id, user_id)
+        VALUES (#{postId}, 33)
+    </insert>
+
+    <delete id="deleteBookmark">
+        DELETE FROM BookMark WHERE post_id = #{postId} AND user_id = 33
+    </delete>
+
+    <select id="countBookmark" resultType="int">
+        SELECT COUNT(*) FROM BookMark WHERE post_id = #{postId} AND user_id = 33
+    </select>
+
+</mapper>
