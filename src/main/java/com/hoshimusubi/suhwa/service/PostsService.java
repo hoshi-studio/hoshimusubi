@@ -4,4 +4,5 @@ import com.hoshimusubi.suhwa.dto.PostsDTO;
 
 public interface PostsService {
 	PostsDTO getPostById(Long id);
+	void savePost(PostsDTO post);
 }

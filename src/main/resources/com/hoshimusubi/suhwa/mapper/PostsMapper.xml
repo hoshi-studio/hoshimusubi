@@ -4,6 +4,7 @@
 
 <mapper namespace="com.hoshimusubi.suhwa.mapper.PostsMapper">
 
+	<!-- posts의 id값으로 게시글과 작성자의 정보 가져오기 --> 
     <select id="getPostById" parameterType="long" resultType="com.hoshimusubi.suhwa.dto.PostsDTO">
          SELECT 
 	        p.id,
@@ -14,12 +15,30 @@
 	        p.status,
 	        p.views,
 	        p.imageUrl,
-	        -- 게시글의 좋아요 수
-	        (SELECT COUNT(*) FROM Likes l WHERE l.post_id = p.id) AS likeCount,
-	        -- 게시글의 댓글 수
-	        (SELECT COUNT(*) FROM Comments c WHERE c.post_id = p.id) AS commentCount
-		  FROM Posts p
-		  WHERE p.id = #{id}
+	        u.nickname AS nickname
+    FROM Posts p
+    JOIN Users u ON p.user_id = u.id
+    WHERE p.id = #{id}
     </select>
+    
+    <!-- 게시글 등록 기능 -->
+    <insert id="insertPost" parameterType="com.hoshimusubi.suhwa.dto.PostsDTO">
+        INSERT INTO Posts (
+            user_id,
+            title,
+            content,
+            imageUrl,
+            views,
+            status
+        ) VALUES (
+        <!-- 로그인 기능이 미완으로 임의로 설정 -->
+            33,
+            #{title},
+            #{content},
+            #{imageUrl},
+            0,
+            0
+        )
+    </insert>
 
 </mapper>

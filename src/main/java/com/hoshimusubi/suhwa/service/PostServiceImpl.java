@@ -18,5 +18,11 @@ public class PostServiceImpl implements PostsService {
         return PostsMapper.getPostById(id);
     }
     
+
+    @Override
+    public void savePost(PostsDTO post) {
+    	PostsMapper.insertPost(post);
+    }
+    
     
 }

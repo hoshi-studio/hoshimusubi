@@ -9,4 +9,5 @@ import com.hoshimusubi.suhwa.dto.PostsDTO;
 @MapperScan
 public interface PostsMapper {
     PostsDTO getPostById(Long id);
+    void insertPost(PostsDTO post);
 }

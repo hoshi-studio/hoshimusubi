@@ -72,3 +72,16 @@
     border-radius: 8px;
     cursor: pointer;
 }
+.comment-actions {
+    margin-top: 5px;
+}
+.comment-actions a {
+    margin-right: 10px;
+    font-size: 0.9em;
+    color: #555;
+    text-decoration: none;
+}
+.comment-actions a:hover {
+    text-decoration: underline;
+    color: #222;
+}
