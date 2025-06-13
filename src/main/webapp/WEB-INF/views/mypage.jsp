@@ -238,26 +238,27 @@ body{
       <!-- 왼쪽 프로필사진+닉네임 -->
       <div style="text-align:center">
         <div class="profile-pic">
-          <img src="${pageContext.request.contextPath}/resources/img/女の子.png" alt="프로필">
+			<img src="${pageContext.request.contextPath}${user.profilePic}" alt="프로필">
         </div>
-        <div class="nickname-btn">닉네임</div>
+		<div class="nickname-btn">${user.nickname}</div>
       </div>
 
       <!-- 오른쪽 정보 표 -->
-      <table class="profile-info-table">
-        <tr>
-          <td class="info-label">性別</td>
-          <td class="info-value">남/여</td>
-        </tr>
-        <tr>
-          <td class="info-label">イーメール</td>
-          <td class="info-value">user@email.com</td>
-        </tr>
-        <tr>
-          <td class="info-label">星座</td>
-          <td class="info-value">염소자리</td>
-        </tr>
-      </table>
+	  <table class="profile-info-table">
+	    <tr>
+	      <td class="info-label">性別</td>
+	      <td class="info-value">${user.gender}</td>
+	    </tr>
+	    <tr>
+	      <td class="info-label">イーメール</td>
+	      <td class="info-value">${user.email}</td>
+	    </tr>
+	    <tr>
+	      <td class="info-label">星座</td>
+		  <td class="info-value">${user.zodiacNameJa}</td>
+
+	    </tr>
+	  </table>
     </div>
 
     <!-- 메시지 버튼 -->
