@@ -6,7 +6,6 @@ import org.mybatis.spring.annotation.MapperScan;
 import com.hoshimusubi.suhwa.dto.PostsDTO;
 
 @Mapper
-@MapperScan
 public interface PostsMapper {
     PostsDTO getPostById(Long id);
     void insertPost(PostsDTO post);

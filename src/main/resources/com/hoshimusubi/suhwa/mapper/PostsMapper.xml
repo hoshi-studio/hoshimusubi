@@ -41,7 +41,7 @@
         )
     </insert>
     
-    <update id="updatePost" parameterType="com.hoshimusubi.dto.PostsDTO">
+    <update id="updatePost" parameterType="com.hoshimusubi.suhwa.dto.PostsDTO">
 	    UPDATE Posts
 	    SET title = #{title},
 	        content = #{content},

@@ -21,4 +21,6 @@ public interface CommentsMapper {
 	void updateComment(@Param("id") Long id, @Param("content") String content);
 	void deleteComment(Long id);
 
+	int selectCount(Long id);
+
 }

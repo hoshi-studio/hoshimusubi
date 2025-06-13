@@ -1,9 +1,11 @@
 package com.hoshimusubi.suhwa.service;
 
+import com.hoshimusubi.suhwa.dto.UsersDTO;
+
 public interface LikeService {
-	void insertLike(Long postId, Long userId);
-    void deleteLike(Long postId, Long userId);
+	boolean insertLike(Long postId, UsersDTO userId);
+	boolean deleteLike(Long postId, UsersDTO userId);
     int getLikeCount(Long postId);
-    boolean isPostLikedByUser(Long postId, Long userId);
+    boolean isPostLikedByUser(Long postId, UsersDTO userId);
 
 }

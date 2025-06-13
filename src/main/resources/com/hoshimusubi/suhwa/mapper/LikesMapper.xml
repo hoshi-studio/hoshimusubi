@@ -4,6 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.hoshimusubi.suhwa.mapper.LikesMapper">
+
+	<select id="exists" resultType="int">
+        SELECT COUNT(*)
+        FROM Likes
+        WHERE post_id = #{postId} AND user_id = 33
+    </select>
+    
 	<insert id="insertLike">
 	    INSERT INTO Likes (post_id, user_id)
 	    VALUES (#{postId}, 33)
@@ -17,11 +24,5 @@
 	<select id="countLikesByPostId" resultType="int">
 	    SELECT COUNT(*) FROM Likes WHERE post_id = #{postId}
 	</select>
-	
-	<select id="countUserLike" resultType="int">
-        SELECT COUNT(*) 
-        FROM Likes 
-        WHERE post_id = #{postId} AND user_id = 33
-    </select>
 	
 </mapper>

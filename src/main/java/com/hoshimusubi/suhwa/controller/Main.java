@@ -2,17 +2,23 @@ package com.hoshimusubi.suhwa.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,8 +27,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.hoshimusubi.suhwa.dto.CommentsDTO;
 import com.hoshimusubi.suhwa.dto.PostsDTO;
 import com.hoshimusubi.suhwa.dto.UsersDTO;
+import com.hoshimusubi.suhwa.service.BookMarkService;
 import com.hoshimusubi.suhwa.service.BookMarkServiceImpl;
+import com.hoshimusubi.suhwa.service.CommentsService;
 import com.hoshimusubi.suhwa.service.CommentsServiceImpl;
+import com.hoshimusubi.suhwa.service.LikeService;
 import com.hoshimusubi.suhwa.service.LikeServiceImpl;
 import com.hoshimusubi.suhwa.service.PostServiceImpl;
 import com.hoshimusubi.suhwa.service.PostsService;
@@ -31,30 +40,41 @@ import com.hoshimusubi.suhwa.service.PostsService;
 public class Main {
 
 	@Autowired
-    private PostServiceImpl postsService;
+	@Qualifier("PostServiceImpl")
+    private PostsService postsService;
 	@Autowired
-    private CommentsServiceImpl commentssService;
+	@Qualifier("CommentsServiceImpl")
+    private CommentsService commentsService;
 	@Autowired
-    private LikeServiceImpl likeService;
+	@Qualifier("LikeServiceImpl")
+    private LikeService likeService;
 	@Autowired
-    private BookMarkServiceImpl bookMarkeService;
+	@Qualifier("BookMarkServiceImpl")
+    private BookMarkService bmService;
 	
-	/*
-	 * @GetMapping("/") public String home() {
-	 * System.out.println(">>> home controller called"); return "home"; // →
-	 * /WEB-INF/views/Home.jsp 를 의미함 }
-	 */
+	
+	@GetMapping("/") 
+	public String home() {
+	  System.out.println(">>> home controller called"); 
+	  return "home"; // →/WEB-INF/views/Home.jsp 를 의미함 
+	}
+	 
     @GetMapping("/post_detail")
     public String postDetail(@RequestParam("id") Long id, Model model,HttpServletRequest request) {
-    	Long userId = (Long) request.getSession().getAttribute("userId");
+    	UsersDTO userId = (UsersDTO) request.getSession().getAttribute("userId");
     	PostsDTO post = postsService.getPostById(id);
-    	boolean liked = likeService.isPostLikedByUser(id, loginUserId);
-    	postDTO.setLikedByCurrentUser(liked);
+    	
+    	boolean liked = likeService.isPostLikedByUser(id, userId);
+    	int likecount = likeService.getLikeCount(id);
+    	post.setLikeCount(likecount);
+    	post.setLikedByCurrentUser(liked);
 
-    	boolean bookmarked = bookmarkService.isPostBookmarkedByUser(postId, loginUserId);
-    	postDTO.setBookmarkedByCurrentUser(bookmarked);
-    	List<CommentsDTO> comments = commentssService.getCommentById(id);
-    	System.out.println(comments);
+    	boolean bookmarked = bmService.isPostBookmarkedByUser(id, userId);
+    	post.setBookmarkedByCurrentUser(bookmarked);
+    	
+    	List<CommentsDTO> comments = commentsService.getCommentById(id);
+    	int commentCount=commentsService.getcommentCount(id);
+    	post.setCommentCount(commentCount);
     	model.addAttribute("comments", comments);
         model.addAttribute("post", post); // JSP로 전달
         return "post_detail_suhwa";
@@ -96,17 +116,21 @@ public class Main {
         return "redirect:/post/list";
     }
     
-    @PostMapping(value = "/addComment", produces = "text/plain; charset=UTF-8")
+    @PostMapping(value = "/addComment")
     @ResponseBody
-    public String addComment(@ModelAttribute CommentsDTO comment,
-                             HttpServletRequest request) {
+    public Map<String, Object> addComment(@ModelAttribute CommentsDTO comment,
+                             HttpSession session) {
 		
-		 Long userId = (Long) request.getSession().getAttribute("userId");
-		 comment.setUserId(userId);
+		 UsersDTO userId = (UsersDTO) session.getAttribute("userId");
+			/* comment.setNickname(userId.getNickname()); */
+		 commentsService.saveComment(comment);
 		 
-		 commentssService.saveComment(comment);
+		 int commentCount = commentsService.getcommentCount(comment.getPostId());
 		 
-        return "<div class='comment'><strong>" + comment.getNickname() + "</strong>: " + comment.getContent() + "</div>";
+		 Map<String, Object> result = new HashMap<>();
+		 result.put("commentHtml", "<div class='comment'><strong>" + comment.getNickname() + "</strong>: " + comment.getContent() + "</div>");
+		 result.put("commentCount", commentCount);
+		 return result;
     }
     
  // 게시글 수정 페이지 이동
@@ -182,7 +206,7 @@ public class Main {
     @PostMapping("/comment_update")
     @ResponseBody
     public String updateComment(@RequestParam Long id, @RequestParam String content) {
-    	commentssService.updateComment(id, content);
+    	commentsService.updateComment(id, content);
         return "success";
     }
 
@@ -190,26 +214,68 @@ public class Main {
     @PostMapping("/comment_delete")
     @ResponseBody
     public String deleteComment(@RequestParam Long id) {
-    	commentssService.deleteComment(id);
+    	commentsService.deleteComment(id);
         return "success";
     }
-    
+    //좋아요 등록
     @PostMapping("/like")
     @ResponseBody
-    public int like(@RequestParam Long postId, HttpServletRequest request) {
-        Long userId = (Long) request.getSession().getAttribute("userId");
-        likeService.insertLike(postId, userId);
-        return likeService.getLikeCount(postId);
+    public Map<String, Object> like(@RequestParam Long postId,
+    		HttpSession session) {
+    	UsersDTO userId = (UsersDTO) session.getAttribute("loginUser");
+        likeService.insertLike(postId, userId); // insert만 수행
+        int newCount = likeService.getLikeCount(postId); // 현재 like 수 가져오기
+        
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("liked", true);
+        result.put("likeCount", newCount);
+        return result;
     }
 
+    // 좋아요 취소
     @PostMapping("/unlike")
     @ResponseBody
-    public int unlike(@RequestParam Long postId, HttpServletRequest request) {
-        Long userId = (Long) request.getSession().getAttribute("userId");
-        likeService.deleteLike(postId, userId);
-        return likeService.getLikeCount(postId);
+    public Map<String, Object> unlike(@RequestParam Long postId,
+                                      HttpSession session) {
+    	
+    	UsersDTO userId = (UsersDTO) session.getAttribute("loginUser");
+        likeService.deleteLike(postId, userId); // delete 수행
+        int newCount = likeService.getLikeCount(postId); // 현재 like 수 가져오기
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("liked", false);
+        result.put("likeCount", newCount);
+        return result;
     }
 
+    //북마크 등록
+    @PostMapping("/bookmark")
+    @ResponseBody
+    public Map<String, Object> bookmark(@RequestParam Long postId,
+    		HttpSession session) {
+    	UsersDTO userId = (UsersDTO) session.getAttribute("loginUser");
+    	bmService.addBookmark(postId, userId); // insert만 수행
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("liked", true);
+        System.out.println(result);
+        return result;
+    }
+    
+    //북마크 취소
+    @PostMapping("/unbookmark")
+    @ResponseBody
+    public Map<String, Object> dontsave(@RequestParam Long postId,
+                                      HttpSession session) {
+    	
+    	UsersDTO userId = (UsersDTO) session.getAttribute("loginUser");
+    	bmService.removeBookmark(postId, userId); // delete 수행
+    	
+        Map<String, Object> result = new HashMap<>();
+        result.put("liked", false);
+        return result;
+    }
     
     
 }

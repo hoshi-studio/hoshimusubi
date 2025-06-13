@@ -41,5 +41,11 @@
 	    DELETE FROM Comments WHERE id = #{id}
 	</delete>
 	
+	<select id="selectCount" parameterType="long" resultType="int">
+	    SELECT COUNT(*) 
+	    FROM Comments 
+	    WHERE post_id = #{postId}
+	</select>
+	
 
 </mapper>

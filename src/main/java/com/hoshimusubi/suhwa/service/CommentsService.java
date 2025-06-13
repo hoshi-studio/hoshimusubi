@@ -9,5 +9,5 @@ public interface CommentsService {
 	void saveComment(CommentsDTO comment);
 	void updateComment(Long id, String content);
 	void deleteComment(Long id);
-
+	int getcommentCount(Long id);
 }

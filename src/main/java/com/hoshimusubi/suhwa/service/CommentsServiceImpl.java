@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hoshimusubi.suhwa.dto.CommentsDTO;
 import com.hoshimusubi.suhwa.mapper.CommentsMapper;
 import com.hoshimusubi.suhwa.mapper.PostsMapper;
 
-@Service
+@Service("CommentsServiceImpl")
+@Transactional
 public class CommentsServiceImpl implements CommentsService{
 
 	@Autowired
@@ -36,5 +38,11 @@ public class CommentsServiceImpl implements CommentsService{
 	@Override
 	public void deleteComment(Long id) {
 		CommentsMapper.deleteComment(id);
+	}
+	
+	@Override
+    public int getcommentCount(Long id) {
+		int count = CommentsMapper.selectCount(id);
+		return count;
 	}
 }

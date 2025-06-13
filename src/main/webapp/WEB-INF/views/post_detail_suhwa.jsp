@@ -17,36 +17,40 @@
                     <span>조회수: ${post.views}</span>
                     <c:choose>
 					    <c:when test="${post.likedByCurrentUser}">
-					        <img src="${pageContext.request.contextPath}/resources/images/like.png" 
-					             id="like-btn" 
+					        <img src="${pageContext.request.contextPath}/resources/img/like.png" 
+					             id="like-btn"
+					             data-userId = "${user.id}" 
 					             data-post-id="${post.id}" 
 					             data-liked="true" 
-					             style="cursor:pointer;" />
+					             style="width: 24px; height: 24px; cursor: pointer;" />
 					    </c:when>
 					    <c:otherwise>
-					        <img src="${pageContext.request.contextPath}/resources/images/unlike.png" 
-					             id="like-btn" 
+					        <img src="${pageContext.request.contextPath}/resources/img/unlike.png" 
+					             id="like-btn"
+					             data-userId = "${user.id}"   
 					             data-post-id="${post.id}" 
 					             data-liked="false" 
-					             style="cursor:pointer;" />
+					             style="width: 24px; height: 24px; cursor: pointer;" />
 					    </c:otherwise>
 					</c:choose>
-                    <span>${post.likeCount}</span>
-                    <span>💬 ${post.commentCount}</span>
+                    <span id="like-count">${post.likeCount}</span>
+                    <span id="comment-count">💬 ${post.commentCount}</span>
                     <c:choose>
 					    <c:when test="${post.bookmarkedByCurrentUser}">
-					        <img src="${pageContext.request.contextPath}/resources/images/save.png" 
+					        <img src="${pageContext.request.contextPath}/resources/img/save.png" 
 					             id="bookmark-btn" 
+					             data-userId = "${user.id}" 
 					             data-post-id="${post.id}" 
 					             data-bookmarked="true" 
-					             style="cursor:pointer;" />
+					             style="width: 24px; height: 24px; cursor: pointer;" />
 					    </c:when>
 					    <c:otherwise>
-					        <img src="${pageContext.request.contextPath}/resources/images/dontsave.png" 
+					        <img src="${pageContext.request.contextPath}/resources/img/dontsave.png" 
 					             id="bookmark-btn" 
+					             data-userId = "${user.id}"  
 					             data-post-id="${post.id}" 
 					             data-bookmarked="false" 
-					             style="cursor:pointer;" />
+					             style="width: 24px; height: 24px; cursor: pointer;" />
 					    </c:otherwise>
 					</c:choose>
                 </div>
@@ -92,26 +96,33 @@
         <!-- ... -->
     </main>
 	<script>
+    
+    const userId = "${sessionScope.userId}"; // 또는 별도로 선언한 hidden input이나 data-* 속성 이용
+	const contextPath = "${pageContext.request.contextPath}";
 	$(document).ready(function () {
+		const postId = $(this).data('post-id');
+    	const userId = $(this).data('user-id');
 		//댓글 저장
 	    $('#commentForm').submit(function (e) {
-	        e.preventDefault(); // 기본 제출 방지
-	
-	        $.ajax({
-	            type: 'POST',
-	            url: '${pageContext.request.contextPath}/addComment',
-	            data: $(this).serialize(),
-	            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-	            success: function (response) {
-	                // 성공 시 댓글 영역에 바로 추가
-	                $('.comment-form').before(response);
-	                $('textarea[name="content"]').val(''); // 입력창 초기화
-	            },
-	            error: function () {
-	                alert('댓글 등록에 실패했습니다.');
-	            }
-	        });
-	    });
+		    e.preventDefault(); // ✅ 기본 폼 제출 막기 (중요)
+		
+		    $.ajax({
+		        type: 'POST',
+		        url: contextPath + '/addComment', // ✅ 실제 댓글 처리용 컨트롤러 URL
+		        data: $(this).serialize(),
+		        dataType: 'json',
+		        success: function (response) {
+		            $('.comment-form').before(response.commentHtml); // 댓글 추가
+		            $('textarea[name="content"]').val(''); // 입력창 초기화
+		
+		            // 댓글 수 갱신
+		            $('#comment-count').text(response.commentCount);
+		        },
+		        error: function () {
+		            alert('댓글 등록에 실패했습니다.');
+		        }
+		    });
+		});
 	    
 	 // 댓글 수정 시작
 	    $(document).on("click", ".edit-btn", function () {
@@ -170,33 +181,33 @@
 	    
 	    //좋아요 기능
 	    $('#like-btn').click(function () {
-	        const postId = $(this).data('post-id');
+	    	const postId = $(this).data('post-id');
+	    	const userId = $(this).data('user-id');// ← 이거 꼭 추가
 	        const liked = $(this).data('liked');
 	        const $img = $(this);
-
-	        $.ajax({
-	            type: 'POST',
-	            url: liked ? '/unlike' : '/like',
-	            data: { postId: postId },
-	            success: function (newCount) {
-	                // 이미지 변경
-	                if (liked) {
-	                    $img.attr('src', '${pageContext.request.contextPath}/resources/images/unlike.png');
-	                    $img.data('liked', false);
-	                } else {
-	                    $img.attr('src', '${pageContext.request.contextPath}/resources/images/like.png');
-	                    $img.data('liked', true);
-	                }
-
-	                // 좋아요 수 업데이트
-	                $img.prev('span').text(newCount);
-	            },
-	            error: function () {
-	                alert("처리 중 오류 발생");
-	            }
-	        });
-	    });
-	    
+		
+		    $.ajax({
+		        type: 'POST',
+		        url: liked ? contextPath + '/unlike' : contextPath + '/like',
+		        data: { postId: postId},
+		        dataType: 'json', // ⭐ 응답 타입을 JSON으로 지정
+		        success: function (response) {
+		            const newCount = response.likeCount; // JSON 객체에서 count 추출
+		            if (liked) {
+		                $img.attr('src', contextPath + '/resources/img/unlike.png');
+		                $img.data('liked', false);
+		            } else {
+		                $img.attr('src', contextPath + '/resources/img/like.png');
+		                $img.data('liked', true);
+		            }
+		            $('#like-count').text(newCount);
+		        },
+		        error: function () {
+		            alert("처리 중 오류 발생");
+		        }
+		    });
+		});
+			    
 	    //북마크 기능
 	    $('#bookmark-btn').click(function () {
 	        const postId = $(this).data('post-id');
@@ -210,10 +221,10 @@
 	            success: function () {
 	                // 이미지 및 data-bookmarked 속성 토글
 	                if (bookmarked) {
-	                    $img.attr('src', '${pageContext.request.contextPath}/resources/images/dontsave.png');
+	                    $img.attr('src', '${pageContext.request.contextPath}/resources/img/dontsave.png');
 	                    $img.data('bookmarked', false);
 	                } else {
-	                    $img.attr('src', '${pageContext.request.contextPath}/resources/images/save.png');
+	                    $img.attr('src', '${pageContext.request.contextPath}/resources/img/save.png');
 	                    $img.data('bookmarked', true);
 	                }
 	            },

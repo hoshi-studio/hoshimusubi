@@ -13,7 +13,7 @@
         DELETE FROM BookMark WHERE post_id = #{postId} AND user_id = 33
     </delete>
 
-    <select id="countBookmark" resultType="int">
+    <select id="countBookmark" resultType="boolean">
         SELECT COUNT(*) FROM BookMark WHERE post_id = #{postId} AND user_id = 33
     </select>
 
