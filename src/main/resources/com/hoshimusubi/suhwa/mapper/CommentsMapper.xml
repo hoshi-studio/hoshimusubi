@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hoshimusubi.suhwa.mapper.CommentsMapper">
+
+	<!-- 전체 댓글 조회 -->
+    <select id="getCommentById" resultType="com.hoshimusubi.suhwa.dto.CommentsDTO">
+        SELECT 
+	        c.id AS id,
+	        c.post_id AS postId,
+	        c.user_id AS userId,
+	        c.content AS content,
+	        c.created_at AS created_at,
+	        u.nickname AS nickname
+	    FROM Comments c
+	    JOIN Users u ON c.user_id = u.id
+	    WHERE c.post_id = #{postId}
+	    ORDER BY c.created_at ASC
+    </select>
+    
+    <!-- 댓글 등록 -->
+    <insert id="insertComment" parameterType="com.hoshimusubi.suhwa.dto.CommentsDTO">
+	    INSERT INTO Comments (post_id, user_id, content)
+	    VALUES (#{postId}, 33, #{content})
+	</insert>
+	
+	<!-- 작성자 값 찾기 -->
+	<select id="getNicknameByUserId" parameterType="Long" resultType="String">
+	    SELECT nickname FROM Users WHERE id = 33
+	</select>
+	
+	<!-- 댓글 수정 -->
+	<update id="updateComment">
+	    UPDATE Comments SET content = #{content} WHERE id = 33
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteComment" parameterType="long">
+	    DELETE FROM Comments WHERE id = #{id}
+	</delete>
+	
+	<select id="selectCount" parameterType="long" resultType="int">
+	    SELECT COUNT(*) 
+	    FROM Comments 
+	    WHERE post_id = #{postId}
+	</select>
+	
+
+</mapper>
