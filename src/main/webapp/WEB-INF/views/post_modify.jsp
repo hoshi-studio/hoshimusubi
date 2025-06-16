@@ -12,7 +12,7 @@
 
             <form action="${pageContext.request.contextPath}/update" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="${post.id}" />
-                <input type="hidden" name="userId" value="${post.userId}" />
+                <input type="hidden" name="userId" value="${post.user_Id}" />
 
                 <div class="form-group">
                     <label for="title">제목</label>
@@ -41,7 +41,7 @@
 
                 <div class="form-actions">
                     <button type="submit">수정 완료</button>
-                    <a href="${pageContext.request.contextPath}/post/detail?id=${post.id}">취소</a>
+                    <a href="${pageContext.request.contextPath}/post_detail?id=${post.id}">취소</a>
                 </div>
             </form>
         </div>

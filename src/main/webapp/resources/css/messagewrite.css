@@ -1,0 +1,69 @@
+@charset "UTF-8";
+/* message_write.css */
+@import url("postdetailsuhwa.css"); /* 또는 필요 시 재사용 */
+
+body {
+    background-color: #f6f6f6;
+}
+
+.post-create-wrapper {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 40px 30px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.page-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #5e418c;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+    color: #555;
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.form-actions button {
+    background-color: #9b59b6;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.form-actions a {
+    background-color: #ccc;
+    color: #333;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+}

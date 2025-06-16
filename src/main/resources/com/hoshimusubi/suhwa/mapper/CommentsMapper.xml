@@ -23,7 +23,7 @@
     <!-- 댓글 등록 -->
     <insert id="insertComment" parameterType="com.hoshimusubi.suhwa.dto.CommentsDTO">
 	    INSERT INTO Comments (post_id, user_id, content)
-	    VALUES (#{postId}, #{id}, #{content})
+	    VALUES (#{postId}, #{userId}, #{content})
 	</insert>
 	
 	<!-- 작성자 값 찾기 -->
@@ -32,13 +32,13 @@
 	</select>
 	
 	<!-- 댓글 수정 -->
-	<update id="updateComment">
+	<update id="updateComment" parameterType="map">
 	    UPDATE Comments SET content = #{content} WHERE id = #{id}
 	</update>
 	
 	<!-- 댓글 삭제 -->
-	<delete id="deleteComment" parameterType="long">
-	    DELETE FROM Comments WHERE id = #{id}
+	<delete id="deleteComment" parameterType="java.lang.Long">
+	    DELETE FROM Comments WHERE id = #{id, jdbcType=NUMERIC}
 	</delete>
 	
 	<select id="selectCount" parameterType="long" resultType="int">

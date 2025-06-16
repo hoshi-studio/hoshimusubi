@@ -27,15 +27,14 @@
             user_id,
             title,
             content,
-            imageUrl,
+            image_url,
             views,
             status
         ) VALUES (
-        <!-- 로그인 기능이 미완으로 임의로 설정 -->
-            #{id},
+            #{user_Id},
             #{title},
             #{content},
-            #{imageUrl},
+            #{imageUrl, jdbcType=VARCHAR},
             0,
             0
         )
@@ -52,5 +51,9 @@
 	<delete id="deletePost" parameterType="long">
 	    DELETE FROM Posts WHERE id = #{id}
 	</delete>
-
+	
+	<update id="increaseViewCount" parameterType="Long">
+    UPDATE Posts SET views = views + 1 WHERE id = #{id}
+	</update>
+	
 </mapper>

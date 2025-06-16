@@ -8,6 +8,7 @@ import com.hoshimusubi.hanbeen.dto.UserProfileDTO; // ← ✅ 이거 꼭 필요!
 public interface HanbeenUserMapper {
 
     @Select("SELECT " +
+    		"u.id As user_Id, "+
             "u.nickname, " +
             "u.gender, " +
             "u.user_id AS email, " +
@@ -15,6 +16,6 @@ public interface HanbeenUserMapper {
             "u.profile_pic AS profilePic " +
             "FROM Users u " +
             "JOIN Zodiac z ON u.zodiac_id = z.id " +
-            "WHERE u.id = #{userId}")
+            "WHERE u.id = #{userId, jdbcType=NUMERIC}")
     UserProfileDTO getUserProfileById(Long userId);
 }

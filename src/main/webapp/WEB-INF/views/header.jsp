@@ -13,7 +13,7 @@
 <header class="header">
     <!-- 왼쪽: 로고 -->
     <div class="header-left">
-        <a href="${pageContext.request.contextPath}/home">
+        <a href="${pageContext.request.contextPath}/">
             <img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="Hoshimusubi 로고" class="header-logo" />
         </a>
     </div>

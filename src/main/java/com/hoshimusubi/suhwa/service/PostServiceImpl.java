@@ -26,16 +26,21 @@ public class PostServiceImpl implements PostsService {
     	PostsMapper.insertPost(post);
     }
 
-
+    @Override
 	public void updatePost(PostsDTO post) {
 		PostsMapper.updatePost(post);
 		
 	}
 
-
+	@Override
 	public void deletePost(Long id) {
 		PostsMapper.deletePost(id);
 		
+	}
+	
+	@Override
+	public void increaseViewCount(Long postId) {
+		PostsMapper.increaseViewCount(postId);
 	}
     
     

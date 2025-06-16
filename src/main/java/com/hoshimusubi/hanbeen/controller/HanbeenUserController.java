@@ -2,6 +2,8 @@ package com.hoshimusubi.hanbeen.controller;
 
 import com.hoshimusubi.hanbeen.dto.UserProfileDTO;
 import com.hoshimusubi.hanbeen.service.HanbeenUserService;
+import com.hoshimusubi.suhwa.dto.UsersDTO;
+import com.hoshimusubi.suhwa.service.MessageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,16 +17,19 @@ public class HanbeenUserController {
     @Autowired
     @Qualifier("hanbeenUserServiceImpl")
     private HanbeenUserService userService;
+    
+    @Autowired
+    @Qualifier("MessageServiceImpl")
+    private MessageService msgService;
 
     @GetMapping("/mypage")
-    public String myPage(Model model) {
+    public String myPage(Long id,Model model) {
         // 테스트용으로 1번 사용자 ID 하드코딩
-        Long userId = 1L;
-
+        Long userId = id;
         // 서비스 호출
         UserProfileDTO userProfile = userService.getUserProfile(userId);
-
         // 모델에 담아서 JSP로
+        System.out.println(userProfile);
         model.addAttribute("user", userProfile);
         return "mypage"; // → /WEB-INF/views/mypage.jsp
     }

@@ -12,7 +12,10 @@
             <div class="post-box">
                 <h2 class="post-title"></h2>
                 <div class="post-meta">
-                    <span>작성자: ${post.nickname}</span>
+					<a href="${pageContext.request.contextPath}/mypage?userId=${post.user_Id}" style="text-decoration: none; color: inherit;">
+					    <span>작성자: ${post.nickname}</span>
+					</a>
+
                     <span>작성일: ${post.created_at}</span>
                     <span>조회수: ${post.views}</span>
                     <c:choose>
@@ -55,12 +58,13 @@
 					</c:choose>
                 </div>
                 
-                <c:if test="${sessionScope.loginUser.id eq comment.userId}">
-		            <div class="comment-actions">
-		                <a href="javascript:void(0);" class="edit-btn" data-id="${comment.id}">수정</a>
-		                <a href="javascript:void(0);" class="delete-btn" data-id="${comment.id}">삭제</a>
-		            </div>
-		        </c:if>
+				<c:if test="${loginUserId eq post.user_Id}">
+				    <div class="comment-actions">
+				        <a href="${pageContext.request.contextPath}/post_modify?id=${post.id}" >수정</a>
+				        <a href="${pageContext.request.contextPath}/post_delete?id=${post.id}" >삭제</a>
+				    </div>
+				</c:if>
+
 
                 <div class="post-content">
                     <p>${post.content}</p>
@@ -73,18 +77,20 @@
             <section class="comments">
                 <h3>댓글</h3>
 
-                <c:forEach var="comment" items="${comments}">
-                    <div class="comment">
-                        <strong>${comment.nickname}</strong>: ${comment.content}
-                        
-                        <c:if test="${sessionScope.loginUser.id eq comment.userId}">
+				<c:forEach var="comment" items="${comments}">
+				    <div class="comment" id="comment-${comment.id}">
+				        <strong>${comment.nickname}</strong>: 
+				        <span class="comment-content">${comment.content}</span>
+				        
+				        <c:if test="${loginUserId eq comment.userId}">
 				            <div class="comment-actions">
-				                <a href="${pageContext.request.contextPath}/comment/edit?id=${comment.id}" class="edit-btn">수정</a>
-				                <a href="${pageContext.request.contextPath}/comment/delete?id=${comment.id}" class="delete-btn">삭제</a>
+				                <a href="javascript:void(0);" class="edit-btn" data-id="${comment.id}">수정</a>
+				                <a href="javascript:void(0);" class="delete-btn" data-id="${comment.id}">삭제</a>
 				            </div>
 				        </c:if>
-                    </div>
-                </c:forEach>
+				    </div>
+				</c:forEach>
+
 
                 <form id="commentForm" method="post" class="comment-form">
 				    <input type="hidden" name="postId" value="${post.id}" />
@@ -97,18 +103,19 @@
     </main>
 	<script>
     
-    const userId = "${sessionScope.userId}"; // 또는 별도로 선언한 hidden input이나 data-* 속성 이용
+    const userId = "${sessionScope.userId}"; 
 	const contextPath = "${pageContext.request.contextPath}";
+	
 	$(document).ready(function () {
 		const postId = $(this).data('post-id');
     	const userId = $(this).data('user-id');
 		//댓글 저장
 	    $('#commentForm').submit(function (e) {
-		    e.preventDefault(); // ✅ 기본 폼 제출 막기 (중요)
+		    e.preventDefault(); 
 		
 		    $.ajax({
 		        type: 'POST',
-		        url: contextPath + '/addComment', // ✅ 실제 댓글 처리용 컨트롤러 URL
+		        url: contextPath + '/addComment', 
 		        data: $(this).serialize(),
 		        dataType: 'json',
 		        success: function (response) {
@@ -123,66 +130,95 @@
 		        }
 		    });
 		});
-	    
-	 // 댓글 수정 시작
-	    $(document).on("click", ".edit-btn", function () {
-	        const id = $(this).data("id");
-	        const commentBox = $("#comment-" + id);
-	        const content = commentBox.find(".comment-content").text();
+	    //댓글 수정 
+		$(document).on("click", ".edit-btn", function () {
+		    const id = $(this).data("id");
+		    const commentBox = $("#comment-" + id);
+		    const content = commentBox.find(".comment-content").text();
 
-	        const textarea = $("<textarea>").val(content);
-	        const saveBtn = $("<button>").text("저장").addClass("save-edit").data("id", id);
+			const textarea = $("<textarea>")
+			        .val(content)
+			        .attr("style", `
+					width: 100%;
+					min-height: 60px;
+					padding: 8px 10px;
+					font-size: 14px;
+					font-family: inherit;
+					border: none;
+					outline: none;
+					background-color: transparent;
+					color: #333;
+					resize: vertical;
+					box-shadow: none;
+			        `);
 
-	        commentBox.find(".comment-content").replaceWith(textarea);
-	        $(this).replaceWith(saveBtn);
-	    });
+			    const saveBtn = $("<button>").text("저장").addClass("save-edit").data("id", id);
+
+			    commentBox.find(".comment-content").replaceWith(textarea);
+			    $(this).replaceWith(saveBtn);
+		});
 
 	    // 댓글 수정 저장
-	    $(document).on("click", ".save-edit", function () {
-	        const id = $(this).data("id");
-	        const newContent = $("#comment-" + id).find("textarea").val();
+		$(document).on("click", ".save-edit", function () {
+		    const $this = $(this);  // 현재 클릭한 버튼
+		    const id = $this.data("id");
+		    const $commentBox = $("#comment-" + id);
+		    const newContent = $commentBox.find("textarea").val();
 
-	        $.ajax({
-	            type: "POST",
-	            url: "${pageContext.request.contextPath}/comment/update",
-	            data: {
-	                id: id,
-	                content: newContent
-	            },
-	            success: function () {
-	                const newSpan = $("<span>").addClass("comment-content").text(newContent);
-	                $("#comment-" + id).find("textarea").replaceWith(newSpan);
-	                $(".save-edit").replaceWith(`<a href="javascript:void(0);" class="edit-btn" data-id="${id}">수정</a>`);
-	            },
-	            error: function () {
-	                alert("댓글 수정에 실패했습니다.");
-	            }
-	        });
-	    });
+		    $.ajax({
+		        type: "POST",
+		        url: "${pageContext.request.contextPath}/comment_update",
+		        data: {
+		            id: id,
+		            content: newContent
+		        },
+		        success: function () {
+		            const newSpan = $("<span>").addClass("comment-content").text(newContent);
+		            $commentBox.find("textarea").replaceWith(newSpan);
+
+		            const newEditBtn = $("<a>")
+		                .attr("href", "javascript:void(0);")
+		                .addClass("edit-btn")
+		                .attr("data-id", id)
+		                .text("수정");
+
+		            $this.replaceWith(newEditBtn);
+		        },
+		        error: function () {
+		            alert("댓글 수정에 실패했습니다.");
+		        }
+		    });
+		});
 
 	    // 댓글 삭제
-	    $(document).on("click", ".delete-btn", function () {
-	        const id = $(this).data("id");
+		$(document).on("click", ".delete-btn", function () {
+		    const id = $(this).data("id");
+		    const postId = "${post.id}"; // 또는 data-post-id 속성 활용 가능
 
-	        if (confirm("댓글을 삭제하시겠습니까?")) {
-	            $.ajax({
-	                type: "POST",
-	                url: "${pageContext.request.contextPath}/comment/delete",
-	                data: { id: id },
-	                success: function () {
-	                    $("#comment-" + id).remove();
-	                },
-	                error: function () {
-	                    alert("댓글 삭제에 실패했습니다.");
-	                }
-	            });
-	        }
-	    });
+		    if (confirm("댓글을 삭제하시겠습니까?")) {
+		        $.ajax({
+		            type: "POST",
+		            url: contextPath + "/comment_delete",
+		            data: {
+		                id: id,
+		                postId: postId
+		            },
+		            dataType: "json",
+		            success: function (response) {
+		                $("#comment-" + id).remove();
+		                $("#comment-count").text("💬 " + response.commentCount);
+		            },
+		            error: function () {
+		                alert("댓글 삭제에 실패했습니다.");
+		            }
+		        });
+		    }
+		});
 	    
 	    //좋아요 기능
 	    $('#like-btn').click(function () {
 	    	const postId = $(this).data('post-id');
-	    	const userId = $(this).data('user-id');// ← 이거 꼭 추가
+	    	const userId = $(this).data('user-id');
 	        const liked = $(this).data('liked');
 	        const $img = $(this);
 		
@@ -190,7 +226,7 @@
 		        type: 'POST',
 		        url: liked ? contextPath + '/unlike' : contextPath + '/like',
 		        data: { postId: postId},
-		        dataType: 'json', // ⭐ 응답 타입을 JSON으로 지정
+		        dataType: 'json', 
 		        success: function (response) {
 		            const newCount = response.likeCount; // JSON 객체에서 count 추출
 		            if (liked) {

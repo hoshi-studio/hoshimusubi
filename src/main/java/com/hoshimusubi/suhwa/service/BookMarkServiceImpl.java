@@ -14,12 +14,12 @@ public class BookMarkServiceImpl implements BookMarkService{
     private BookMarkMapper bookmarkMapper;
 
     @Override
-    public void addBookmark(Long postId,UsersDTO userId) {
+    public void addBookmark(Long postId,Long userId) {
         bookmarkMapper.insertBookmark(postId, userId);
     }
 
     @Override
-    public void removeBookmark(Long postId, UsersDTO userId) {
+    public void removeBookmark(Long postId, Long userId) {
         bookmarkMapper.deleteBookmark(postId, userId);
     }
 

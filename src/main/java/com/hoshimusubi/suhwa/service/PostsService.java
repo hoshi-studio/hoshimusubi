@@ -7,4 +7,5 @@ public interface PostsService {
 	void savePost(PostsDTO post);
     void updatePost(PostsDTO post);
     void deletePost(Long id);
+    void increaseViewCount(Long postId);
 }

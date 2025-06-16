@@ -181,7 +181,7 @@
 		<!-- 상세화면 이동 버튼 테스트 때문에 만들었어요!!! 사라질 버튼 입니 -->
 		<div style="text-align:center; margin-top:24px;">
 		  <button
-		    onclick="location.href='${pageContext.request.contextPath}/post_detail?id=1'"
+		    onclick="location.href='${pageContext.request.contextPath}/post_detail?id=109'"
 		    style="
 		      background: linear-gradient(90deg, #4caf50, #81c784);
 		      color: white;

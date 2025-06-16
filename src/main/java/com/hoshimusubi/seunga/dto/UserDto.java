@@ -1,7 +1,22 @@
 package com.hoshimusubi.seunga.dto;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import com.hoshimusubi.suhwa.dto.UsersDTO;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
 public class UserDto {
-    private String id;
+	
+	//내가 추가
+	private Long num;
+	
+	private String id;
     private String password;
 
     // 기본 생성자

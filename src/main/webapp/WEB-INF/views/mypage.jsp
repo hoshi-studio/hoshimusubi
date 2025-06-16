@@ -262,7 +262,11 @@ body{
     </div>
 
     <!-- 메시지 버튼 -->
-    <button class="message-btn" onclick="location.href='messageWrite.do'">メッセージ</button>
+	<form action="${pageContext.request.contextPath}/messageWrite" method="get" style="display: inline;">
+	    <input type="hidden" name="userId" value="${user.user_Id}" />
+	    <button type="submit" class="message-btn">メッセージ</button>
+	</form>
+
   </div>
 </div>
 
