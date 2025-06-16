@@ -42,12 +42,10 @@ public class Register {
 
         // 1. 중복 확인
         if (memberService.isEmailDuplicate(dto.getEmail())) {
-            model.addAttribute("error", "이미 사용 중인 이메일입니다.");
             return "registerFailemail";
         }
 
         if (memberService.isNicknameDuplicate(dto.getNickname())) {
-            model.addAttribute("error", "이미 사용 중인 닉네임입니다.");
             return "registerFailnickname";
         }
 
@@ -62,8 +60,7 @@ public class Register {
         try {
             file.transferTo(new File(profilePicPath));
         } catch (IOException e) {
-            model.addAttribute("error", "파일 업로드 실패");
-            return "register";
+            return "registerFailpic";
         }
 
      // 3. 별자리 계산
