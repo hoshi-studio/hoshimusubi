@@ -4,8 +4,10 @@
 
 <mapper namespace="com.hoshimusubi.suhwa.mapper.PostsMapper">
 
+
 	<!-- posts의 id값으로 게시글과 작성자의 정보 가져오기 --> 
     <select id="getPostById" parameterType="long" resultType="com.hoshimusubi.suhwa.dto.PostsDTO">
+
          SELECT 
 	        p.id,
 	        p.user_Id,

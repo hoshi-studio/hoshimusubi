@@ -292,6 +292,7 @@ public class Main {
         return "message_write_suhwa";
     }
     
+<<<<<<< HEAD
     @PostMapping("/sendMessage")
     @ResponseBody
     public String sendMessage(@ModelAttribute MessageDTO msg) {
@@ -303,3 +304,6 @@ public class Main {
         return "redirect:/mypage?id=" + msg.getId();
     }
 }
+=======
+}
+>>>>>>> branch 'dev' of https://github.com/hoshi-studio/hoshimusubi.git
