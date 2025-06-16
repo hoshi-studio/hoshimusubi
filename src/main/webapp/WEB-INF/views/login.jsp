@@ -6,7 +6,7 @@
 	
 <%@ include file="header.jsp" %>
 	
-<c:if test="${not empty loginError}">
+<c:if test="${param.error eq 'true'}">
   <script>window.addEventListener('load', () => showModal('error'));</script>
 </c:if>
 
@@ -19,9 +19,9 @@
 	<div class="login-wrapper">
 	<div class="login-container">
     <h2>ログイン</h2>
-	<form action="/login" method="post">
+	<form action="/dologin" method="post">
 	        <label for="username">ユーザーID</label>
-	        <input type="text" id="id" name="id" />
+	        <input type="text" id="id" name="username" />
 	        
 	        <label for="password">パスワード</label>
 	        <input type="password" id="password" name="password" />
