@@ -37,18 +37,17 @@
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
-
+	
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
 		
 	</bean>
-
+	
 	<tx:annotation-driven />
-
+	
 	<mybatis-spring:scan
 		base-package="com.hoshimusubi" />
-
 	<context:component-scan
 		base-package="com.hoshimusubi"></context:component-scan>
 	<context:component-scan

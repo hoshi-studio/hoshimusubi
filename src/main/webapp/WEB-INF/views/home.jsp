@@ -65,78 +65,111 @@
 
 			<div class="zodiac-list">
 			    <div class="zodiac-item">
-			        <a href="${pageContext.request.contextPath}/board/aries" class="zodiac-link">
-			            <img src="${pageContext.request.contextPath}/resources/img/Aries.png" alt="양자리" />
+
+			        <a href="${pageContext.request.contextPath}/zodiac/1" class="zodiac-link">
+			            <img src="/resources/img/Aries.png" alt="양자리" />
+
 			            <div>牡羊座</div>
 			        </a>
 			    </div>
 			    <div class="zodiac-item">
-			        <a href="${pageContext.request.contextPath}/board/taurus" class="zodiac-link">
-			            <img src="${pageContext.request.contextPath}/resources/img/Taurus.png" alt="황소자리" />
+
+			        <a href="${pageContext.request.contextPath}/zodiac/2" class="zodiac-link">
+			            <img src="/resources/img/Taurus.png" alt="황소자리" />
+
 			            <div>牡牛座</div>
 			        </a>
 			    </div>
 			    <div class="zodiac-item">
-			        <a href="${pageContext.request.contextPath}/board/gemini" class="zodiac-link">
-			            <img src="${pageContext.request.contextPath}/resources/img/Gemini.png" alt="쌍둥이자리" />
+
+			        <a href="${pageContext.request.contextPath}/zodiac/3" class="zodiac-link">
+			            <img src="/resources/img/Gemini.png" alt="쌍둥이자리" />
+
 			            <div>双子座</div>
 			        </a>
 			    </div>
 			    <div class="zodiac-item">
-			        <a href="${pageContext.request.contextPath}/board/cancer" class="zodiac-link">
-			            <img src="${pageContext.request.contextPath}/resources/img/Cancer.png" alt="게자리" />
+
+			        <a href="${pageContext.request.contextPath}/zodiac/4" class="zodiac-link">
+			            <img src="/resources/img/Cancer.png" alt="게자리" />
+
 			            <div>蟹座</div>
 			        </a>
 			    </div>
 			    <div class="zodiac-item">
-			        <a href="${pageContext.request.contextPath}/board/leo" class="zodiac-link">
-			            <img src="${pageContext.request.contextPath}/resources/img/Leo.png" alt="사자자리" />
+
+			        <a href="${pageContext.request.contextPath}/zodiac/5" class="zodiac-link">
+			            <img src="/resources/img/Leo.png" alt="사자자리" />
+
 			            <div>獅子座</div>
 			        </a>
 			    </div>
 			    <div class="zodiac-item">
-			        <a href="${pageContext.request.contextPath}/board/virgo" class="zodiac-link">
-			            <img src="${pageContext.request.contextPath}/resources/img/Virgo.png" alt="처녀자리" />
+
+			        <a href="${pageContext.request.contextPath}/zodiac/6" class="zodiac-link">
+			            <img src="/resources/img/Virgo.png" alt="처녀자리" />
+
 			            <div>乙女座</div>
 			        </a>
 			    </div>
 			    <div class="zodiac-item">
-			        <a href="${pageContext.request.contextPath}/board/libra" class="zodiac-link">
-			            <img src="${pageContext.request.contextPath}/resources/img/Libra.png" alt="천칭자리" />
+
+			        <a href="${pageContext.request.contextPath}/zodiac/7" class="zodiac-link">
+			            <img src="/resources/img/Libra.png" alt="천칭자리" />
+
 			            <div>天秤座</div>
 			        </a>
 			    </div>
 			    <div class="zodiac-item">
-			        <a href="${pageContext.request.contextPath}/board/scorpio" class="zodiac-link">
-			            <img src="${pageContext.request.contextPath}/resources/img/Scorpio.png" alt="전갈자리" />
+
+			        <a href="${pageContext.request.contextPath}/zodiac/8" class="zodiac-link">
+			            <img src="/resources/img/Scorpio.png" alt="전갈자리" />
+
 			            <div>蠍座</div>
 			        </a>
 			    </div>
 			    <div class="zodiac-item">
-			        <a href="${pageContext.request.contextPath}/board/sagittarius" class="zodiac-link">
-			            <img src="${pageContext.request.contextPath}/resources/img/Sagittarius.png" alt="사수자리" />
+
+			        <a href="${pageContext.request.contextPath}/zodiac/9" class="zodiac-link">
+			            <img src="/resources/img/Sagittarius.png" alt="사수자리" />
+
 			            <div>射手座</div>
 			        </a>
 			    </div>
 			    <div class="zodiac-item">
-			        <a href="${pageContext.request.contextPath}/board/capricorn" class="zodiac-link">
-			            <img src="${pageContext.request.contextPath}/resources/img/Capricorn.png" alt="염소자리" />
+
+			        <a href="${pageContext.request.contextPath}/zodiac/10" class="zodiac-link">
+			            <img src="/resources/img/Capricorn.png" alt="염소자리" />
+
 			            <div>山羊座</div>
 			        </a>
 			    </div>
 			    <div class="zodiac-item">
-			        <a href="${pageContext.request.contextPath}/board/aquarius" class="zodiac-link">
-			            <img src="${pageContext.request.contextPath}/resources/img/Aquarius.png" alt="물병자리" />
+
+			        <a href="${pageContext.request.contextPath}/zodiac/11" class="zodiac-link">
+			            <img src="/resources/img/Aquarius.png" alt="물병자리" />
+
 			            <div>水瓶座</div>
 			        </a>
 			    </div>
 			    <div class="zodiac-item">
-			        <a href="${pageContext.request.contextPath}/board/pisces" class="zodiac-link">
-			            <img src="${pageContext.request.contextPath}/resources/img/Pisces.png" alt="물고기자리" />
+
+			        <a href="${pageContext.request.contextPath}/zodiac/12" class="zodiac-link">
+			            <img src="/resources/img/Pisces.png" alt="물고기자리" />
+
 			            <div>魚座</div>
 			        </a>
 			    </div>
 			</div>
+			
+<%-- 			<c:forEach var="zodiac" items="${zodiacList}">
+ 			 <div class="zodiac-item">
+   				 <a href="${pageContext.request.contextPath}/board/${zodiac.id}" class="zodiac-link">
+    			  <img src="${pageContext.request.contextPath}/resources/img/${zodiac.codename}.png" alt="${zodiac.koname_ja}" />
+     		 <div>${zodiac.koname_ja}</div>
+   			 </a>
+  			</div>
+			</c:forEach> --%>
 
 
 		
