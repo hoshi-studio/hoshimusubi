@@ -19,10 +19,11 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-        UserVO user = userMapper.getUserById(userId);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    	
+    	UserVO user = userMapper.getUserById(username);
         if (user == null) {
-            throw new UsernameNotFoundException("해당 유저를 찾을 수 없습니다: " + userId); // 모달창때문에 숨겨집니당
+            throw new UsernameNotFoundException("해당 유저를 찾을 수 없습니다: " + username); // 모달창때문에 숨겨집니당
         }
         return new CustomUserDetails(user);
     }
