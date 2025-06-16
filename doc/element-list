@@ -1,0 +1,10 @@
+com.hoshimusubi.hanbeen.model
+com.hoshimusubi.seokjung.controller
+com.hoshimusubi.seokjung.dto
+com.hoshimusubi.seokjung.mapper
+com.hoshimusubi.seokjung.service
+com.hoshimusubi.suhwa.controller
+com.hoshimusubi.suhwa.dto
+com.hoshimusubi.suhwa.mapper
+com.hoshimusubi.suhwa.model
+com.hoshimusubi.suhwa.service

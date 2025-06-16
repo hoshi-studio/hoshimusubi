@@ -16,7 +16,7 @@
 	        p.created_at,
 	        p.status,
 	        p.views,
-	        p.imageUrl,
+	        p.IMAGE_URL,
 	        u.nickname AS nickname
     FROM Posts p
     JOIN Users u ON p.user_id = u.id
@@ -34,7 +34,7 @@
             status
         ) VALUES (
         <!-- 로그인 기능이 미완으로 임의로 설정 -->
-            33,
+            #{id},
             #{title},
             #{content},
             #{imageUrl},
