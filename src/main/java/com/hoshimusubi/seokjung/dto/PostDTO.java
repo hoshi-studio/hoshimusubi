@@ -24,5 +24,7 @@ public class PostDTO {
 	private String profilePic;
 	//별자리
 	private Integer zodiacId;
+	private String symbol;
+	private String koname_ja;
 	
 }
