@@ -21,9 +21,9 @@
 		<property name="driverClassName"
 			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
 		<property name="jdbcUrl"
-			value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"></property>
-		<property name="username" value="book_ex"></property>
-		<property name="password" value="book_ex"></property>
+			value="jdbc:log4jdbc:oracle:thin:@localhost:1522:XE"></property>
+		<property name="username" value="hoshimusubi"></property>
+		<property name="password" value="12345678"></property>
 
 	</bean>
 
@@ -46,10 +46,10 @@
 	<tx:annotation-driven />
 
 	<mybatis-spring:scan
-		base-package="com.hoshimusubi.mapper" />
+		base-package="com.hoshimusubi" />
 
 	<context:component-scan
-		base-package="com.hoshimusubi.service"></context:component-scan>
+		base-package="com.hoshimusubi"></context:component-scan>
 	<context:component-scan
 		base-package="com.hoshimusubi.aop"></context:component-scan>
 		
