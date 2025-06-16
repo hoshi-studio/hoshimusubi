@@ -16,34 +16,35 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class LoginController {
 	
-	 	@Autowired
-	    private UserService userService;
+	 	//@Autowired
+	    //private UserService userService;
 
 	    @GetMapping("/login")
 	    public String login() {
 	        return "login"; 
 	    }
 
-	    @PostMapping("/login")
-	    public String authenticate(@RequestParam("id") String id, 
-	                               @RequestParam("password") String password,
-	                               RedirectAttributes redirectAttributes) {
-	    	
-	        UserDto userDto = new UserDto();
-	        userDto.setId(id);
-	        userDto.setPassword(password);
-
-	        // 인증 처리
-	        boolean authenticated = userService.authenticateUser(userDto);
-
-	        if (authenticated) {
-	        	 redirectAttributes.addFlashAttribute("successMessage", "ログインに成功しました。");
-	             return "redirect:/";
-	        }
-	        
-	        redirectAttributes.addFlashAttribute("loginError", "ログインに失敗しました。");
-	        return "redirect:/login";
-	        
-	    }
+		/*
+		 * @PostMapping("/login") public String authenticate(@RequestParam("id") String
+		 * id,
+		 * 
+		 * @RequestParam("password") String password, RedirectAttributes
+		 * redirectAttributes) {
+		 * 
+		 * UserDto userDto = new UserDto(); userDto.setId(id);
+		 * userDto.setPassword(password);
+		 * 
+		 * // 인증 처리 boolean authenticated = userService.authenticateUser(userDto);
+		 * 
+		 * if (authenticated) { 
+		 * request.getSession().setAttribute("loginUser", id); 
+		 * redirectAttributes.addFlashAttribute("successMessage",
+		 * "ログインに成功しました。"); return "redirect:/"; }
+		 * 
+		 * redirectAttributes.addFlashAttribute("loginError", "ログインに失敗しました。"); return
+		 * "redirect:/login";
+		 * 
+		 * }
+		 */
 
 }
