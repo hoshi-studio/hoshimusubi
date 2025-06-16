@@ -11,6 +11,9 @@ public class PostDTO {
 	private String title;
 	private String content;
 	private LocalDateTime createdAt;
+	private String formattedDate;
+	private String formattedTime;
+	
 	//게시글 부가정보
 	private int views;
 	private int status;

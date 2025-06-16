@@ -1,5 +1,7 @@
 package com.hoshimusubi.seokjung.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +38,23 @@ public class PostController {
 			
 			int totalPages = (int) Math.ceil((double) totalCount / pageSize);
 			
-			
 			List<PostDTO> zodiacs = postService.getAllZodiac();
 			
+			DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			
+			DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
+			
+			String today = LocalDate.now().format(dateFormat);
+			
+			for (PostDTO post : posts) {
+			    String postDate = post.getCreatedAt().toLocalDate().format(dateFormat);
+			    String postTime = post.getCreatedAt().toLocalTime().format(timeFormat);
+			    post.setFormattedDate(postDate); 
+			    post.setFormattedTime(postTime); 
+			}
+			
+			
+			model.addAttribute("today", today);
 			model.addAttribute("posts", posts);
 			model.addAttribute("zodiacs", zodiacs);
 			model.addAttribute("selectedZodiacId", zodiacId);

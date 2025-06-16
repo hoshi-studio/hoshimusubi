@@ -10,7 +10,7 @@
 
 <header class="header">
     <div class="header-left">
-        <a href="/home">
+        <a href="/">
             <img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="로고" class="header-logo" />
         </a>
     </div>
