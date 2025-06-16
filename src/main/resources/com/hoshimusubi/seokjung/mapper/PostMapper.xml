@@ -3,7 +3,27 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.ohgiraffers.climbon.community.dao.PostDAO">
+<mapper namespace="com.hoshimusubi.seokjung.mapper.PostMapper">
 
-
+<select id="selectPostsByZodiacId" resultType="com.hoshimusubi.seokjung.dto.PostDTO">
+	SELECT
+		p.id,
+		p.title,
+		p.content,
+		p.created_at AS createdAt,
+		p.views,
+		p.status,
+		(SELECT COUNT(*) FROM Likes l WHERE l.post_id = p.id) AS likeCount,
+		(SELECT COUNT(*) FROM Comments c WHERE c.post_id = p.id) AS commentCount,
+		(SELECT COUNT(*) FROM BookMark b WHERE b.post_id = p.id) AS bookmarkCount,
+		u.id AS userId,
+		u.nickname,
+		u.profile_pic AS profilePic,
+		u.zodiac_id AS zodiacId
+	FROM Posts p
+	JOIN Users u ON p.user_id = u.id
+	WHERE u.zodiac_id = #{zodiacId}
+	ORDER BY p.created_at = DESC
+</select>
+	
 </mapper>

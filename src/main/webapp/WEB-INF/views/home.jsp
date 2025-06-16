@@ -63,7 +63,7 @@
 	            <!--<h1 style="font-size:2.2rem; letter-spacing:4px;">星結び</h1>-->
 	        </div>
 
-			<div class="zodiac-list">
+		<%-- 	<div class="zodiac-list">
 			    <div class="zodiac-item">
 			        <a href="${pageContext.request.contextPath}/board/aries" class="zodiac-link">
 			            <img src="/resources/img/Aries.png" alt="양자리" />
@@ -136,7 +136,16 @@
 			            <div>魚座</div>
 			        </a>
 			    </div>
-			</div>
+			</div> --%>
+			
+			<c:forEach var="zodiac" items="${zodiacList}">
+ 			 <div class="zodiac-item">
+   				 <a href="${pageContext.request.contextPath}/board/${zodiac.id}" class="zodiac-link">
+    			  <img src="${pageContext.request.contextPath}/resources/img/${zodiac.codename}.png" alt="${zodiac.koname_ja}" />
+     		 <div>${zodiac.koname_ja}</div>
+   			 </a>
+  			</div>
+			</c:forEach>
 
 		
 		

@@ -4,7 +4,7 @@
 
 <mapper namespace="com.hoshimusubi.suhwa.mapper.PostsMapper">
 
-    <select id="getPostById" parameterType="long" resultType="com.hoshimusubi.suhwa.dto.PostsDTO">
+    <select id="getPostById" resultType="com.hoshimusubi.suhwa.dto.PostsDTO">
          SELECT 
 	        p.id,
 	        p.user_id,
