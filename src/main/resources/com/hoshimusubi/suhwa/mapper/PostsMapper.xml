@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hoshimusubi.suhwa.mapper.PostsMapper">
+
+
+	<!-- posts의 id값으로 게시글과 작성자의 정보 가져오기 --> 
+    <select id="getPostById" parameterType="long" resultType="com.hoshimusubi.suhwa.dto.PostsDTO">
+
+         SELECT 
+	        p.id,
+	        p.user_Id,
+	        p.title,
+	        p.content,
+	        p.created_at,
+	        p.status,
+	        p.views,
+	        p.IMAGE_URL,
+	        u.nickname AS nickname
+    FROM Posts p
+    JOIN Users u ON p.user_id = u.id
+    WHERE p.id = #{id}
+    </select>
+    
+    <!-- 게시글 등록 기능 -->
+    <insert id="insertPost" parameterType="com.hoshimusubi.suhwa.dto.PostsDTO">
+        INSERT INTO Posts (
+            user_id,
+            title,
+            content,
+            imageUrl,
+            views,
+            status
+        ) VALUES (
+        <!-- 로그인 기능이 미완으로 임의로 설정 -->
+            #{id},
+            #{title},
+            #{content},
+            #{imageUrl},
+            0,
+            0
+        )
+    </insert>
+    
+    <update id="updatePost" parameterType="com.hoshimusubi.suhwa.dto.PostsDTO">
+	    UPDATE Posts
+	    SET title = #{title},
+	        content = #{content},
+	        image_url = #{imageUrl}
+	    WHERE id = #{id}
+	</update>
+
+	<delete id="deletePost" parameterType="long">
+	    DELETE FROM Posts WHERE id = #{id}
+	</delete>
+
+</mapper>

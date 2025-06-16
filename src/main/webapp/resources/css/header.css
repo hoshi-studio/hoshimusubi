@@ -1,53 +1,108 @@
 @charset "UTF-8";
-/* 헤더css 시작 */
+
+/* ===== 헤더 영역 스타일 ===== */
 .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 20px;
-    background-color: #e9dcf7;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    position: relative; /* 꼭 필요! */
-    height: 60px;
+    padding: 12px 24px;
+    background: linear-gradient(90deg, #e6d4f7, #d9e4fb);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    position: relative;
+    height: 64px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-/* 왼쪽 로고 */
+/* ===== 왼쪽 로고 ===== */
 .header-left .header-logo {
-    height: 40px;
-    transition: transform 0.2s;
+    height: 44px;
+    transition: transform 0.3s ease, filter 0.3s ease;
 }
 
-.header-logo:hover {
-    transform: scale(1.05);
+.header-left .header-logo:hover {
+    transform: scale(1.08);
+    filter: drop-shadow(0 2px 6px rgba(140, 140, 200, 0.3));
+    cursor: pointer;
 }
 
-/* 가운데 제목 */
+/* ===== 가운데 타이틀 ===== */
 .header-center {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
     width: 100%;
-    pointer-events: none; /* 클릭 방지 */
+    pointer-events: none;
 }
 
 .header-title {
-    font-size: 24px;
+    font-size: 26px;
     font-weight: bold;
-    color: #333;
+    color: #4a427f;
     margin: 0;
+    letter-spacing: 2px;
 }
 
-/* 오른쪽 로그인 */
+/* ===== 오른쪽 로그인 아이콘 ===== */
+
+/* 흔들림 애니메이션 정의 */
+@keyframes wiggle {
+    0%   { transform: rotate(0deg); }
+    25%  { transform: rotate(5deg); }
+    50%  { transform: rotate(-5deg); }
+    75%  { transform: rotate(3deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.header-right {
+    position: relative;
+}
+
 .header-right .header-login {
-    height: 30px;
+    height: 32px;
+    border-radius: 50%;
+    padding: 6px;
+    background: none; /* 🌙 달 배경 제거! */
+    box-shadow: none;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
+/* 마우스 오버 시 효과 */
+.header-right .header-login:hover {
+    animation: wiggle 0.4s ease-in-out;
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 10px rgba(120, 90, 200, 0.4));
+    cursor: pointer;
+}
 
+/* 툴팁 말풍선 */
+.header-right .header-login::after {
+    content: "로그인하기";
+    position: absolute;
+    bottom: -35px;
+    right: 50%;
+    transform: translateX(50%);
+    background-color: #4a427f;
+    color: #fff;
+    padding: 6px 10px;
+    font-size: 13px;
+    border-radius: 8px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    z-index: 10;
+}
 
-/* 메인 css시작 */
+.header-right .header-login:hover::after {
+    opacity: 1;
+}
+
+/* ===== 기본 배경 ===== */
 body {
     margin: 0;
     background: linear-gradient(to bottom, #e7d3f5, #c9d6f3);
     min-height: 100vh;
 }
+
