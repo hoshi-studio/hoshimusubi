@@ -5,20 +5,34 @@
 *.log
 
 # IDE 설정
+# Eclipse / STS 관련 설정
+.project
+.classpath
+.settings/
+
+# Eclipse annotation processing
+.factorypath
+
+# IntelliJ IDEA
 *.iml
 .idea/
 *.ipr
 *.iws
 
-# Maven / Gradle
+# Maven
 /target/
+
+# Gradle
 /build/
 
 # OS 파일
 .DS_Store
+Thumbs.db
 
 # 환경파일
 .env
 
 # 기타
 *.swp
+*.bak
+*.tmp

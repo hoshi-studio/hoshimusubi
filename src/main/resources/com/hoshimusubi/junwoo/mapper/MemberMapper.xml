@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hoshimusubi.junwoo.mapper.MemberMapper">
+
+    <!-- 회원가입 -->
+    <insert id="insertMember" parameterType="com.hoshimusubi.junwoo.model.Postvo">
+        INSERT INTO users (
+            user_id, password, zodiac_id, nickname, gender, birth_date, profile_pic
+        ) VALUES (
+            #{userId}, #{password}, #{zodiacId}, #{nickname}, #{gender}, TO_DATE(#{birthDate}, 'YYYY-MM-DD'), #{profilePic}
+        )
+    </insert>
+
+    <!-- 이메일 중복 확인 -->
+    <select id="countByEmail" parameterType="String" resultType="int">
+        SELECT COUNT(*) FROM users WHERE user_id = #{email}
+    </select>
+
+    <!-- 닉네임 중복 확인 -->
+    <select id="countByNickname" parameterType="String" resultType="int">
+        SELECT COUNT(*) FROM users WHERE nickname = #{nickname}
+    </select>
+
+</mapper>
