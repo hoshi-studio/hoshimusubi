@@ -8,17 +8,17 @@
 	<select id="exists" resultType="int">
         SELECT COUNT(*)
         FROM Likes
-        WHERE post_id = #{postId} AND user_id = 33
+        WHERE post_id = #{postId} AND user_id = #{userId}
     </select>
     
 	<insert id="insertLike">
 	    INSERT INTO Likes (post_id, user_id)
-	    VALUES (#{postId}, 33)
+	    VALUES (#{postId}, #{userId})
 	</insert>
 	
 	<delete id="deleteLike">
 	    DELETE FROM Likes
-	    WHERE post_id = #{postId} AND user_id = 33
+	    WHERE post_id = #{postId} AND user_id = #{userId}
 	</delete>
 	
 	<select id="countLikesByPostId" resultType="int">

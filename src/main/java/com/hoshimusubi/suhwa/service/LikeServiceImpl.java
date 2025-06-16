@@ -16,14 +16,14 @@ public class LikeServiceImpl implements LikeService {
 
 	/** 좋아요 등록 (중복 방지) */
     @Override
-    public boolean insertLike(Long postId, UsersDTO userId) {
+    public boolean insertLike(Long postId, Long userId) {
     	likesMapper.insertLike(postId, userId);
         return likesMapper.exists(postId,userId)>0;
     }
 
     /** 좋아요 취소 */
     @Override
-    public boolean deleteLike(Long postId, UsersDTO userId) {
+    public boolean deleteLike(Long postId, Long userId) {
     	likesMapper.deleteLike(postId, userId);
         return likesMapper.exists(postId,userId)>0;
     }
@@ -36,7 +36,7 @@ public class LikeServiceImpl implements LikeService {
 
     /** 사용자가 좋아요를 눌렀는지 확인 */
     @Override
-    public boolean isPostLikedByUser(Long postId, UsersDTO userId) {
+    public boolean isPostLikedByUser(Long postId, Long userId) {
         return likesMapper.exists(postId, userId)>0;
     }
     

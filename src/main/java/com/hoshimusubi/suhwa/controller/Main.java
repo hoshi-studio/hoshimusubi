@@ -58,43 +58,47 @@ public class Main {
 	  System.out.println(">>> home controller called"); 
 	  return "home"; // →/WEB-INF/views/Home.jsp 를 의미함 
 	}
-	 
-    @GetMapping("/post_detail")
-    public String postDetail(@RequestParam("id") Long id, Model model,HttpServletRequest request) {
-    	UsersDTO userId = (UsersDTO) request.getSession().getAttribute("userId");
-    	PostsDTO post = postsService.getPostById(id);
-    	
-    	boolean liked = likeService.isPostLikedByUser(id, userId);
-    	int likecount = likeService.getLikeCount(id);
-    	post.setLikeCount(likecount);
-    	post.setLikedByCurrentUser(liked);
+	//상세페이 
+	@GetMapping("/post_detail")
+	public String postDetail(@RequestParam("id") Long id, Model model, HttpServletRequest request) {
+	    UsersDTO loginUser = (UsersDTO) request.getSession().getAttribute("loginUser");
+	    System.out.println(loginUser); 
+	    Long userid=loginUser.getId();
+	    PostsDTO post = postsService.getPostById(id);
+	    
 
-    	boolean bookmarked = bmService.isPostBookmarkedByUser(id, userId);
-    	post.setBookmarkedByCurrentUser(bookmarked);
-    	
-    	List<CommentsDTO> comments = commentsService.getCommentById(id);
-    	int commentCount=commentsService.getcommentCount(id);
-    	post.setCommentCount(commentCount);
-    	model.addAttribute("comments", comments);
-        model.addAttribute("post", post); // JSP로 전달
-        return "post_detail_suhwa";
-    }
-    
+	    boolean liked = likeService.isPostLikedByUser(id, userid);
+	    int likecount = likeService.getLikeCount(id);
+	    post.setLikeCount(likecount);
+	    post.setLikedByCurrentUser(liked);
+
+	    boolean bookmarked = bmService.isPostBookmarkedByUser(id, loginUser.getId());
+	    post.setBookmarkedByCurrentUser(bookmarked);
+
+	    List<CommentsDTO> comments = commentsService.getCommentById(id);
+	    int commentCount = commentsService.getcommentCount(id);
+	    post.setCommentCount(commentCount);
+
+	    model.addAttribute("comments", comments);
+	    model.addAttribute("post", post);
+	    return "post_detail_suhwa";
+	}
+    //작성페이
     @GetMapping("/post_write")
     public String postWrite() {
 		/* System.out.println(">>> postDetail method called"); */
         return "post_write_suhwa";
     }
-    
+    //게시글 등
     @PostMapping("/post_create")
     public String createPost(@ModelAttribute PostsDTO post,
                              @RequestParam("imageFile") MultipartFile imageFile,
                              HttpServletRequest request) {
     	
 	
-		
-		 Long userId = (Long) request.getSession().getAttribute("userId");
-		 post.setUser_Id(userId);
+    	UsersDTO loginUser = (UsersDTO) request.getSession().getAttribute("loginUser");
+        
+    	post.setUser_Id(loginUser.getId());
 		 
         if (!imageFile.isEmpty()) {
             String uploadDir = request.getServletContext().getRealPath("/resources/upload/");
@@ -115,15 +119,15 @@ public class Main {
         postsService.savePost(post);
         return "redirect:/post/list";
     }
-    
+    //댓글 등록
     @PostMapping(value = "/addComment")
     @ResponseBody
     public Map<String, Object> addComment(@ModelAttribute CommentsDTO comment,
                              HttpSession session) {
 		
-		 UsersDTO userId = (UsersDTO) session.getAttribute("userId");
-			/* comment.setNickname(userId.getNickname()); */
-		 commentsService.saveComment(comment);
+    	UsersDTO loginUser = (UsersDTO) session.getAttribute("loginUser");
+        comment.setUserId(loginUser.getId()); // 추가적으로 필요할 수 있음
+        commentsService.saveComment(comment);
 		 
 		 int commentCount = commentsService.getcommentCount(comment.getPostId());
 		 
@@ -141,7 +145,7 @@ public class Main {
         // 로그인 사용자와 작성자 확인
         UsersDTO loginUser = (UsersDTO) session.getAttribute("loginUser");
         if (loginUser == null || !loginUser.getId().equals(post.getUser_Id())) {
-            return "redirect:/"; // 권한 없으면 홈으로
+            return "redirect:/post_detail"; // 권한 없으면 홈으로
         }
 
         model.addAttribute("post", post);
@@ -222,7 +226,8 @@ public class Main {
     @ResponseBody
     public Map<String, Object> like(@RequestParam Long postId,
     		HttpSession session) {
-    	UsersDTO userId = (UsersDTO) session.getAttribute("loginUser");
+    	UsersDTO loginUser = (UsersDTO) session.getAttribute("loginUser");
+    	Long userId=loginUser.getId();
         likeService.insertLike(postId, userId); // insert만 수행
         int newCount = likeService.getLikeCount(postId); // 현재 like 수 가져오기
         
@@ -239,7 +244,8 @@ public class Main {
     public Map<String, Object> unlike(@RequestParam Long postId,
                                       HttpSession session) {
     	
-    	UsersDTO userId = (UsersDTO) session.getAttribute("loginUser");
+    	UsersDTO loginUser = (UsersDTO) session.getAttribute("loginUser");
+    	Long userId=loginUser.getId();
         likeService.deleteLike(postId, userId); // delete 수행
         int newCount = likeService.getLikeCount(postId); // 현재 like 수 가져오기
 

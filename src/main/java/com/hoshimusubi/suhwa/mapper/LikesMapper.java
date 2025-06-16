@@ -9,9 +9,9 @@ import com.hoshimusubi.suhwa.dto.UsersDTO;
 @Mapper
 @MapperScan
 public interface LikesMapper {
-	void insertLike(@Param("postId") Long postId, UsersDTO userId);
-	void deleteLike(@Param("postId") Long postId, UsersDTO userId);
+	void insertLike(@Param("postId") Long postId, @Param("userId")Long userId);
+	void deleteLike(@Param("postId") Long postId, @Param("userId")Long userId);
 	int countLikesByPostId(Long postId);
-	int exists(@Param("postId")Long postId, UsersDTO userId);
+	int exists(@Param("postId")Long postId, @Param("userId")Long userId);
 
 }

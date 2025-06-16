@@ -14,7 +14,7 @@ public class BookMarkServiceImpl implements BookMarkService{
     private BookMarkMapper bookmarkMapper;
 
     @Override
-    public void addBookmark(Long postId, UsersDTO userId) {
+    public void addBookmark(Long postId,UsersDTO userId) {
         bookmarkMapper.insertBookmark(postId, userId);
     }
 
@@ -24,7 +24,7 @@ public class BookMarkServiceImpl implements BookMarkService{
     }
 
     @Override
-    public boolean isPostBookmarkedByUser(Long postId, UsersDTO userId) {
+    public boolean isPostBookmarkedByUser(Long postId, Long userId) {
         return bookmarkMapper.countBookmark(postId, userId);
     }
 

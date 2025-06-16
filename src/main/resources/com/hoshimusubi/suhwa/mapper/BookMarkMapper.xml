@@ -6,15 +6,15 @@
 
     <insert id="insertBookmark">
         INSERT INTO BookMark (post_id, user_id)
-        VALUES (#{postId}, 33)
+        VALUES (#{postId}, #{userId})
     </insert>
 
     <delete id="deleteBookmark">
-        DELETE FROM BookMark WHERE post_id = #{postId} AND user_id = 33
+        DELETE FROM BookMark WHERE post_id = #{postId} AND user_id = #{userId}
     </delete>
 
     <select id="countBookmark" resultType="boolean">
-        SELECT COUNT(*) FROM BookMark WHERE post_id = #{postId} AND user_id = 33
+        SELECT COUNT(*) FROM BookMark WHERE post_id = #{postId} AND user_id = #{userId}
     </select>
 
 </mapper>

@@ -23,17 +23,17 @@
     <!-- 댓글 등록 -->
     <insert id="insertComment" parameterType="com.hoshimusubi.suhwa.dto.CommentsDTO">
 	    INSERT INTO Comments (post_id, user_id, content)
-	    VALUES (#{postId}, 33, #{content})
+	    VALUES (#{postId}, #{id}, #{content})
 	</insert>
 	
 	<!-- 작성자 값 찾기 -->
 	<select id="getNicknameByUserId" parameterType="Long" resultType="String">
-	    SELECT nickname FROM Users WHERE id = 33
+	    SELECT nickname FROM Users WHERE id = #{id}
 	</select>
 	
 	<!-- 댓글 수정 -->
 	<update id="updateComment">
-	    UPDATE Comments SET content = #{content} WHERE id = 33
+	    UPDATE Comments SET content = #{content} WHERE id = #{id}
 	</update>
 	
 	<!-- 댓글 삭제 -->

@@ -1,10 +1,12 @@
 package com.hoshimusubi.suhwa.service;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.hoshimusubi.suhwa.dto.UsersDTO;
 
 public interface BookMarkService {
-	void addBookmark(Long postId, UsersDTO userId);
-    void removeBookmark(Long postId, UsersDTO userId);
-    boolean isPostBookmarkedByUser(Long postId, UsersDTO userId);
+	void addBookmark(Long postId, @Param("userId")UsersDTO userId);
+    void removeBookmark(Long postId, @Param("userId")UsersDTO userId);
+    boolean isPostBookmarkedByUser(Long postId, @Param("userId")Long long1);
 
 }
