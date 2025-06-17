@@ -7,12 +7,20 @@
 <resultMap id="UserMap" type="com.hoshimusubi.seunga.model.UserVO">
   <id property="id" column="id"/>
   <result property="userId" column="user_id"/>
-  <result property="password" column="password"/>
-  <!-- 나머지 컬럼들 추가 -->
+  <result property="zodiacId" column="zodiac_id"/>
+  <result property="birthDate" column="birth_date"/>
+  <result property="profilePic" column="profile_pic"/>
 </resultMap>
 
 <select id="getUserById" parameterType="String" resultMap="UserMap">
   SELECT * FROM users WHERE user_id = #{value}
 </select>
+
+<insert id="insertUser" parameterType="com.hoshimusubi.seunga.model.UserVO">
+        INSERT INTO users 
+            (user_id, password, zodiac_id, nickname, gender, birth_date, profile_pic)
+        VALUES 
+            (#{userId}, #{password}, #{zodiacId}, #{nickname}, #{gender}, #{birthDate}, #{profilePic, jdbcType=VARCHAR})
+    </insert>
 
 </mapper>
