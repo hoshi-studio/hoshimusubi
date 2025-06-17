@@ -13,22 +13,41 @@
 <head>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/login.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/modal.css">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 	<div class="login-wrapper">
+		
+		<div class="fortune-header">
+		  <img src="${pageContext.request.contextPath}/resources/img/login.png" alt="cat" class="fortune-cat">
+		  <div class="fortune-text">
+		    今日の運勢をお知らせします！<br>
+		    🌙 簡単ログインから始めてください
+		  </div>
+		</div>	
+		
+		
 	<div class="login-container">
-    <h2>ログイン</h2>
 	<form action="/dologin" method="post">
-	        <label for="username">ユーザーID</label>
-	        <input type="text" id="id" name="username" />
 	        
-	        <label for="password">パスワード</label>
-	        <input type="password" id="password" name="password" />
+	        <input type="text" id="id" name="username" placeholder = "ID insert plz...." />
+	        
+	        
+	        <input type="password" id="password" name="password" placeholder = "PW insert plz...." />
 
 	        <input type="submit" value="ログイン" />
 	    </form>
+	
+	
 		</div>
+	
+		<div class="btn-group">
+				<a href="${pageContext.request.contextPath}/signup" class="signup-btn">会員登録</a>
+				<a href="${pageContext.request.contextPath}/oauth2/authorization/google" class="google-btn">Google</a>
+									  
+									</div>	
+		
 		</div>
 		
 		<div id="modalOverlay" class="modal-overlay" style="display: none;"></div>
