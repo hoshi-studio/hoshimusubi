@@ -66,15 +66,14 @@ background:#866de7;
 <div class="zodiac-item">
 
 <a href="${pageContext.request.contextPath}/zodiac/1" class="zodiac-link">
-<img src="/resources/img/Aries.png" alt="양자리" />
-
+<img src="${pageContext.request.contextPath}/resources/img/Aries.png" alt="양자리" />
 <div>牡羊座</div>
 </a>
 </div>
 <div class="zodiac-item">
 
 <a href="${pageContext.request.contextPath}/zodiac/2" class="zodiac-link">
-<img src="/resources/img/Taurus.png" alt="황소자리" />
+<img src="${pageContext.request.contextPath}/resources/img/Taurus.png" alt="황소자리" />
 
 <div>牡牛座</div>
 </a>
@@ -82,7 +81,7 @@ background:#866de7;
 <div class="zodiac-item">
 
 <a href="${pageContext.request.contextPath}/zodiac/3" class="zodiac-link">
-<img src="/resources/img/Gemini.png" alt="쌍둥이자리" />
+<img src="${pageContext.request.contextPath}/resources/img/Gemini.png" alt="쌍둥이자리" />
 
 <div>双子座</div>
 </a>
@@ -90,7 +89,7 @@ background:#866de7;
 <div class="zodiac-item">
 
 <a href="${pageContext.request.contextPath}/zodiac/4" class="zodiac-link">
-<img src="/resources/img/Cancer.png" alt="게자리" />
+<img src="${pageContext.request.contextPath}/resources/img/Cancer.png" alt="게자리" />
 
 <div>蟹座</div>
 </a>
@@ -98,7 +97,7 @@ background:#866de7;
 <div class="zodiac-item">
 
 <a href="${pageContext.request.contextPath}/zodiac/5" class="zodiac-link">
-<img src="/resources/img/Leo.png" alt="사자자리" />
+<img src="${pageContext.request.contextPath}/resources/img/Leo.png" alt="사자자리" />
 
 <div>獅子座</div>
 </a>
@@ -106,7 +105,7 @@ background:#866de7;
 <div class="zodiac-item">
 
 <a href="${pageContext.request.contextPath}/zodiac/6" class="zodiac-link">
-<img src="/resources/img/Virgo.png" alt="처녀자리" />
+<img src="${pageContext.request.contextPath}/resources/img/Virgo.png" alt="처녀자리" />
 
 <div>乙女座</div>
 </a>
@@ -114,7 +113,7 @@ background:#866de7;
 <div class="zodiac-item">
 
 <a href="${pageContext.request.contextPath}/zodiac/7" class="zodiac-link">
-<img src="/resources/img/Libra.png" alt="천칭자리" />
+<img src="${pageContext.request.contextPath}/resources/img/Libra.png" alt="천칭자리" />
 
 <div>天秤座</div>
 </a>
@@ -122,7 +121,7 @@ background:#866de7;
 <div class="zodiac-item">
 
 <a href="${pageContext.request.contextPath}/zodiac/8" class="zodiac-link">
-<img src="/resources/img/Scorpio.png" alt="전갈자리" />
+<img src="${pageContext.request.contextPath}/resources/img/Scorpio.png" alt="전갈자리" />
 
 <div>蠍座</div>
 </a>
@@ -130,7 +129,7 @@ background:#866de7;
 <div class="zodiac-item">
 
 <a href="${pageContext.request.contextPath}/zodiac/9" class="zodiac-link">
-<img src="/resources/img/Sagittarius.png" alt="사수자리" />
+<img src="${pageContext.request.contextPath}/resources/img/Sagittarius.png" alt="사수자리" />
 
 <div>射手座</div>
 </a>
@@ -138,7 +137,7 @@ background:#866de7;
 <div class="zodiac-item">
 
 <a href="${pageContext.request.contextPath}/zodiac/10" class="zodiac-link">
-<img src="/resources/img/Capricorn.png" alt="염소자리" />
+<img src="${pageContext.request.contextPath}/resources/img/Capricorn.png" alt="염소자리" />
 
 <div>山羊座</div>
 </a>
@@ -146,7 +145,7 @@ background:#866de7;
 <div class="zodiac-item">
 
 <a href="${pageContext.request.contextPath}/zodiac/11" class="zodiac-link">
-<img src="/resources/img/Aquarius.png" alt="물병자리" />
+<img src="${pageContext.request.contextPath}/resources/img/Aquarius.png" alt="물병자리" />
 
 <div>水瓶座</div>
 </a>
@@ -154,7 +153,7 @@ background:#866de7;
 <div class="zodiac-item">
 
 <a href="${pageContext.request.contextPath}/zodiac/12" class="zodiac-link">
-<img src="/resources/img/Pisces.png" alt="물고기자리" />
+<img src="${pageContext.request.contextPath}/resources/img/Pisces.png" alt="물고기자리" />
 
 <div>魚座</div>
 </a>
@@ -181,7 +180,7 @@ allowfullscreen>
 </iframe>
 </div>
 
-<<<<<<< HEAD
+
 		<!-- 예쁜 전체화면 버튼 -->
 		<div style="text-align:center; margin-top:16px;">
 		  <button
@@ -232,102 +231,8 @@ allowfullscreen>
 		  </button>
 		</div>
 		<div style="text-align:center; margin-top:24px;">
-				  <button
-				    onclick="location.href='${pageContext.request.contextPath}/post_detail?id=2'"
-				    style="
-				      background: linear-gradient(90deg, #4caf50, #81c784);
-				      color: white;
-				      border: none;
-				      border-radius: 24px;
-				      padding: 12px 28px;
-				      font-size: 1rem;
-				      font-weight: bold;
-				      cursor: pointer;
-				      box-shadow: 0 3px 12px rgba(0,0,0,0.15);
-				      transition: background 0.2s, transform 0.1s;
-				    "
-				    onmouseover="this.style.background='linear-gradient(90deg, #81c784, #4caf50)'"
-				    onmouseout="this.style.background='linear-gradient(90deg, #4caf50, #81c784)'"
-				    onmousedown="this.style.transform='translateY(1px)';"
-				    onmouseup="this.style.transform='translateY(0)';"
-				  >
-				    投稿詳細ページへ
-				  </button>
-				</div>
-	 <%@ include file="footer.jsp" %>
-=======
-<!-- 예쁜 전체화면 버튼 -->
-<div style="text-align:center; margin-top:16px;">
-<button
-onclick="window.open('https://stellarium-web.org/', '_blank')"
-style="
-background: linear-gradient(90deg, #7c4dff, #4db6ff);
-color: #fff;
-border: none;
-border-radius: 24px;
-padding: 12px 28px;
-font-size: 1rem;
-font-weight: bold;
-cursor: pointer;
-box-shadow: 0 3px 12px rgba(0,0,0,0.15);
-transition: background 0.2s, transform 0.1s;
-"
-onmouseover="this.style.background='linear-gradient(90deg, #4db6ff, #7c4dff)'"
-onmouseout="this.style.background='linear-gradient(90deg, #7c4dff, #4db6ff)'"
-onmousedown="this.style.transform='translateY(1px)';"
-onmouseup="this.style.transform='translateY(0)';"
->
-全画面表示
-</button>
-</div>
-<!-- 상세화면 이동 버튼 테스트 때문에 만들었어요!!! 사라질 버튼 입니 -->
-<div style="text-align:center; margin-top:24px;">
-<button
-onclick="location.href='${pageContext.request.contextPath}/post_detail?id=1'"
-style="
-background: linear-gradient(90deg, #4caf50, #81c784);
-color: white;
-border: none;
-border-radius: 24px;
-padding: 12px 28px;
-font-size: 1rem;
-font-weight: bold;
-cursor: pointer;
-box-shadow: 0 3px 12px rgba(0,0,0,0.15);
-transition: background 0.2s, transform 0.1s;
-"
-onmouseover="this.style.background='linear-gradient(90deg, #81c784, #4caf50)'"
-onmouseout="this.style.background='linear-gradient(90deg, #4caf50, #81c784)'"
-onmousedown="this.style.transform='translateY(1px)';"
-onmouseup="this.style.transform='translateY(0)';"
->
-投稿詳細ページへ
-</button>
-</div>
-<div style="text-align:center; margin-top:24px;">
-<button
-onclick="location.href='${pageContext.request.contextPath}/post_detail?id=2'"
-style="
-background: linear-gradient(90deg, #4caf50, #81c784);
-color: white;
-border: none;
-border-radius: 24px;
-padding: 12px 28px;
-font-size: 1rem;
-font-weight: bold;
-cursor: pointer;
-box-shadow: 0 3px 12px rgba(0,0,0,0.15);
-transition: background 0.2s, transform 0.1s;
-"
-onmouseover="this.style.background='linear-gradient(90deg, #81c784, #4caf50)'"
-onmouseout="this.style.background='linear-gradient(90deg, #4caf50, #81c784)'"
-onmousedown="this.style.transform='translateY(1px)';"
-onmouseup="this.style.transform='translateY(0)';"
->
-投稿詳細ページへ
-</button>
-</div>
-<%@ include file="footer.jsp" %>
->>>>>>> branch 'dev' of https://github.com/hoshi-studio/hoshimusubi.git
+		</div>
+	<%@ include file="footer.jsp" %>
+
 </body>
 </html>

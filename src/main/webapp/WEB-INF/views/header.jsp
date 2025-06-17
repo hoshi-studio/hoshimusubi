@@ -10,13 +10,12 @@
 
 <header class="header">
     <div class="header-left">
-<<<<<<< HEAD
+
         <a href="${pageContext.request.contextPath}/">
             <img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="Hoshimusubi 로고" class="header-logo" />
-=======
-        <a href="/">
-            <img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="로고" class="header-logo" />
->>>>>>> branch 'dev' of https://github.com/hoshi-studio/hoshimusubi.git
+
+
+
         </a>
     </div>
 
@@ -25,7 +24,7 @@
     </div>
 
     <div class="header-right">
-        <a href="/login">
+        <a href="/controller/login">
             <img src="${pageContext.request.contextPath}/resources/img/login.png" alt="로그인" class="header-login" />
         </a>
     </div>
