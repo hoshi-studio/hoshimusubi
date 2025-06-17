@@ -1,6 +1,7 @@
 package com.hoshimusubi.suhwa.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -22,5 +23,8 @@ public interface CommentsMapper {
 	void deleteComment(Long id);
 
 	int selectCount(Long id);
+
+	List<CommentsDTO> getCommentsPaged(Map<String, Object> params);
+
 
 }

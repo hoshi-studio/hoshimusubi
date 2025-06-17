@@ -16,7 +16,7 @@
 	        p.created_at,
 	        p.status,
 	        p.views,
-	        p.IMAGE_URL,
+	        p.image_Path,
 	        u.nickname AS nickname
     FROM Posts p
     JOIN Users u ON p.user_id = u.id
@@ -46,7 +46,8 @@
 	    UPDATE Posts
 	    SET title = #{title},
 	        content = #{content},
-	        image_url = #{imageUrl}
+	        imageurl = #{imageUrl, jdbcType=VARCHAR},
+	        created_at = SYSDATE
 	    WHERE id = #{id}
 	</update>
 

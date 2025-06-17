@@ -7,4 +7,6 @@ public interface MessageService {
 
 	void sendMessage(MessageDTO message);
 
+	UsersDTO getUserById(Long userId);
+
 }

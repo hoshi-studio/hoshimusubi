@@ -10,4 +10,5 @@ public interface CommentsService {
 	void updateComment(Long id, String content);
 	void deleteComment(Long id);
 	int getcommentCount(Long id);
+	List<CommentsDTO> getCommentsPaged(Long postId, int page, int size);
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HanbeenUserController {
@@ -23,9 +24,10 @@ public class HanbeenUserController {
     private MessageService msgService;
 
     @GetMapping("/mypage")
-    public String myPage(Long id,Model model) {
+    public String myPage(@RequestParam("userId") Long userId,Model model) {
         // 테스트용으로 1번 사용자 ID 하드코딩
-        Long userId = id;
+    	System.out.println("id값 : "+userId);
+        
         // 서비스 호출
         UserProfileDTO userProfile = userService.getUserProfile(userId);
         // 모델에 담아서 JSP로

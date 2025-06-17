@@ -180,8 +180,6 @@ style="border:none; border-radius:18px;"
 allowfullscreen>
 </iframe>
 </div>
-
-<<<<<<< HEAD
 		<!-- 예쁜 전체화면 버튼 -->
 		<div style="text-align:center; margin-top:16px;">
 		  <button
@@ -210,7 +208,7 @@ allowfullscreen>
 		<!-- 상세화면 이동 버튼 테스트 때문에 만들었어요!!! 사라질 버튼 입니 -->
 		<div style="text-align:center; margin-top:24px;">
 		  <button
-		    onclick="location.href='${pageContext.request.contextPath}/post_detail?id=109'"
+		    onclick="location.href='${pageContext.request.contextPath}/post_detail?id=1'"
 		    style="
 		      background: linear-gradient(90deg, #4caf50, #81c784);
 		      color: white;
@@ -254,80 +252,6 @@ allowfullscreen>
 				    投稿詳細ページへ
 				  </button>
 				</div>
-	 <%@ include file="footer.jsp" %>
-=======
-<!-- 예쁜 전체화면 버튼 -->
-<div style="text-align:center; margin-top:16px;">
-<button
-onclick="window.open('https://stellarium-web.org/', '_blank')"
-style="
-background: linear-gradient(90deg, #7c4dff, #4db6ff);
-color: #fff;
-border: none;
-border-radius: 24px;
-padding: 12px 28px;
-font-size: 1rem;
-font-weight: bold;
-cursor: pointer;
-box-shadow: 0 3px 12px rgba(0,0,0,0.15);
-transition: background 0.2s, transform 0.1s;
-"
-onmouseover="this.style.background='linear-gradient(90deg, #4db6ff, #7c4dff)'"
-onmouseout="this.style.background='linear-gradient(90deg, #7c4dff, #4db6ff)'"
-onmousedown="this.style.transform='translateY(1px)';"
-onmouseup="this.style.transform='translateY(0)';"
->
-全画面表示
-</button>
-</div>
-<!-- 상세화면 이동 버튼 테스트 때문에 만들었어요!!! 사라질 버튼 입니 -->
-<div style="text-align:center; margin-top:24px;">
-<button
-onclick="location.href='${pageContext.request.contextPath}/post_detail?id=1'"
-style="
-background: linear-gradient(90deg, #4caf50, #81c784);
-color: white;
-border: none;
-border-radius: 24px;
-padding: 12px 28px;
-font-size: 1rem;
-font-weight: bold;
-cursor: pointer;
-box-shadow: 0 3px 12px rgba(0,0,0,0.15);
-transition: background 0.2s, transform 0.1s;
-"
-onmouseover="this.style.background='linear-gradient(90deg, #81c784, #4caf50)'"
-onmouseout="this.style.background='linear-gradient(90deg, #4caf50, #81c784)'"
-onmousedown="this.style.transform='translateY(1px)';"
-onmouseup="this.style.transform='translateY(0)';"
->
-投稿詳細ページへ
-</button>
-</div>
-<div style="text-align:center; margin-top:24px;">
-<button
-onclick="location.href='${pageContext.request.contextPath}/post_detail?id=2'"
-style="
-background: linear-gradient(90deg, #4caf50, #81c784);
-color: white;
-border: none;
-border-radius: 24px;
-padding: 12px 28px;
-font-size: 1rem;
-font-weight: bold;
-cursor: pointer;
-box-shadow: 0 3px 12px rgba(0,0,0,0.15);
-transition: background 0.2s, transform 0.1s;
-"
-onmouseover="this.style.background='linear-gradient(90deg, #81c784, #4caf50)'"
-onmouseout="this.style.background='linear-gradient(90deg, #4caf50, #81c784)'"
-onmousedown="this.style.transform='translateY(1px)';"
-onmouseup="this.style.transform='translateY(0)';"
->
-投稿詳細ページへ
-</button>
-</div>
 <%@ include file="footer.jsp" %>
->>>>>>> branch 'dev' of https://github.com/hoshi-studio/hoshimusubi.git
 </body>
 </html>

@@ -1,6 +1,8 @@
 package com.hoshimusubi.suhwa.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,4 +47,14 @@ public class CommentsServiceImpl implements CommentsService{
 		int count = CommentsMapper.selectCount(id);
 		return count;
 	}
+	
+	@Override
+    public List<CommentsDTO> getCommentsPaged(Long postId, int page, int size) {
+        int offset = (page - 1) * size;
+        Map<String, Object> params = new HashMap<>();
+        params.put("postId", postId);
+        params.put("offset", offset);
+        params.put("limit", size);
+        return CommentsMapper.getCommentsPaged(params);
+    }
 }

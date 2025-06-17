@@ -20,6 +20,25 @@
 	    ORDER BY c.created_at ASC
     </select>
     
+    <select id="getCommentsPaged" parameterType="map" resultType="com.hoshimusubi.suhwa.dto.CommentsDTO">
+	    SELECT
+	        c.id,
+	        c.content,
+	        c.created_at,
+	        c.user_id AS userId,
+	        u.nickname
+	    FROM
+	        Comments c
+	    JOIN
+	        Users u ON c.user_id = u.id
+	    WHERE
+	        c.post_id = #{postId}
+	    ORDER BY
+	        c.created_at ASC
+	    OFFSET #{offset} ROWS
+	    FETCH NEXT #{limit} ROWS ONLY
+</select>
+    
     <!-- 댓글 등록 -->
     <insert id="insertComment" parameterType="com.hoshimusubi.suhwa.dto.CommentsDTO">
 	    INSERT INTO Comments (post_id, user_id, content)
@@ -28,12 +47,15 @@
 	
 	<!-- 작성자 값 찾기 -->
 	<select id="getNicknameByUserId" parameterType="Long" resultType="String">
-	    SELECT nickname FROM Users WHERE id = #{id}
+	    SELECT nickname FROM Users WHERE id = #{id, jdbcType=NUMERIC}
 	</select>
 	
 	<!-- 댓글 수정 -->
 	<update id="updateComment" parameterType="map">
-	    UPDATE Comments SET content = #{content} WHERE id = #{id}
+	    UPDATE Comments
+    	SET content = #{content},
+        created_at = SYSDATE
+   		WHERE id = #{id, jdbcType=NUMERIC}
 	</update>
 	
 	<!-- 댓글 삭제 -->
