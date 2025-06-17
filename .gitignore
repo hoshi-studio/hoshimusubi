@@ -36,3 +36,5 @@ Thumbs.db
 *.swp
 *.bak
 *.tmp
+
+oauth2.json
