@@ -36,7 +36,6 @@ public class Register {
         //0. 이메일 형식 확인
     	String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
         if (!dto.getEmail().matches(emailRegex)) {
-            model.addAttribute("error", "이메일 형식이 올바르지 않습니다.");
             return "registerFailid";
         }
 
