@@ -24,12 +24,11 @@
             <input type="file" name="imageFile" id="imageFile" accept="image/*" />
         </div>
 
-        <!-- 세션에서 로그인된 사용자 ID 넘김 -->
-        <input type="hidden" name="userId" value="${sessionScope.loginUser.id}" />
+        <input type="hidden" name="zodiacId" value="${zodiacId}" />
 
         <div class="form-actions">
             <button type="submit">등록</button>
-            <a href="${pageContext.request.contextPath}/post/list">취소</a>
+            <a href="${pageContext.request.contextPath}/zodiac/${zodiacId}">취소</a>
         </div>
     </form>
 </div>

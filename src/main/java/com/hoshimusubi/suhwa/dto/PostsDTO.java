@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostsDTO {
-	private Long id;
-    private Long user_Id;              // FK: Users 테이블의 id
+	private int id;
+    private int user_Id; 
+    private Integer zodiacId;// FK: Users 테이블의 id
     private String title;
     private String content;
     private LocalDateTime created_at;  // TIMESTAMP -> LocalDateTime

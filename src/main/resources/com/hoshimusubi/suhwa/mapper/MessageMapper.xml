@@ -19,7 +19,7 @@
         )
     </insert>
     
-    <select id="findUserById" parameterType="long" resultType="com.hoshimusubi.suhwa.dto.UsersDTO">
+    <select id="findUserById" parameterType="int" resultType="com.hoshimusubi.suhwa.dto.UsersDTO">
 	    SELECT id, nickname
 	    FROM Users
 	    WHERE id = #{userId}

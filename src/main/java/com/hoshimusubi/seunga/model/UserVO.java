@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 public class UserVO {
-    private Long id;
+    private int id;
     private String userId;
     private String password;
     private int zodiacId;
@@ -17,11 +17,11 @@ public class UserVO {
     public UserVO() {}
 
     // Getter & Setter
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

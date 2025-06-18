@@ -16,7 +16,7 @@ public class MessageServiceImpl implements MessageService{
     private MessageMapper MessageMapper;
 	
 	@Override
-    public UsersDTO getUserById(Long userId) {
+    public UsersDTO getUserById(int userId) {
         return MessageMapper.findUserById(userId);
     }
 	

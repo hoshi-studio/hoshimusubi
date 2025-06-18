@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookMarkDTO {
-	private Long id;
-    private Long userId;
-    private Long postId;
+	private int id;
+    private int userId;
+    private int postId;
     private LocalDateTime createdAt;
 }

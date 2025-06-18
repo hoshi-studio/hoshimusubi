@@ -5,10 +5,10 @@ import java.util.List;
 import com.hoshimusubi.suhwa.dto.CommentsDTO;
 
 public interface CommentsService {
-	List<CommentsDTO> getCommentById(Long id);
+	List<CommentsDTO> getCommentById(int id);
 	void saveComment(CommentsDTO comment);
-	void updateComment(Long id, String content);
-	void deleteComment(Long id);
-	int getcommentCount(Long id);
-	List<CommentsDTO> getCommentsPaged(Long postId, int page, int size);
+	void updateComment(int id, String content);
+	void deleteComment(int id);
+	int getcommentCount(int id);
+	List<CommentsDTO> getCommentsPaged(int postId, int page, int size);
 }

@@ -12,6 +12,6 @@ public interface MessageMapper {
 
 	void insertMessage(MessageDTO message);
 
-	UsersDTO findUserById(Long userId);
+	UsersDTO findUserById(int userId);
 
 }

@@ -6,7 +6,7 @@
 
 
 	<!-- posts의 id값으로 게시글과 작성자의 정보 가져오기 --> 
-    <select id="getPostById" parameterType="long" resultType="com.hoshimusubi.suhwa.dto.PostsDTO">
+    <select id="getPostById" parameterType="int" resultType="com.hoshimusubi.suhwa.dto.PostsDTO">
 
          SELECT 
 	        p.id,
@@ -27,16 +27,18 @@
     <insert id="insertPost" parameterType="com.hoshimusubi.suhwa.dto.PostsDTO">
         INSERT INTO Posts (
             user_id,
+            zodiac_Id,
             title,
             content,
-            image_url,
+            image_Path,
             views,
             status
         ) VALUES (
             #{user_Id},
+            #{zodiacId, jdbcType=INTEGER},
             #{title},
             #{content},
-            #{imageUrl, jdbcType=VARCHAR},
+            #{imageUrl},
             0,
             0
         )
@@ -46,16 +48,16 @@
 	    UPDATE Posts
 	    SET title = #{title},
 	        content = #{content},
-	        imageurl = #{imageUrl, jdbcType=VARCHAR},
+	        image_Path = #{imageUrl, jdbcType=VARCHAR},
 	        created_at = SYSDATE
 	    WHERE id = #{id}
 	</update>
 
-	<delete id="deletePost" parameterType="long">
+	<delete id="deletePost" parameterType="int">
 	    DELETE FROM Posts WHERE id = #{id}
 	</delete>
 	
-	<update id="increaseViewCount" parameterType="Long">
+	<update id="increaseViewCount" parameterType="int">
     UPDATE Posts SET views = views + 1 WHERE id = #{id}
 	</update>
 	

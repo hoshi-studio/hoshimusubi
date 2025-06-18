@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UsersDTO {
-	private Long id;
+	private int id;
     private String userId;           // 이메일
     private String password;
-    private Long zodiacId;          // 별자리 id
+    private int zodiacId;          // 별자리 id
     private String nickname;
     private String gender;
     private LocalDate birthDate;

@@ -58,7 +58,6 @@
 					    </c:otherwise>
 					</c:choose>
                 </div>
-                
 				<c:if test="${loginUserId eq post.user_Id}">
 				    <div class="post-actions">
 				        <a href="${pageContext.request.contextPath}/post_modify?id=${post.id}" >수정</a>

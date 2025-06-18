@@ -5,9 +5,9 @@ import org.apache.ibatis.annotations.Param;
 import com.hoshimusubi.suhwa.dto.UsersDTO;
 
 public interface LikeService {
-	boolean insertLike(Long postId, @Param("userId")Long userId);
-	boolean deleteLike(Long postId, @Param("userId")Long userId);
-    int getLikeCount(Long postId);
-    boolean isPostLikedByUser(Long postId, @Param("userId")Long userid);
+	boolean insertLike(int postId, @Param("userId")int userId);
+	boolean deleteLike(int postId, @Param("userId")int userId);
+    int getLikeCount(int postId);
+    boolean isPostLikedByUser(int postId, @Param("userId")int userid);
 
 }

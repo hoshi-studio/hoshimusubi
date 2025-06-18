@@ -46,8 +46,8 @@
 	</insert>
 	
 	<!-- 작성자 값 찾기 -->
-	<select id="getNicknameByUserId" parameterType="Long" resultType="String">
-	    SELECT nickname FROM Users WHERE id = #{id, jdbcType=NUMERIC}
+	<select id="getNicknameByUserId" parameterType="int" resultType="String">
+	    SELECT nickname FROM Users WHERE id = #{id}
 	</select>
 	
 	<!-- 댓글 수정 -->
@@ -59,11 +59,11 @@
 	</update>
 	
 	<!-- 댓글 삭제 -->
-	<delete id="deleteComment" parameterType="java.lang.Long">
-	    DELETE FROM Comments WHERE id = #{id, jdbcType=NUMERIC}
+	<delete id="deleteComment" >
+	    DELETE FROM Comments WHERE id = #{id}
 	</delete>
 	
-	<select id="selectCount" parameterType="long" resultType="int">
+	<select id="selectCount" parameterType="int" resultType="int">
 	    SELECT COUNT(*) 
 	    FROM Comments 
 	    WHERE post_id = #{postId}

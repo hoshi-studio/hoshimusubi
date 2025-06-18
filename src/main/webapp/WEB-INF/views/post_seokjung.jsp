@@ -23,7 +23,7 @@
 
 <!-- 버튼 영역 -->
 <div class="board-controls">
-    <a href="${pageContext.request.contextPath}/post_write" class="btn-create">作成</a>
+    <a href="${pageContext.request.contextPath}/post_write?zodiacId=${selectedZodiacId}" class="btn-create">作成</a>
     <select class="sort-select" onchange="location.href='?sort=' + this.value">
         <option value="recent" ${currentSort eq 'recent' ? 'selected' : ''}>最新順</option>
         <option value="like" ${currentSort eq 'like' ? 'selected' : ''}>いいね順</option>

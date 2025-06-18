@@ -9,8 +9,8 @@ import com.hoshimusubi.suhwa.dto.UsersDTO;
 @Mapper
 @MapperScan
 public interface BookMarkMapper {
-	void insertBookmark(@Param("postId") Long postId, @Param("userId")Long userId);
-    void deleteBookmark(@Param("postId") Long postId, @Param("userId")Long userId);
-    boolean countBookmark(@Param("postId") Long postId, @Param("userId")Long userId);
+	void insertBookmark(@Param("postId") int postId, @Param("userId")int userId);
+    void deleteBookmark(@Param("postId") int postId, @Param("userId")int userId);
+    boolean countBookmark(@Param("postId") int postId, @Param("userId")int userId);
 
 }

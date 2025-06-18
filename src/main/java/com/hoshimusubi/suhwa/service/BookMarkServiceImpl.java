@@ -14,17 +14,17 @@ public class BookMarkServiceImpl implements BookMarkService{
     private BookMarkMapper bookmarkMapper;
 
     @Override
-    public void addBookmark(Long postId,Long userId) {
+    public void addBookmark(int postId,int userId) {
         bookmarkMapper.insertBookmark(postId, userId);
     }
 
     @Override
-    public void removeBookmark(Long postId, Long userId) {
+    public void removeBookmark(int postId, int userId) {
         bookmarkMapper.deleteBookmark(postId, userId);
     }
 
     @Override
-    public boolean isPostBookmarkedByUser(Long postId, Long userId) {
+    public boolean isPostBookmarkedByUser(int postId, int userId) {
         return bookmarkMapper.countBookmark(postId, userId);
     }
 

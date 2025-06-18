@@ -20,7 +20,7 @@ public class CommentsServiceImpl implements CommentsService{
 	private CommentsMapper CommentsMapper;
 	
 	@Override
-    public List<CommentsDTO> getCommentById(Long id) {
+    public List<CommentsDTO> getCommentById(int id) {
         return CommentsMapper.getCommentById(id);
     }
 	
@@ -33,23 +33,23 @@ public class CommentsServiceImpl implements CommentsService{
     }
 	
 	@Override
-	public void updateComment(Long id, String content) {
+	public void updateComment(int id, String content) {
 		CommentsMapper.updateComment(id, content);
 	}
 
 	@Override
-	public void deleteComment(Long id) {
+	public void deleteComment(int id) {
 		CommentsMapper.deleteComment(id);
 	}
 	
 	@Override
-    public int getcommentCount(Long id) {
+    public int getcommentCount(int id) {
 		int count = CommentsMapper.selectCount(id);
 		return count;
 	}
 	
 	@Override
-    public List<CommentsDTO> getCommentsPaged(Long postId, int page, int size) {
+    public List<CommentsDTO> getCommentsPaged(int postId, int page, int size) {
         int offset = (page - 1) * size;
         Map<String, Object> params = new HashMap<>();
         params.put("postId", postId);

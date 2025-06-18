@@ -16,7 +16,7 @@ public class PostServiceImpl implements PostsService {
     private PostsMapper PostsMapper;
 
     @Override
-    public PostsDTO getPostById(Long id) {
+    public PostsDTO getPostById(int id) {
         return PostsMapper.getPostById(id);
     }
     
@@ -33,13 +33,13 @@ public class PostServiceImpl implements PostsService {
 	}
 
 	@Override
-	public void deletePost(Long id) {
+	public void deletePost(int id) {
 		PostsMapper.deletePost(id);
 		
 	}
 	
 	@Override
-	public void increaseViewCount(Long postId) {
+	public void increaseViewCount(int postId) {
 		PostsMapper.increaseViewCount(postId);
 	}
     

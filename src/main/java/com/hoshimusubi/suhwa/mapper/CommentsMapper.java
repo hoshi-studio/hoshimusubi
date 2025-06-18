@@ -13,16 +13,16 @@ import com.hoshimusubi.suhwa.dto.CommentsDTO;
 @MapperScan
 public interface CommentsMapper {
 	
-	List<CommentsDTO> getCommentById(Long postId);
+	List<CommentsDTO> getCommentById(int postId);
 	
 	void insertComment(CommentsDTO comment);
 	
-	String getNicknameByUserId(Long userId);
+	String getNicknameByUserId(int userId);
 	
-	void updateComment(@Param("id") Long id, @Param("content") String content);
-	void deleteComment(Long id);
+	void updateComment(@Param("id") int id, @Param("content") String content);
+	void deleteComment(int id);
 
-	int selectCount(Long id);
+	int selectCount(int id);
 
 	List<CommentsDTO> getCommentsPaged(Map<String, Object> params);
 

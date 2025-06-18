@@ -75,9 +75,9 @@ public class Main {
     }
 
     @GetMapping("/post_detail")
-    public String postDetail(@RequestParam("id") Long id,Model model) {
+    public String postDetail(@RequestParam("id") int id,Model model) {
         UserVO loginUser = getLoginUser();
-        Long userid = loginUser.getId();
+        int userid = loginUser.getId();
         PostsDTO post = postsService.getPostById(id);
         
         postsService.increaseViewCount(id);
@@ -97,23 +97,28 @@ public class Main {
         
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");
         String formattedCreatedAt = post.getCreated_at().format(formatter);
+        
         model.addAttribute("formattedCreatedAt", formattedCreatedAt);
         model.addAttribute("post", post);
         return "post_detail_suhwa";
     }
 
     @GetMapping("/post_write")
-    public String postWrite() {
+    public String postWrite(@RequestParam("zodiacId") Integer zodiacId,Model model) {
+    	System.out.println(zodiacId);
+    	model.addAttribute("zodiacId",zodiacId);
         return "post_write_suhwa";
     }
 
     @PostMapping("/post_create")
     public String createPost(@ModelAttribute PostsDTO post,
                              @RequestParam("imageFile") MultipartFile imageFile,
-                             HttpServletRequest request) {
+                             HttpServletRequest request,Integer zodiacId) {
 
+    	System.out.println(zodiacId);
         UserVO loginUser = getLoginUser();
         post.setUser_Id(loginUser.getId());
+        post.setZodiacId(zodiacId);
 
         if (!imageFile.isEmpty()) {
             String uploadDir = request.getServletContext().getRealPath("/resources/upload/");
@@ -132,7 +137,7 @@ public class Main {
         }
 
         postsService.savePost(post);
-        return "redirect:/post/list";
+        return "redirect:/zodiac/" + zodiacId;
     }
 
     @PostMapping("/addComment")
@@ -148,7 +153,7 @@ public class Main {
     }
     
     @GetMapping("/comments")
-    public String getPagedComments(@RequestParam("postId") Long postId,
+    public String getPagedComments(@RequestParam("postId") int postId,
                                    @RequestParam(defaultValue = "1") int page,
                                    Model model,
                                    HttpSession session) {
@@ -170,10 +175,10 @@ public class Main {
     }
 
     @GetMapping("/post_modify")
-    public String editPostForm(@RequestParam("id") Long id, Model model) {
+    public String editPostForm(@RequestParam("id") int id, Model model) {
         PostsDTO post = postsService.getPostById(id);
         UserVO loginUser = getLoginUser();
-        if (loginUser == null || !loginUser.getId().equals(post.getUser_Id())) {
+        if (loginUser == null || !(loginUser.getId()==post.getUser_Id())) {
             return "redirect:/post_detail";
         }
         model.addAttribute("post", post);
@@ -209,21 +214,21 @@ public class Main {
     }
 
     @GetMapping("/post_delete")
-    public String deletePost(@RequestParam("id") Long id) {
+    public String deletePost(@RequestParam("id") int id) {
         postsService.deletePost(id);
         return "redirect:/";
     }
 
     @PostMapping("/comment_update")
     @ResponseBody
-    public String updateComment(@RequestParam Long id, @RequestParam String content) {
+    public String updateComment(@RequestParam int id, @RequestParam String content) {
         commentsService.updateComment(id, content);
         return "success";
     }
 
     @PostMapping("/comment_delete")
     @ResponseBody
-    public Map<String, Object> deleteComment(@RequestParam Long id, @RequestParam Long postId) {
+    public Map<String, Object> deleteComment(@RequestParam int id, @RequestParam int postId) {
         commentsService.deleteComment(id);
         int commentCount = commentsService.getcommentCount(postId);
 
@@ -234,9 +239,9 @@ public class Main {
 
     @PostMapping("/like")
     @ResponseBody
-    public Map<String, Object> like(@RequestParam Long postId) {
+    public Map<String, Object> like(@RequestParam int postId) {
         UserVO loginUser = getLoginUser();
-        Long userId = loginUser.getId();
+        int userId = loginUser.getId();
         likeService.insertLike(postId, userId);
         int newCount = likeService.getLikeCount(postId);
 
@@ -248,9 +253,9 @@ public class Main {
 
     @PostMapping("/unlike")
     @ResponseBody
-    public Map<String, Object> unlike(@RequestParam Long postId) {
+    public Map<String, Object> unlike(@RequestParam int postId) {
         UserVO loginUser = getLoginUser();
-        Long userId = loginUser.getId();
+        int userId = loginUser.getId();
         likeService.deleteLike(postId, userId);
         int newCount = likeService.getLikeCount(postId);
 
@@ -262,9 +267,9 @@ public class Main {
 
     @PostMapping("/bookmark")
     @ResponseBody
-    public Map<String, Object> bookmark(@RequestParam Long postId) {
+    public Map<String, Object> bookmark(@RequestParam int postId) {
         UserVO loginUser1 = getLoginUser();
-        Long loginUser= loginUser1.getId();
+        int loginUser= loginUser1.getId();
         bmService.addBookmark(postId, loginUser);
 
         Map<String, Object> result = new HashMap<>();
@@ -274,9 +279,9 @@ public class Main {
 
     @PostMapping("/unbookmark")
     @ResponseBody
-    public Map<String, Object> dontsave(@RequestParam Long postId) {
+    public Map<String, Object> dontsave(@RequestParam int postId) {
     	UserVO loginUser1 = getLoginUser();
-        Long loginUser= loginUser1.getId();
+    	int loginUser= loginUser1.getId();
         bmService.removeBookmark(postId, loginUser);
 
         Map<String, Object> result = new HashMap<>();
@@ -285,7 +290,7 @@ public class Main {
     }
     
     @GetMapping("/messageWrite")
-    public String messageWrite(@RequestParam("userId") Long userId, Model model) {
+    public String messageWrite(@RequestParam("userId") int userId, Model model) {
     	UsersDTO receiver = msgService.getUserById(userId);  // ← userId로 사용자 조회
         model.addAttribute("receiver", receiver);
         return "message_write_suhwa";
