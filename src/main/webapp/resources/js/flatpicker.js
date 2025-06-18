@@ -1,10 +1,18 @@
 document.addEventListener("DOMContentLoaded", function() {
+  const birthDate = document.getElementById("birthDate");
+  const birthdate = document.getElementById("birthdate");
 
-  flatpickr("#birthDate", {
-    locale: "ja",
-    dateFormat: "Y-m-d",
-	altInput: true,
-	altFormat: "Y年m月d日"   
-  });
+  if (birthDate) {
+    flatpickr("#birthDate", {
+      locale: "ja",
+      dateFormat: "Y-m-d"
+    });
+  }
 
+  if (birthdate) {
+    flatpickr("#birthdate", {
+      locale: "ja",
+      dateFormat: "Y-m-d"
+    });
+  }
 });

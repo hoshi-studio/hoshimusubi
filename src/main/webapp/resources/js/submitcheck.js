@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", function() {
   const form = document.getElementById("signupForm");
+
+  const email = document.getElementById("email");
   const birthDate = document.getElementById("birthDate");
+  const birthdate = document.getElementById("birthdate");
   const nickname = document.getElementById("nickname");
 
   const modalOverlay = document.querySelector(".modal-overlay");
@@ -18,13 +21,36 @@ document.addEventListener("DOMContentLoaded", function() {
     modalOverlay.style.display = "none";
     modal.style.display = "none";
   });
+  
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
 
   form.addEventListener("submit", function(e) {
+    const emailValue = email ? email.value : "";
+    const birthDateValue = birthDate ? birthDate.value : "";
+    const birthdateValue = birthdate ? birthdate.value : "";
     const gender = form.querySelector('input[name="gender"]:checked');
 
-    if (!birthDate.value) {
+    if (!emailValue) {
+      showModal("メールアドレスを入力してください。");
+      email.focus();
+      e.preventDefault();
+      return;
+    }
+	
+	if (!isValidEmail(emailValue)) {
+	  showModal("有効なメールアドレスを入力してください。");
+	  email.focus();
+	  e.preventDefault();
+	  return;
+	}
+
+    if (!birthDateValue && !birthdateValue) {
       showModal("生年月日を入力してください。");
-      birthDate.focus();
+      if (birthDate && !birthDate.value) birthDate.focus();
+      else if (birthdate && !birthdate.value) birthdate.focus();
       e.preventDefault();
       return;
     }
