@@ -78,7 +78,7 @@
             <section class="comments">
                 <h3>댓글</h3>
 
-				<div id="comment-container">
+				<div id="comment-list-area">
 				
 				</div>
 				
@@ -92,38 +92,26 @@
         <!-- ... -->
     </main>
 	<script>
+	const postId = $("input[name='postId']").val();
+    const userId = "${sessionScope.userId}"; 
+	const contextPath = "${pageContext.request.contextPath}";
 	
+	// 댓글 목록 로딩 함수
+    function loadComments(page) {
+        $.ajax({
+            type: "GET",
+            url: contextPath + "/comments",
+            data: { postId: postId, page: page },
+            success: function (html) {
+                $("#comment-list-area").html(html);
+            },
+            error: function () {
+                alert("댓글 목록을 불러오지 못했습니다.");
+            }
+        });
+    }
 	$(document).ready(function () {
-		const postId = $("input[name='postId']").val();
-	    const userId = "${sessionScope.userId}"; 
-		const contextPath = "${pageContext.request.contextPath}";
 		loadComments(1);
-    	
-    	function loadComments(page) {
-    		/* const postId = $("input[name='postId']").val();
-    	    const userId = "${sessionScope.userId}"; 
-    		const contextPath = "${pageContext.request.contextPath}";
-    		 */
-    		console.log("postId:", postId);
-    		
-    	    $.ajax({
-    	        type: "GET",
-    	        url: contextPath + "/comments",
-    	        data: {
-    	            postId: postId,
-    	            page: page
-    	        },
-    	        dataType: "text/html", 
-    	        success: function (data) {
-    	        	consol.log(data);
-    	            $("#comment-container").html(data);  // 프래그먼트 주입
-    	        },
-    	        error: function () {
-    	            alert("댓글을 불러오는 데 실패했습니다.");
-    	        }
-    	    });
-    	}
-
         // 댓글 등록
         $('#commentForm').submit(function (e) {
             e.preventDefault();
@@ -211,20 +199,7 @@
             loadComments(page);
         });
 
-        // 댓글 목록 로딩 함수
-        function loadComments(page) {
-            $.ajax({
-                type: "GET",
-                url: contextPath + "/comments",
-                data: { postId: postId, page: page },
-                success: function (html) {
-                    $("#comment-list-area").html(html);
-                },
-                error: function () {
-                    alert("댓글 목록을 불러오지 못했습니다.");
-                }
-            });
-        }
+        
 
         // 좋아요
         $('#like-btn').click(function () {

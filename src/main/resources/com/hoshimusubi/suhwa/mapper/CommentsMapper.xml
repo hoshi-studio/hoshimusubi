@@ -17,7 +17,7 @@
 	    FROM Comments c
 	    JOIN Users u ON c.user_id = u.id
 	    WHERE c.post_id = #{postId}
-	    ORDER BY c.created_at ASC
+	    ORDER BY c.created_at DESC
     </select>
     
     <select id="getCommentsPaged" parameterType="map" resultType="com.hoshimusubi.suhwa.dto.CommentsDTO">
@@ -34,7 +34,7 @@
 	    WHERE
 	        c.post_id = #{postId}
 	    ORDER BY
-	        c.created_at ASC
+	        c.created_at DESC
 	    OFFSET #{offset} ROWS
 	    FETCH NEXT #{limit} ROWS ONLY
 </select>
