@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hoshimusubi.sangkyu.mapper.MyPageMapper">
+
+    <!-- 내 프로필 조회 -->
+    <select id="selectMyProfile" resultType="com.hoshimusubi.sangkyu.dto.MyPageUserDto">
+        SELECT u.id, u.nickname, u.user_id AS email, u.gender, z.koname_ja AS zodiacName, u.profile_pic
+        FROM Users u
+        JOIN Zodiac z ON u.zodiac_id = z.id
+        WHERE u.id = #{userId}
+    </select>
+
+    <!-- 내가 쓴 글 -->
+    <select id="selectMyPosts" resultType="com.hoshimusubi.sangkyu.dto.MyPagePostDto">
+        SELECT p.id, p.title, p.created_at, p.views AS viewCount,
+            (SELECT COUNT(*) FROM Likes l WHERE l.post_id = p.id) AS likeCount,
+            (SELECT COUNT(*) FROM Comments c WHERE c.post_id = p.id) AS commentCount
+        FROM Posts p
+        WHERE p.user_id = #{userId}
+        ORDER BY p.created_at DESC
+    </select>
+
+    <!-- 내가 단 댓글(해당 글 정보만) -->
+    <select id="selectMyComments" resultType="com.hoshimusubi.sangkyu.dto.MyPagePostDto">
+        SELECT DISTINCT p.id, p.title, p.created_at, p.views AS viewCount,
+            (SELECT COUNT(*) FROM Likes l WHERE l.post_id = p.id) AS likeCount,
+            (SELECT COUNT(*) FROM Comments c WHERE c.post_id = p.id) AS commentCount
+        FROM Comments c
+        JOIN Posts p ON c.post_id = p.id
+        WHERE c.user_id = #{userId}
+        ORDER BY c.created_at DESC
+    </select>
+
+    <!-- 내가 좋아요한 글 -->
+    <select id="selectMyLikes" resultType="com.hoshimusubi.sangkyu.dto.MyPagePostDto">
+        SELECT p.id, p.title, p.created_at, p.views AS viewCount,
+            (SELECT COUNT(*) FROM Likes l WHERE l.post_id = p.id) AS likeCount,
+            (SELECT COUNT(*) FROM Comments c WHERE c.post_id = p.id) AS commentCount
+        FROM Likes l
+        JOIN Posts p ON l.post_id = p.id
+        WHERE l.user_id = #{userId}
+        ORDER BY l.created_at DESC
+    </select>
+
+    <!-- 내가 스크랩한 글 -->
+    <select id="selectMyScraps" resultType="com.hoshimusubi.sangkyu.dto.MyPagePostDto">
+        SELECT p.id, p.title, p.created_at, p.views AS viewCount,
+            (SELECT COUNT(*) FROM Likes l WHERE l.post_id = p.id) AS likeCount,
+            (SELECT COUNT(*) FROM Comments c WHERE c.post_id = p.id) AS commentCount
+        FROM Scrap s
+        JOIN Posts p ON s.post_id = p.id
+        WHERE s.user_id = #{userId}
+        ORDER BY s.created_at DESC
+    </select>
+</mapper>
