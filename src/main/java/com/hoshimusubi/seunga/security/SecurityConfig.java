@@ -67,7 +67,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout()
-                .permitAll();
+                	.logoutUrl("/logout")
+                	.logoutSuccessUrl("/") // 로그아웃 후 홈으로 이동
+                	.permitAll()
+                	.permitAll();
     }
 	
 	
