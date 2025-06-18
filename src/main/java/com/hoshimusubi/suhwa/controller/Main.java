@@ -32,6 +32,7 @@ import com.hoshimusubi.suhwa.dto.MessageDTO;
 import com.hoshimusubi.suhwa.dto.PostsDTO;
 import com.hoshimusubi.suhwa.dto.UsersDTO;
 import com.hoshimusubi.seunga.model.UserVO;
+import com.hoshimusubi.seunga.security.CustomPrincipal;
 import com.hoshimusubi.seunga.security.CustomUserDetails;
 import com.hoshimusubi.suhwa.service.BookMarkService;
 import com.hoshimusubi.suhwa.service.CommentsService;
@@ -64,8 +65,8 @@ public class Main {
 
     private UserVO getLoginUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
-        return userDetails.getUser();
+        CustomPrincipal principal = (CustomPrincipal) auth.getPrincipal();
+        return  principal.getUser();
     }
 
     @GetMapping("/")

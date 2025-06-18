@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<c:if test="${not empty comments}">
 <!-- 댓글 목록 -->
 <c:forEach var="comment" items="${comments}">
     <div class="comment" id="comment-${comment.id}">
@@ -29,4 +29,7 @@
         <a href="#" class="comment-page-link" data-page="${currentPage + 1}">다음 ▶</a>
     </c:if>
 </div>
-
+</c:if>
+<c:if test="${empty comments}">
+    <p style="text-align:center; color: #999;">아직 등록된 댓글이 없습니다.</p>
+</c:if>

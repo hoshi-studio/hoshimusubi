@@ -16,7 +16,7 @@
 	        p.created_at,
 	        p.status,
 	        p.views,
-	        p.image_Path,
+	        p.image_Path As imageUrl ,
 	        u.nickname AS nickname
     FROM Posts p
     JOIN Users u ON p.user_id = u.id
