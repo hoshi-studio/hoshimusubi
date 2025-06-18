@@ -20,9 +20,8 @@
         <h2>追加情報入力</h2>
 
         <form id="signupForm" action="${pageContext.request.contextPath}/dosignupExtra" method="post" enctype="multipart/form-data">
-
             <label for="email">メールアドレス</label>
-            <input type="email" id="email" name="email" value="${sessionScope.oauth2_email}" readonly />
+            <input type="email" id="email" name="email" value="${oauth2_email}"  readonly />
 
             <label for="birthDate">生年月日</label>
             <input type="text" id="birthDate" name="birthDate"/>
