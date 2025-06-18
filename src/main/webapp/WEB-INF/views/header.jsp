@@ -9,6 +9,10 @@
 <%
     String contextPath = request.getContextPath();
 %>
+<script>
+  const contextPath = "<%= contextPath %>";  // 여기서 자바스크립트에 변수로 넘겨줌
+</script>
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css" />
 
 <header class="header">
@@ -53,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
     const csrfToken  = document.querySelector('meta[name="_csrf"]').content;
 
-    fetch('${pageContext.request.contextPath}/logout', {
+	fetch(contextPath + "/logout", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -64,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(res => {
       if (res.ok) {
         // 로그아웃 성공 – 원하면 다른 URL로 변경
-        window.location.href = '${pageContext.request.contextPath}/';
+       window.location.href = contextPath + "/";
       } else {
         alert('로그아웃에 실패했어요.');
       }
