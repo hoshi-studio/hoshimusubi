@@ -27,13 +27,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
         	.csrf().disable()
             .authorizeRequests()
-            	.antMatchers("/", "/login", "/resources/**", "/css/**", "/js/**").permitAll()
+            	.antMatchers("/", "/register", "/login", "/resources/**", "/css/**", "/js/**").permitAll()
             	.anyRequest().hasRole("USER")
             .and()
             .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/dologin")
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/", true)
                 .failureUrl("/login?error=true") // 실패 시 이동
                 .permitAll()
                 .and()

@@ -17,30 +17,12 @@ public class MemberService {
     // BCryptPasswordEncoder 객체 생성
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    // 회원가입 처리
-    public boolean registerMember(Dto dto) {
-        if (isEmailDuplicate(dto.getEmail()) || isNicknameDuplicate(dto.getNickname())) {
-            return false;
-        }
-
-        Postvo vo = new Postvo();
-        vo.setUserId(dto.getEmail());
-        String encodedPassword = passwordEncoder.encode(dto.getPassword());
-        vo.setPassword(dto.getPassword());
-        vo.setNickname(dto.getNickname());
-        vo.setGender(dto.getGender());
-        vo.setBirthDate(dto.getBirthdate());
-        vo.setProfilePic(dto.getProfileImagePath());
-
-        // 생일을 기준으로 별자리 ID 계산
-        int zodiacId = calculateZodiacId(dto.getBirthdate());
-        vo.setZodiacId(zodiacId);
-
-        memberMapper.insertMember(vo);
-        return true;
-    }
    
     public void register(Postvo member) {
+    	 
+    	String encodedPassword = passwordEncoder.encode(member.getPassword());
+    	member.setPassword(encodedPassword);
+    	
         memberMapper.insertMember(member);
     }
 
@@ -75,4 +57,9 @@ public class MemberService {
         if ((month == 11 && day >= 23) || (month == 12 && day <= 24)) return 11; // 사수자리
         return 12; // 염소자리 (12월 25일 ~ 1월 19일 포함)
     }
+    
+    public void registerCommit(Postvo member) {
+        memberMapper.insertMember(member); // 이 시점에 DB에 바로 커밋됨 (별도 commit 없어도)
+    }
+    
 }

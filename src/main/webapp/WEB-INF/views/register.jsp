@@ -64,7 +64,7 @@
 </head>
 <body>
     <div class="form-container">
-        <form action="register.do" method="post" enctype="multipart/form-data">
+        <form action="/register" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <div class="form-label">ID</div>
                 <input type="text" name="email" class="form-input" required>
