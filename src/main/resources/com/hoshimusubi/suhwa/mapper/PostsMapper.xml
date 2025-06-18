@@ -61,4 +61,9 @@
     UPDATE Posts SET views = views + 1 WHERE id = #{id}
 	</update>
 	
+	<select id="countByImageName" resultType="int">
+	    SELECT COUNT(*) FROM POSTS
+	    WHERE image_url LIKE CONCAT('%', #{imageName})
+	</select>
+	
 </mapper>

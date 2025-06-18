@@ -8,4 +8,5 @@ public interface PostsService {
     void updatePost(PostsDTO post);
     void deletePost(int id);
     void increaseViewCount(int postId);
+	boolean isImageNameExists(String imageName);
 }

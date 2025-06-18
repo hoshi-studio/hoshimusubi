@@ -30,13 +30,13 @@
         <!-- 비로그인 시 로그인 버튼 -->
         <sec:authorize access="isAnonymous()">
             <a href="${pageContext.request.contextPath}/login">
-                <img src="${pageContext.request.contextPath}/resources/img/login.png" alt="로그인" class="header-login" />
+                <img src="${pageContext.request.contextPath}/resources/img/logout.png" alt="로그인" class="header-login" />
             </a>
         </sec:authorize>
 		<!-- 로그인 시 마이페이지 버튼 -->
 		    <sec:authorize access="isAuthenticated()">
 		        <a href="${pageContext.request.contextPath}/mypage">
-		            <img src="${pageContext.request.contextPath}/resources/img/logout.png" alt="마이페이지" class="header-login" />
+		            <img src="${pageContext.request.contextPath}/resources/img/login.png" alt="마이페이지" class="header-login" />
 		        </a>
 		    </sec:authorize>
 	    </div>

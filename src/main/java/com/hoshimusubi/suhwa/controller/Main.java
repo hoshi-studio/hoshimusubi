@@ -307,5 +307,14 @@ public class Main {
         
         return "redirect:/mypage?userId=" + msg.getReceiverId();
     }
+    
+    @PostMapping("/check-image-name")
+    @ResponseBody
+    public Map<String, Boolean> checkImageName(@RequestParam("imageName") String imageName) {
+        boolean isDuplicate = postsService.isImageNameExists(imageName);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("duplicate", isDuplicate);
+        return response;
+    }
 }
 

@@ -17,5 +17,5 @@ public interface HanbeenUserMapper {
             "FROM Users u " +
             "JOIN Zodiac z ON u.zodiac_id = z.id " +
             "WHERE u.id = #{userId, jdbcType=NUMERIC}")
-    UserProfileDTO getUserProfileById(Long userId);
+    UserProfileDTO getUserProfileById(int userId);
 }

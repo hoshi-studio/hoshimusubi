@@ -12,5 +12,6 @@ public interface PostsMapper {
     void updatePost(PostsDTO post);
     void deletePost(int id);
     void increaseViewCount(int id);
+	int countByImageName(String imageName);
 
 }

@@ -20,7 +20,7 @@ public class HanbeenUserServiceImpl implements HanbeenUserService {
     }
 
     @Override
-    public UserProfileDTO getUserProfile(Long userId) {
+    public UserProfileDTO getUserProfile(int userId) {
         return userMapper.getUserProfileById(userId);
     }
 }

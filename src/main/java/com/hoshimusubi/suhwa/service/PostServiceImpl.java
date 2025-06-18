@@ -43,5 +43,9 @@ public class PostServiceImpl implements PostsService {
 		PostsMapper.increaseViewCount(postId);
 	}
     
+	@Override
+    public boolean isImageNameExists(String imageName) {
+        return PostsMapper.countByImageName(imageName) > 0;
+    }
     
 }
