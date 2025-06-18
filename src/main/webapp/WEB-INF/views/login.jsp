@@ -43,7 +43,7 @@
 		</div>
 	
 		<div class="btn-group">
-				<a href="${pageContext.request.contextPath}/signup" class="signup-btn">会員登録</a>
+				<a href="${pageContext.request.contextPath}/register" class="signup-btn">会員登録</a>
 				<a href="${pageContext.request.contextPath}/oauth2/authorization/google" class="google-btn">Google</a>
 									  
 									</div>	
