@@ -33,14 +33,14 @@
         <!-- 비로그인 시 로그인 버튼 -->
         <sec:authorize access="isAnonymous()">
             <a href="${pageContext.request.contextPath}/login">
-                <img src="${pageContext.request.contextPath}/resources/img/login.png" alt="로그인" class="header-login" />
+                <img src="${pageContext.request.contextPath}/resources/img/logout.png" alt="로그인" class="header-login" />
             </a>
         </sec:authorize>
 
         <!-- 로그인 시 로그아웃 버튼 -->
         <sec:authorize access="isAuthenticated()">
 			<button id="logoutBtn" style="background:none; border:none; padding:0; cursor:pointer;">
-			    <img src="${pageContext.request.contextPath}/resources/img/logout.png" alt="로그아웃" class="header-login" />
+			    <img src="${pageContext.request.contextPath}/resources/img/login.png" alt="로그아웃" class="header-login" />
 			</button>
 		  </sec:authorize>
     </div>
