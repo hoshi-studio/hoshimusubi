@@ -157,7 +157,7 @@ public class Main {
     	
         int pageSize = 5; // 한 페이지당 댓글 수
         int totalCount = commentsService.getcommentCount(postId);
-        int totalPages = (int) Math.ceil((double) totalCount / pageSize);
+        int totalPages = (int) Math.ceil((double) totalCount / pageSize);	
 
         List<CommentsDTO> pagedComments = commentsService.getCommentsPaged(postId, page, pageSize);
 
