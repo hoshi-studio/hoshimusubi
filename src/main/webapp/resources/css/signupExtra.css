@@ -1,0 +1,146 @@
+/* signup.css */
+
+/* 폼 컨테이너 */
+.signup-container {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 350px;
+    text-align: center;
+    margin: 50px auto;
+}
+
+/* 제목 */
+.signup-container h2 {
+    margin-bottom: 30px;
+    color: #4b3f72;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* 라벨 */
+.signup-container label {
+    display: block;
+    text-align: left;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #333;
+    font-size: 14px;
+}
+
+/* 라벨과 입력칸 그룹 */
+.signup-container label + input,
+.signup-container label + .gender-options,
+.signup-container label + input[type="file"] {
+    margin-bottom: 20px;
+}
+
+/* 입력칸 */
+.signup-container input[type="text"],
+.signup-container input[type="email"],
+.signup-container input[type="date"],
+.signup-container input[type="password"],
+.signup-container input[type="file"] {
+	width: 100%;
+	padding: 14px 16px;
+	margin-bottom: 24px;
+	border: none;
+	border-radius: 8px;
+	background-color: #f6f2fa;
+	box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+	font-size: 16px;
+	transition: all 0.3s ease-in-out;
+	box-sizing: border-box;
+}
+
+.signup-container input[type="text"]:focus,
+.signup-container input[type="email"]:focus,
+.signup-container input[type="date"]:focus,
+.signup-container input[type="password"]:focus {
+	outline: none;
+	border: 2px solid #c2a8f9;
+	box-shadow: 0 0 6px #d6bfff80;
+	background-color: #fdfbff;
+}
+
+/* 성별 라디오 버튼 컨테이너 */
+.gender-options {
+    display: flex;
+    justify-content: center; /* 가운데 정렬 */
+    gap: 30px;               /* 버튼 간 간격 일정하게 */
+    margin-top: 5px;
+    margin-bottom: 20px;     /* 아래 여백 추가 */
+}
+
+.gender-options label {
+    font-weight: normal;
+    color: #555;
+    font-size: 14px;
+}
+
+/* 파일 업로드 input */
+.signup-container input[type="file"] {
+    padding: 10px;
+    background: transparent;
+}
+
+/* 제출 버튼 */
+.signup-container button[type="submit"] {
+	width: 100%;
+	    padding: 14px;
+	    background: linear-gradient(135deg, #b993d6, #8ca6db);
+	    border: none;
+	    color: white;
+	    font-size: 16px;
+	    border-radius: 10px;
+	    cursor: pointer;
+	    transition: background 0.3s ease;
+	    margin-top: 12px;
+}
+
+.signup-container button[type="submit"]:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+.file-upload {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.file-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: linear-gradient(to right, #b993d6, #8ca6db);
+    color: #fff !important;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: all 0.3s;
+}
+
+.file-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+#file-name {
+    font-size: 12px;
+    color: #555;
+}
+
+.file-title {
+    text-align: left;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #333;
+    font-size: 14px;
+}

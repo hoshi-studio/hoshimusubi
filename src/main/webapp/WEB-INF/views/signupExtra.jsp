@@ -9,24 +9,22 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>会員登録</title>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/signupExtra.css">
+    <title>追加情報入力</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/signupExtra.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/modal.css">
+		
 </head>
 <body>
     <div class="signup-container">
-        <h2>会員登録</h2>
+        <h2>追加情報入力</h2>
 
-        <form id="signupForm" action="/register" method="post" enctype="multipart/form-data">
+        <form id="signupForm" action="${pageContext.request.contextPath}/dosignupExtra" method="post" enctype="multipart/form-data">
             <label for="email">メールアドレス</label>
-            <input type="text" id="email" name="email" class="form-input">
-			
-			<label for="password">パスワード</label>
-			<input type="password" id="password" name="password" class="form-input">
+            <input type="email" id="email" name="email" value="${oauth2_email}"  readonly />
 
-            <label for="birthdate">生年月日</label>
-            <input type="text" id="birthdate" name="birthdate"/>
+            <label for="birthDate">生年月日</label>
+            <input type="text" id="birthDate" name="birthDate"/>
 
             <label for="nickname">ニックネーム</label>
             <input type="text" id="nickname" name="nickname"/>
