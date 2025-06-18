@@ -2,6 +2,7 @@ package com.hoshimusubi.suhwa.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,7 +75,7 @@ public class Main {
     }
 
     @GetMapping("/post_detail")
-    public String postDetail(@RequestParam("id") Long id, Model model) {
+    public String postDetail(@RequestParam("id") Long id,Model model) {
         UserVO loginUser = getLoginUser();
         Long userid = loginUser.getId();
         PostsDTO post = postsService.getPostById(id);
@@ -90,12 +91,13 @@ public class Main {
 
         boolean bookmarked = bmService.isPostBookmarkedByUser(id, loginUser.getId());
         post.setBookmarkedByCurrentUser(bookmarked);
-
-        List<CommentsDTO> comments = commentsService.getCommentById(id);
+        
         int commentCount = commentsService.getcommentCount(id);
         post.setCommentCount(commentCount);
-
-        model.addAttribute("comments", comments);
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");
+        String formattedCreatedAt = post.getCreated_at().format(formatter);
+        model.addAttribute("formattedCreatedAt", formattedCreatedAt);
         model.addAttribute("post", post);
         return "post_detail_suhwa";
     }
@@ -140,28 +142,31 @@ public class Main {
         comment.setUserId(loginUser.getId());
         commentsService.saveComment(comment);
 
-        int commentCount = commentsService.getcommentCount(comment.getPostId());
-
-     // 댓글 HTML 생성
-        StringBuilder sb = new StringBuilder();
-        sb.append("<div class='comment' id='comment-").append(comment.getId()).append("'>");
-        sb.append("<div class='comment-header'><strong>").append(comment.getNickname()).append("</strong></div>");
-        sb.append("<div class='comment-content'>").append(comment.getContent()).append("</div>");
-
-        // 로그인 유저와 작성자가 같으면 수정/삭제 버튼 추가
-        if (loginUser.getId().equals(comment.getUserId())) {
-            sb.append("<div class='comment-actions'>")
-              .append("<a href='javascript:void(0);' class='edit-btn' data-id='").append(comment.getId()).append("'>수정</a> ")
-              .append("<a href='javascript:void(0);' class='delete-btn' data-id='").append(comment.getId()).append("'>삭제</a>")
-              .append("</div>");
-        }
-
-        sb.append("</div>");
-
         Map<String, Object> result = new HashMap<>();
-        result.put("commentHtml", sb.toString());
-        result.put("commentCount", commentCount);
+        result.put("success", true);
         return result;
+    }
+    
+    @GetMapping("/comments")
+    public String getPagedComments(@RequestParam("postId") Long postId,
+                                   @RequestParam(defaultValue = "1") int page,
+                                   Model model,
+                                   HttpSession session) {
+
+    	UserVO loginUser = getLoginUser();
+    	
+        int pageSize = 5; // 한 페이지당 댓글 수
+        int totalCount = commentsService.getcommentCount(postId);
+        int totalPages = (int) Math.ceil((double) totalCount / pageSize);
+
+        List<CommentsDTO> pagedComments = commentsService.getCommentsPaged(postId, page, pageSize);
+
+        model.addAttribute("comments", pagedComments);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("loginUserId", loginUser.getId());
+
+        return "fragments/comments_fragment"; // /WEB-INF/views/fragments/comments_fragment.jsp
     }
 
     @GetMapping("/post_modify")
@@ -180,12 +185,6 @@ public class Main {
                              @RequestParam("imageFile") MultipartFile imageFile,
                              @RequestParam(value = "removeImage", required = false) String removeImage,
                              HttpServletRequest request) {
-
-        UserVO loginUser = getLoginUser();
-        if (loginUser == null || !loginUser.getId().equals(post.getUser_Id())) {
-            return "redirect:/";
-        }
-
         String uploadDir = request.getServletContext().getRealPath("/resources/upload/");
         File uploadFolder = new File(uploadDir);
         if (!uploadFolder.exists()) uploadFolder.mkdirs();
@@ -287,21 +286,20 @@ public class Main {
     
     @GetMapping("/messageWrite")
     public String messageWrite(@RequestParam("userId") Long userId, Model model) {
-        model.addAttribute("receiver", userId);
-        System.out.println(userId);
+    	UsersDTO receiver = msgService.getUserById(userId);  // ← userId로 사용자 조회
+        model.addAttribute("receiver", receiver);
         return "message_write_suhwa";
     }
     
 
     @PostMapping("/sendMessage")
-    @ResponseBody
     public String sendMessage(@ModelAttribute MessageDTO msg) {
         UserVO loginUser = getLoginUser();
         msg.setSenderId(loginUser.getId());
         msgService.sendMessage(msg);
 
         
-        return "redirect:/mypage?id=" + msg.getId();
+        return "redirect:/mypage?userId=" + msg.getReceiverId();
     }
 }
 

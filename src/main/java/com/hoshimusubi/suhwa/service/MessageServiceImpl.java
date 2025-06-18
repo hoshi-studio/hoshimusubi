@@ -16,6 +16,11 @@ public class MessageServiceImpl implements MessageService{
     private MessageMapper MessageMapper;
 	
 	@Override
+    public UsersDTO getUserById(Long userId) {
+        return MessageMapper.findUserById(userId);
+    }
+	
+	@Override
     public void sendMessage(MessageDTO message) {
 		MessageMapper.insertMessage(message);
     }

@@ -10,7 +10,7 @@
         <div class="post-edit-wrapper">
             <h1 class="page-title">게시글 수정</h1>
 
-            <form action="${pageContext.request.contextPath}/update" method="post" enctype="multipart/form-data">
+            <form action="${pageContext.request.contextPath}/post_update" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="${post.id}" />
                 <input type="hidden" name="userId" value="${post.user_Id}" />
 
