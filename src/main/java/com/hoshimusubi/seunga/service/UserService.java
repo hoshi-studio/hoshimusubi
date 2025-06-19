@@ -52,5 +52,9 @@ public class UserService {
         if ((month == 11 && day >= 23) || (month == 12 && day <= 24)) return 11; // 사수자리
         return 12; // 염소자리
     }
+    
+	public boolean isNicknameExists(String nickname) {
+		return userMapper.countByNickname(nickname) > 0;
+	}
 
 }

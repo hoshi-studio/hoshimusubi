@@ -29,7 +29,8 @@
 		
 		
 	<div class="login-container">
-	<form action="/dologin" method="post">
+	<form id="loginForm" action="/dologin" method="post">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	        
 	        <input type="text" id="id" name="username" placeholder = "ID insert plz...." />
 	        
@@ -58,15 +59,30 @@
 		    <button onclick="closeModal()">OK</button>
 		  </div>
 		</div>
-
+		
+		<div id="erroridModal" class="modal" style="display: none;">
+				  <div class="modal-content">
+				    <p>IDを入力してください。</p>
+				    <button onclick="closeModal()">OK</button>
+				  </div>
+				</div>
+				
+				<div id="errorpwModal" class="modal" style="display: none;">
+								  <div class="modal-content">
+								    <p>パスワードを入力してください。</p>
+								    <button onclick="closeModal()">OK</button>
+								  </div>
+								</div>
+				
 		<div id="errorModal" class="modal" style="display: none;">
 		  <div class="modal-content">
 		    <p>ログインに失敗しました。</p>
 		    <button onclick="closeModal()">OK</button>
 		  </div>
 		</div>
-	
-<script src="${pageContext.request.contextPath}/resources/js/modal.js"></script>	
+
+<script src="${pageContext.request.contextPath}/resources/js/modal.js"></script>
+
 </body>
 
 <%@ include file="footer.jsp" %>

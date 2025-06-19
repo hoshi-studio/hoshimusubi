@@ -9,6 +9,8 @@ import com.hoshimusubi.seunga.service.UserService;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,6 +23,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -59,14 +62,15 @@ public class LoginController {
 	            @RequestParam("nickname") String nickname,
 	            @RequestParam("gender") String gender,
 	            @RequestParam("profileImage") MultipartFile profileImage,
-	            Authentication authentication
+	            Authentication authentication,
+	            RedirectAttributes redirectAttributes
 	    ) throws IOException { 
 	    	
 	    	CustomOAuth2User user = (CustomOAuth2User) authentication.getPrincipal();
 	        String userId = user.getEmail();
 	        
 	    	String password = "gmail";
-
+	  
 	        int zodiacId = userService.calculateZodiacId(birthDate);
 
 	        String profilePic = null;
@@ -94,6 +98,15 @@ public class LoginController {
 	        userService.insertUser(newUser);
 	    	
 	        return "redirect:/";
+	    }
+	    
+	    @GetMapping(value = "/checkNickname" , produces = "application/json")
+	    @ResponseBody
+	    public Map<String, Boolean> checkNickname(@RequestParam String nickname) {
+	        boolean exists = userService.isNicknameExists(nickname);
+	        Map<String, Boolean> result = new HashMap<>();
+	        result.put("exists", exists);
+	        return result;
 	    }
 	    
 	    
