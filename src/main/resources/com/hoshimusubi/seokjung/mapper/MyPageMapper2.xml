@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hoshimusubi.seokjung.mapper.MyPageMapper2">
+
+	<select id="getUserProfile" parameterType="int" resultType="com.hoshimusubi.seokjung.dto.MyPageDTO2">
+        SELECT
+            u.profile_pic AS profilePic,
+            u.nickname,
+            u.gender,
+            u.user_id AS email,
+            z.koname_ja AS zodiacName
+        FROM Users u
+        JOIN Zodiac z ON u.zodiac_id = z.id
+        WHERE u.id = #{userId}
+    </select>
+
+    <select id="countUserPosts" parameterType="int" resultType="int">
+        SELECT COUNT(*) FROM Posts WHERE user_id = #{userId}
+    </select>
+
+    <select id="countUserComments" parameterType="int" resultType="int">
+        SELECT COUNT(*) FROM Comments WHERE user_id = #{userId}
+    </select>
+
+    <select id="countUserLikes" parameterType="int" resultType="int">
+        SELECT COUNT(*) FROM Likes WHERE user_id = #{userId}
+    </select>
+
+    <select id="countUserBookmarks" parameterType="int" resultType="int">
+        SELECT COUNT(*) FROM BookMark WHERE user_id = #{userId}
+    </select>
+
+    <select id="countUserMessages" parameterType="int" resultType="int">
+        SELECT COUNT(*) FROM Message WHERE receiver_id = #{userId}
+    </select>
+    
+     <select id="getMyPosts" resultType="com.hoshimusubi.seokjung.dto.MyPageContentDTO">
+	      SELECT
+	        p.id AS postId,
+	        p.title AS postTitle,
+	        p.content,
+	        p.created_at AS createdAt,
+	        p.views,
+	        p.status,
+	        (SELECT COUNT(*) FROM Likes l WHERE l.post_id = p.id) AS likeCount,
+	        (SELECT COUNT(*) FROM Comments c WHERE c.post_id = p.id) AS commentCount,
+	        (SELECT COUNT(*) FROM BookMark b WHERE b.post_id = p.id) AS bookmarkCount,
+	        u.id AS userId,
+	        u.nickname,
+	        u.profile_pic AS profilePic,
+	        p.zodiac_id AS zodiacId
+	    FROM Posts p
+	    JOIN Users u ON p.user_id = u.id
+	    WHERE p.user_id = #{userId}
+	    <choose>
+	        <when test="sort == 'view'">
+	            ORDER BY p.views DESC
+	        </when>
+	        <when test="sort == 'like'">
+	            ORDER BY (SELECT COUNT(*) FROM Likes l WHERE l.post_id = p.id) DESC
+	        </when>
+	        <otherwise>
+	            ORDER BY p.created_at DESC
+	        </otherwise>
+	    </choose>
+	    OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY
+    </select>
+
+	<select id="countMyPosts" parameterType="int" resultType="int">
+	SELECT COUNT(*) FROM Posts WHERE user_id = #{userId}
+	</select>
+
+    <select id="getMyComments" resultType="com.hoshimusubi.seokjung.dto.MyPageContentDTO">
+        SELECT c.id AS commentId, c.content AS commentContent,
+               p.title AS postTitleForComment, c.created_at
+        FROM Comments c
+        JOIN Posts p ON c.post_id = p.id
+        WHERE c.user_id = #{userId}
+        ORDER BY c.created_at DESC
+    </select>
+
+    <select id="getMyLikes" resultType="com.hoshimusubi.seokjung.dto.MyPageContentDTO">
+        SELECT l.post_id AS postId, p.title AS postTitle, p.views, l.created_at
+        FROM Likes l
+        JOIN Posts p ON l.post_id = p.id
+        WHERE l.user_id = #{userId}
+        ORDER BY l.created_at DESC
+    </select>
+
+    <select id="getMyBookmarks" resultType="com.hoshimusubi.seokjung.dto.MyPageContentDTO">
+        SELECT b.post_id AS postId, p.title AS postTitle, p.views, b.created_at
+        FROM BookMark b
+        JOIN Posts p ON b.post_id = p.id
+        WHERE b.user_id = #{userId}
+        ORDER BY b.created_at DESC
+    </select>
+    
+    <select id="getPostsCommentedByUser" resultType="com.hoshimusubi.seokjung.dto.MyPageContentDTO">
+   	      SELECT
+	        p.id AS postId,
+	        p.title AS postTitle,
+	        p.content,
+	        p.created_at AS createdAt,
+	        p.views,
+	        p.status,
+	        (SELECT COUNT(*) FROM Likes l WHERE l.post_id = p.id) AS likeCount,
+	        (SELECT COUNT(*) FROM Comments c WHERE c.post_id = p.id) AS commentCount,
+	        (SELECT COUNT(*) FROM BookMark b WHERE b.post_id = p.id) AS bookmarkCount,
+	        u.id AS userId,
+	        u.nickname,
+	        u.profile_pic AS profilePic,
+	        p.zodiac_id AS zodiacId
+	    FROM Posts p
+	    JOIN Comments c ON p.id = c.post_id
+	    JOIN Users u ON p.user_id = u.id
+	    WHERE c.user_id = #{userId}
+	    <choose>
+	        <when test="sort == 'view'">
+	            ORDER BY p.views DESC
+	        </when>
+	        <when test="sort == 'like'">
+	            ORDER BY (SELECT COUNT(*) FROM Likes l WHERE l.post_id = p.id) DESC
+	        </when>
+	        <otherwise>
+	            ORDER BY p.created_at DESC
+	        </otherwise>
+	    </choose>
+	    OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY
+</select>
+ 
+<select id="getPostsLikedByUser" resultType="com.hoshimusubi.seokjung.dto.MyPageContentDTO">
+      SELECT
+	        p.id AS postId,
+	        p.title AS postTitle,
+	        p.content,
+	        p.created_at AS createdAt,
+	        p.views,
+	        p.status,
+	        (SELECT COUNT(*) FROM Likes l WHERE l.post_id = p.id) AS likeCount,
+	        (SELECT COUNT(*) FROM Comments c WHERE c.post_id = p.id) AS commentCount,
+	        (SELECT COUNT(*) FROM BookMark b WHERE b.post_id = p.id) AS bookmarkCount,
+	        u.id AS userId,
+	        u.nickname,
+	        u.profile_pic AS profilePic,
+	        p.zodiac_id AS zodiacId
+	    FROM Posts p
+	    JOIN Likes l ON p.id = l.post_id
+	    JOIN Users u ON p.user_id = u.id
+	    WHERE l.user_id = #{userId}
+	    <choose>
+	        <when test="sort == 'view'">
+	            ORDER BY p.views DESC
+	        </when>
+	        <when test="sort == 'like'">
+	            ORDER BY (SELECT COUNT(*) FROM Likes l WHERE l.post_id = p.id) DESC
+	        </when>
+	        <otherwise>
+	            ORDER BY p.created_at DESC
+	        </otherwise>
+	    </choose>
+	    OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY
+</select>
+
+<select id="getPostsBookMarkedByUser" resultType="com.hoshimusubi.seokjung.dto.MyPageContentDTO">
+      SELECT
+	        p.id AS postId,
+	        p.title AS postTitle,
+	        p.content,
+	        p.created_at AS createdAt,
+	        p.views,
+	        p.status,
+	        (SELECT COUNT(*) FROM Likes l WHERE l.post_id = p.id) AS likeCount,
+	        (SELECT COUNT(*) FROM Comments c WHERE c.post_id = p.id) AS commentCount,
+	        (SELECT COUNT(*) FROM BookMark b WHERE b.post_id = p.id) AS bookmarkCount,
+	        u.id AS userId,
+	        u.nickname,
+	        u.profile_pic AS profilePic,
+	        p.zodiac_id AS zodiacId
+	    FROM Posts p
+	    JOIN BookMark b ON p.id = b.post_id
+	    JOIN Users u ON p.user_id = u.id
+	    WHERE b.user_id = #{userId}
+	    <choose>
+	        <when test="sort == 'view'">
+	            ORDER BY p.views DESC
+	        </when>
+	        <when test="sort == 'like'">
+	            ORDER BY (SELECT COUNT(*) FROM Likes l WHERE l.post_id = p.id) DESC
+	        </when>
+	        <otherwise>
+	            ORDER BY p.created_at DESC
+	        </otherwise>
+	    </choose>
+	    OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY
+</select>
+
+<select id="countCommentsByUser" parameterType="int" resultType="int">
+  SELECT COUNT(*) FROM Comments WHERE user_id = #{userId}
+</select>
+
+<select id="countLikesByUser" parameterType="int" resultType="int">
+  SELECT COUNT(*) FROM Likes WHERE user_id = #{userId}
+</select>
+
+<select id="countBookMarksByUser" parameterType="int" resultType="int">
+  SELECT COUNT(*) FROM Likes WHERE user_id = #{userId}
+</select>
+
+<select id="getReceivedMessagesByUserId" parameterType="int" resultType="com.hoshimusubi.seokjung.dto.ReceiveMessageDTO">
+    SELECT m.id AS messageId , m.sender_id AS senderId, u.nickname AS senderNickname, m.content, m.sent_at, m.is_read As isRead
+    FROM Message m
+    JOIN Users u ON m.sender_id = u.id
+    WHERE m.receiver_id = #{userId}
+    ORDER BY m.sent_at DESC
+</select>
+
+<insert id="insertMessage" parameterType="com.hoshimusubi.seokjung.dto.ReceiveMessageDTO">
+    INSERT INTO Message (sender_id, receiver_id, content, is_read)
+    VALUES (#{senderId}, #{receiverId}, #{content}, 0)
+</insert>
+
+<update id="markAsRead">
+    UPDATE Message
+    SET is_read = 1
+    WHERE id = #{messageId}
+</update>
+
+</mapper>
