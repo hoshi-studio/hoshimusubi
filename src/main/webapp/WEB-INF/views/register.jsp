@@ -62,7 +62,11 @@
         }
     </style>
 </head>
+
+<!-- 회원가입을 진행했는데 이메일 중복되면 alert(중복되었습니다.) 띄워져야하고-->
+<!-- 비밀번호 8글자이상 특수문자들어가게만 --> 
 <body>
+	
     <div class="form-container">
         <form action="/register" method="post" enctype="multipart/form-data">
             <div class="form-group">
@@ -70,7 +74,7 @@
                 <input type="text" name="email" class="form-input" required>
             </div>
 
-            <div class="form-group">
+            <div class="form-group"> 
                 <div class="form-label">PWD</div>
                 <input type="password" name="password" class="form-input" required>
             </div>
