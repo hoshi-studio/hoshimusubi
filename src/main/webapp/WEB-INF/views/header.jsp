@@ -28,7 +28,7 @@
     <!-- 오른쪽: 로그인 or 로그아웃 -->
     <div class="header-right">
         <!-- 비로그인 시 로그인 버튼 -->
-        <sec:authorize access="isAnonymous()">
+        <sec:authorize access="isAnonymous() or hasRole('ROLE_GUEST')">
 			<a href="${pageContext.request.contextPath}/login" class="header-login-horizontal">
 			    <img src="${pageContext.request.contextPath}/resources/img/logout.png" alt="ログイン" class="header-login" />
 			    <span class="header-login-label">ログイン</span>
@@ -36,7 +36,7 @@
 			
         </sec:authorize>
 		<!-- 로그인 시 마이페이지 버튼 -->
-		    <sec:authorize access="isAuthenticated()">
+		    <sec:authorize access="hasRole('ROLE_USER')">
 		   <a href="${pageContext.request.contextPath}/mypage2" class="header-login-horizontal">
 			    <img src="${pageContext.request.contextPath}/resources/img/login.png" alt="マイページ" class="header-login" />
 			</a>

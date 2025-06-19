@@ -12,13 +12,13 @@
 
 <div class="mypage-container">
 	<form id="deleteForm" action="${pageContext.request.contextPath}/deleteMem" method="post" style="display:none;"></form>
-		<a href="#" onclick="document.getElementById('deleteForm').submit(); return false;">회원탈퇴</a>
+		<a href="#" class="delete-user-link" onclick="document.getElementById('deleteForm').submit(); return false;">회원탈퇴</a>
     <div class="profile-box">
         <div class="profile-left">
             <img src="${myInfo.profilePic}" class="profile-pic" />
             <div class="nickname">
 			  <span id="nickname-display">${myInfo.nickname}</span>
-			  <button onclick="openEditModal()">수정</button>
+			  <button class="edit-nickname-btn" onclick="openEditModal()">수정</button>
 			</div>
         </div>
 
