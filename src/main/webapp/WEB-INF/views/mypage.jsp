@@ -263,6 +263,7 @@ body{
 
     <!-- 메시지 버튼 -->
 	<form action="${pageContext.request.contextPath}/messageWrite" method="get" style="display: inline;">
+	    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	    <input type="hidden" name="userId" value="${user.user_Id}" />
 	    <button type="submit" class="message-btn">メッセージ</button>
 	</form>
