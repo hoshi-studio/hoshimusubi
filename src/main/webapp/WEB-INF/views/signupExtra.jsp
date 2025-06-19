@@ -60,7 +60,6 @@
 	<script src="${pageContext.request.contextPath}/resources/js/flatpicker.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/fileupload.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/submitcheck.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/modal.js"></script>	
 
 </body>
 
