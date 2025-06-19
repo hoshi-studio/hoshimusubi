@@ -2,6 +2,9 @@ document.addEventListener("DOMContentLoaded", function() {
   const form = document.getElementById("signupForm");
 
   const email = document.getElementById("email");
+  
+  const password = document.getElementById("password");
+  
   const birthDate = document.getElementById("birthDate");
   const birthdate = document.getElementById("birthdate");
   const nickname = document.getElementById("nickname");
@@ -10,7 +13,31 @@ document.addEventListener("DOMContentLoaded", function() {
   const modal = document.querySelector(".modal");
   const modalMessage = document.getElementById("modal-message");
   const modalCloseBtn = document.getElementById("modal-close-btn");
+  
+  
+  if (password) {
+  password.addEventListener("keydown", function(e) {
+          if (e.key === " ") {
+            e.preventDefault();
+          }
+        });
 
+      password.addEventListener("input", function() {
+          this.value = this.value.replace(/\s/g, "");
+        });
+		
+		}
+		
+		nickname.addEventListener("keydown", function(e) {
+		          if (e.key === " ") {
+		            e.preventDefault();
+		          }
+		        });
+
+		      nickname.addEventListener("input", function() {
+		          this.value = this.value.replace(/\s/g, "");
+		        });
+  
   function showModal(message) {
     modalMessage.textContent = message;
     modalOverlay.style.display = "block";
@@ -28,6 +55,8 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   form.addEventListener("submit", function(e) {
+	e.preventDefault();
+	
     const emailValue = email ? email.value : "";
     const birthDateValue = birthDate ? birthDate.value : "";
     const birthdateValue = birthdate ? birthdate.value : "";
@@ -41,16 +70,24 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 	
 	if (!isValidEmail(emailValue)) {
-	  showModal("有効なメールアドレスを入力してください。");
-	  email.focus();
-	  e.preventDefault();
-	  return;
+		  showModal("有効なメールアドレスを入力してください。");
+		  email.focus();
+		  e.preventDefault();
+		  return;
+		}
+	
+	if (password){
+	if (!password.value) {
+	      showModal("パスワードを入力してください。");
+	      email.focus();
+	      e.preventDefault();
+	      return;
+	    }
 	}
+	
 
     if (!birthDateValue && !birthdateValue) {
       showModal("生年月日を入力してください。");
-      if (birthDate && !birthDate.value) birthDate.focus();
-      else if (birthdate && !birthdate.value) birthdate.focus();
       e.preventDefault();
       return;
     }
@@ -66,6 +103,25 @@ document.addEventListener("DOMContentLoaded", function() {
       showModal("性別を選択してください。");
       e.preventDefault();
       return;
-    }
+	  }
+	  
+	  fetch(`/checkNickname?nickname=${encodeURIComponent(nickname.value)}`)
+	    .then(response => response.json())
+	    .then(data => {
+			console.log(data);
+	      if (data.exists) {
+	        showModal("既に使用されているニックネームです。");
+	        nickname.focus();
+	        return;
+	      }
+
+	      // ✅ 중복 아니면 제출!
+	      form.submit();
+	    })
+	    .catch(err => {
+	      console.error(err);
+	      showModal("에러 발생");
+	    });
+    
   });
 });

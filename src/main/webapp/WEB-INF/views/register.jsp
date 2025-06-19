@@ -1,107 +1,73 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ include file="header.jsp" %>
+<%@ page language="java" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html>
+	
+<%@ include file="header.jsp" %>
+
 <head>
     <meta charset="UTF-8">
     <title>会員登録</title>
-    <style>
-        body {
-            background: #f3e4fc;
-            font-family: 'Arial', sans-serif;
-        }
-
-        .form-container {
-            width: 400px;
-            margin: 50px auto;
-            padding: 20px;
-        }
-
-        .form-group {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .form-label {
-            width: 120px;
-            padding: 10px;
-            background-color: #fff;
-            border-radius: 10px;
-            margin-right: 10px;
-            font-weight: bold;
-            text-align: center;
-            letter-spacing: 1px;
-        }
-
-        .form-input {
-            flex: 1;
-            padding: 10px;
-            border-radius: 10px;
-            border: none;
-            outline: none;
-        }
-
-        .submit-button {
-            width: 120px;
-            padding: 10px;
-            border: none;
-            border-radius: 12px;
-            background-color: #d5c6f5;
-            font-weight: bold;
-            font-size: 16px;
-            letter-spacing: 3px;
-            cursor: pointer;
-            margin: 0 auto;
-            display: block;
-        }
-
-        .submit-button:hover {
-            background-color: #bda9f2;
-        }
-    </style>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/signupExtra.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/modal.css">
 </head>
+
+<!-- 회원가입을 진행했는데 이메일 중복되면 alert(중복되었습니다.) 띄워져야하고-->
+<!-- 비밀번호 8글자이상 특수문자들어가게만 --> 
 <body>
-	
-    <div class="form-container">
-        <form action="/register" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <div class="form-label">ID</div>
-                <input type="text" name="email" class="form-input" required>
-            </div>
 
-            <div class="form-group"> 
-                <div class="form-label">PWD</div>
-                <input type="password" name="password" class="form-input" required>
-            </div>
+    <div class="signup-container">
+        <h2>会員登録</h2>
 
-            <div class="form-group">
-                <div class="form-label">生年月日</div>
-                <input type="date" name="birthdate" required />
-            </div>
-
-            <div class="form-group">
-                <div class="form-label">ニックネーム</div>
-                <input type="text" name="nickname" class="form-input" required>
-            </div>
-
-			<div class="form-group">
-			    <div class="form-label">性別</div>
-			    <select name="gender" class="form-input" required>
-			        <option value="">選択してください</option>
-			        <option value="male">男性</option>
-			        <option value="female">女性</option>
-			    </select>
-			</div>
+        <form id="signupForm" action="/register" method="post" enctype="multipart/form-data">
+            <label for="email">メールアドレス</label>
+            <input type="text" id="email" name="email" class="form-input">
 			
-            <div class="form-group">
-                <div class="form-label">image</div>
-                <input type="file" name="profileImage" class="form-input">
+			<label for="password">パスワード</label>
+			<input type="password" id="password" name="password" class="form-input">
+
+            <label for="birthdate">生年月日</label>
+            <input type="text" id="birthdate" name="birthdate"/>
+
+            <label for="nickname">ニックネーム</label>
+            <input type="text" id="nickname" name="nickname"/>
+
+            <label>性別</label>
+            <div class="gender-options">
+                <label><input type="radio" name="gender" value="male"/> 男性</label>
+                <label><input type="radio" name="gender" value="female" /> 女性</label>
             </div>
 
-            <button type="submit" class="submit-button">登 録</button>
+			<p class="file-title">プロフィール画像</p>
+			<div class="file-upload">
+			  <label for="profileImage" class="file-btn">ファイルを選択</label>
+			  <span id="file-name">選択されたファイルはありません</span>
+			  <input type="file" id="profileImage" name="profileImage" accept="image/*" style="display:none;">
+			</div>
+
+            <button type="submit">登録</button>
         </form>
     </div>
+	
+	<div class="modal-overlay" style="display: none;"></div>
+
+	<div class="modal" style="display: none;">
+	  <div class="modal-content">
+	    <p id="modal-message">ここにメッセージ</p>
+	    <button id="modal-close-btn">OK</button>
+	  </div>
+	</div>
+	
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/flatpicker.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/fileupload.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/submitcheck.js"></script>	
+
 </body>
+<%@ include file="footer.jsp" %>
+
 </html>
