@@ -48,7 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 		http
             .authorizeRequests()
-            	.antMatchers("/.well-known/**", "/", "/login", "/register", "/signupExtra","/dosignupExtra", "/oauth2Redirect","/checkNickname", "/resources/**", "/css/**", "/js/**").permitAll()
+            .antMatchers("/signupExtra", "/dosignupExtra").hasAuthority("ROLE_GUEST")
+            	.antMatchers("/.well-known/**", "/", "/login", "/register", "/oauth2Redirect","/checkNickname", "/resources/**", "/css/**", "/js/**").permitAll()
             	.anyRequest().hasRole("USER")
             .and()
             .oauth2Login()
