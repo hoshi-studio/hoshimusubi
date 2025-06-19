@@ -72,17 +72,18 @@ public class Register {
 
             // 닉네임으로 파일명 설정 (특수문자 제거 등 안전하게 처리 가능)
             String nickname = dto.getNickname(); // 닉네임 가져오기
-            fileName = nickname + extension;
-
+            fileName =nickname + extension;
+            
             String profilePicPath = uploadDir + File.separator + fileName;
-
+            System.out.println(profilePicPath);
             try {
                 file.transferTo(new File(profilePicPath));
             } catch (IOException e) {
                 return "registerFailpic";
             }
+            fileName="/resources/profile/"+fileName;
         } else {
-            fileName = "default.png";
+            fileName = "/resources/img/default.jpg";
         }
 
      // 3. 별자리 계산
@@ -96,7 +97,7 @@ public class Register {
             dto.getNickname(),
             dto.getGender(),
             dto.getBirthdate(),
-            "/resources/profile/" + fileName               // Web 경로
+            fileName               // Web 경로
         );
 
         // 5. 회원 저장

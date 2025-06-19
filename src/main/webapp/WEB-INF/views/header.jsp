@@ -39,8 +39,11 @@
 		    <sec:authorize access="isAuthenticated()">
 		   <a href="${pageContext.request.contextPath}/mypage2" class="header-login-horizontal">
 			    <img src="${pageContext.request.contextPath}/resources/img/login.png" alt="マイページ" class="header-login" />
-			    <span class="header-login-label">マイページ</span>
 			</a>
+			<div class="mem-actions">
+				        <a href="${pageContext.request.contextPath}/logout" >ログアウト</a>
+				        <a href="${pageContext.request.contextPath}/mypage2" >マイページ</a>
+			</div>
 
 		    </sec:authorize>
 	    </div>

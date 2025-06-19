@@ -139,6 +139,8 @@ body {
 .header-login-horizontal img {
     width: 30px;  /* 너가 쓰는 아이콘 크기에 맞게 */
     height: auto;
+    display: block;
+    margin: 0 auto;
 }
 
 .header-login-horizontal .header-login-label {
@@ -146,4 +148,17 @@ body {
     color: #4a427f;
     font-weight: 500;
     text-decoration: none !important;
+}
+.mem-actions {
+    margin-top: 10px;
+}
+.mem-actions a {
+    margin-right: 10px;
+    font-size: 0.95em;
+    color: #444;
+    text-decoration: none;
+}
+.memt-actions a:hover {
+    color: #000;
+    text-decoration: underline;
 }

@@ -3,21 +3,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mypage2.css" />
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+<!-- flatpickr JS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<!-- 일본어 지원 -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
 <h2 class="mypage-title">マイページ</h2>  <!-- ❗ container 바깥에 위치 -->
 
 <div class="mypage-container">
-	
-   <div class="logout-btn-container mypage-logout">
-        <form action="${pageContext.request.contextPath}/logout" method="post">
-            <button type="submit" class="logout-btn">ログアウト</button>
-        </form>
-    </div>
-	
+	<form id="deleteForm" action="${pageContext.request.contextPath}/deleteMem" method="post" style="display:none;"></form>
+		<a href="#" onclick="document.getElementById('deleteForm').submit(); return false;">회원탈퇴</a>
     <div class="profile-box">
         <div class="profile-left">
             <img src="${myInfo.profilePic}" class="profile-pic" />
-            <div class="nickname">${myInfo.nickname}</div>
+            <div class="nickname">
+			  <span id="nickname-display">${myInfo.nickname}</span>
+			  <button onclick="openEditModal()">수정</button>
+			</div>
         </div>
 
         <div class="profile-right">
@@ -370,8 +372,44 @@
     </div>
   </div>
 </div>    
-        
+<!-- 회원정보 수정 모달 -->
 
+<div id="editInfoModal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <span class="close" onclick="closeEditModal()">&times;</span>
+    <h3>会員情報修正</h3>
+
+    <form id="editForm" enctype="multipart/form-data">
+
+      <label>生年月日</label>
+      <input type="text" name="birthDate" id="editBirthDate" value="" /><br>
+
+      <label>ニックネーム</label>
+      <input type="text" name="nickname" value="${myInfo.nickname}" /><br>
+
+      <label>性別</label><br>
+      <label><input type="radio" name="gender" value="male" ${myInfo.gender eq 'male' ? 'checked' : ''}/> 男性</label>
+      <label><input type="radio" name="gender" value="female" ${myInfo.gender eq 'female' ? 'checked' : ''}/> 女性</label><br>
+
+      <label>プロフィール画像</label><br>
+      <img src="${myInfo.profilePic}" width="100" /><br>
+      <input type="file" name="profileImage" accept="image/*" /><br><br>
+
+      <button type="button" onclick="submitEditForm()">保存</button>
+    </form>
+  </div>
+</div>
+
+<!-- ✅ 모달창 오버레이 및 본체 -->
+<div class="edit-modal-overlay" style="display: none;"></div>
+
+<div class="edit-modal" style="display: none;">
+  <div class="edit-modal-content">
+    <p id="edit-modal-message"></p>
+    <button id="edit-modal-close-btn">OK</button>
+  </div>
+</div>
+<!-- 절취선 -->
 
 <script>
 function showSection(sectionId) {
@@ -497,7 +535,58 @@ function toggleReplyForm() {
     replyForm.style.display = "none";
   }
 }
+
 </script>
 
+<!-- /*수화 회원 정보 수정*/ -->
+<script>
+const contextPath = "${pageContext.request.contextPath}";
+function openEditModal() {
+  document.getElementById("editInfoModal").style.display = "block";
+  document.getElementById("editBirthDate").value = "${myInfo.birthDate}";
+  flatpickr("#editBirthDate", { locale: "ja" });
+}
 
+function closeEditModal() {
+  document.getElementById("editInfoModal").style.display = "none";
+}
+
+function submitEditForm() {
+	const form = document.getElementById("editForm");
+	  const formData = new FormData(form);
+	  closeEditModal();
+	  fetch(contextPath + "/updateMem", {
+	    method: "POST",
+	    body: formData
+	  })
+	  .then(res => res.json())
+	  .then(data => {
+	    if (data.success) {
+	    	
+	      showModal("情報が更新されました。", () => location.reload());
+	    } else {
+	      showModal("更新失敗: " + data.message);
+	    }
+	  })
+	  .catch(err => {
+	    showModal("エラーが発生しました。");
+	    console.error(err);
+	  });
+	  
+	  function showModal(message, callback) {
+		  const overlay = document.querySelector(".edit-modal-overlay");
+		  const modal = document.querySelector(".edit-modal");
+		  document.getElementById("edit-modal-message").textContent = message;
+
+		  overlay.style.display = "block";
+		  modal.style.display = "block";
+
+		  document.getElementById("edit-modal-close-btn").onclick = function () {
+		    overlay.style.display = "none";
+		    modal.style.display = "none";
+		    if (callback) callback();
+		  };
+		}
+}
+</script>
 <%@ include file="footer.jsp" %>

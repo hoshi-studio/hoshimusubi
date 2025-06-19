@@ -10,7 +10,7 @@ public class MyPageDTO2 {
     private String gender;
     private String email;
     private String zodiacName;
-
+    private String birthDate;
     private int postCount;
     private int commentCount;
     private int likeCount;
