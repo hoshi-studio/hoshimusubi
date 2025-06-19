@@ -157,7 +157,7 @@ public class MyPageController2 {
 
 	        UserVO loginUser = getLoginUser();
 	        if (loginUser == null || receiverId <= 0 || content == null || content.trim().isEmpty()) {
-	            return "redirect:/mypage?error=invalidInput";
+	            return "redirect:/mypage2?error=invalidInput";
 	        }
 	        int senderId = loginUser.getId();
 
@@ -170,7 +170,7 @@ public class MyPageController2 {
 	        myPageService.sendMessage(message);
 
 	        // 마이페이지로 리다이렉트 (메시지 섹션 보여주기)
-	        return "redirect:/mypage?section=section-messages";
+	        return "redirect:/mypage2?section=section-messages";
 	    }
 	    
 	    @PostMapping("/markMessageAsRead")
