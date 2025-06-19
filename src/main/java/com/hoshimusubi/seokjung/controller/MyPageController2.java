@@ -12,7 +12,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,10 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hoshimusubi.seokjung.dto.MyPageContentDTO;
 import com.hoshimusubi.seokjung.dto.MyPageDTO2;
 import com.hoshimusubi.seokjung.dto.ReceiveMessageDTO;
-import com.hoshimusubi.seokjung.dto.UserDTO;
-import com.hoshimusubi.seokjung.service.MyPageService2;
+
 import com.hoshimusubi.seokjung.service.MyPageServiceImplYSJ;
-import com.hoshimusubi.seokjung.service.PostServiceImplYSJ;
+
 import com.hoshimusubi.seunga.model.UserVO;
 import com.hoshimusubi.seunga.security.CustomUserDetails;
 
@@ -57,7 +55,7 @@ public class MyPageController2 {
 	    	
 	    	if (loginUser == null) return "redirect:/login";
 	    	
-	    	int userId = loginUser.getId().intValue();
+	    	int userId = loginUser.getId();
 	    	
 	    	int pageSize = 6;
 	    	
@@ -161,7 +159,7 @@ public class MyPageController2 {
 	        if (loginUser == null || receiverId <= 0 || content == null || content.trim().isEmpty()) {
 	            return "redirect:/mypage?error=invalidInput";
 	        }
-	        int senderId = loginUser.getId().intValue();
+	        int senderId = loginUser.getId();
 
 	        // 메시지 객체 생성
 	        ReceiveMessageDTO message = new ReceiveMessageDTO();

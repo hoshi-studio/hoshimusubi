@@ -29,15 +29,19 @@
     <div class="header-right">
         <!-- 비로그인 시 로그인 버튼 -->
         <sec:authorize access="isAnonymous()">
-            <a href="${pageContext.request.contextPath}/login">
-                <img src="${pageContext.request.contextPath}/resources/img/logout.png" alt="로그인" class="header-login" />
-            </a>
+			<a href="${pageContext.request.contextPath}/login" class="header-login-horizontal">
+			    <img src="${pageContext.request.contextPath}/resources/img/logout.png" alt="ログイン" class="header-login" />
+			    <span class="header-login-label">ログイン</span>
+			</a>
+			
         </sec:authorize>
 		<!-- 로그인 시 마이페이지 버튼 -->
 		    <sec:authorize access="isAuthenticated()">
-		        <a href="${pageContext.request.contextPath}/mypage">
-		            <img src="${pageContext.request.contextPath}/resources/img/login.png" alt="마이페이지" class="header-login" />
-		        </a>
+		   <a href="${pageContext.request.contextPath}/mypage2" class="header-login-horizontal">
+			    <img src="${pageContext.request.contextPath}/resources/img/login.png" alt="マイページ" class="header-login" />
+			    <span class="header-login-label">マイページ</span>
+			</a>
+
 		    </sec:authorize>
 	    </div>
 </header>
