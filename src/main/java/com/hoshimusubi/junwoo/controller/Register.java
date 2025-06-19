@@ -55,7 +55,8 @@ public class Register {
         
 
      // 2. 프로필 사진 저장 경로 설정
-        String uploadDir = request.getServletContext().getRealPath("/uploads/");
+        //C드라이브 바로밑에 HoshimusuniPic폴더에 사진저장, 폴더없을시 폴더 자동생성후 저장
+        String uploadDir = "C:/HoshimusubiPic";
         File dir = new File(uploadDir);
         if (!dir.exists()) dir.mkdirs();
 
