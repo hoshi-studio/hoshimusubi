@@ -5,10 +5,10 @@ import java.time.LocalDateTime;
 import lombok.Data;
 
 @Data
-public class PostDTO {
+public class MyPageContentDTO {
 	//게시글
 	private Integer id;
-	private String title;
+	private String postTitle;
 	private String content;
 	private LocalDateTime createdAt;
 	private String formattedDate;
@@ -25,10 +25,15 @@ public class PostDTO {
 	private Integer userId;
 	private String nickname;
 	private String profilePic;
-	
 	//별자리
 	private Integer zodiacId;
 	private String symbol;
 	private String koname_ja;
 	
+	
+	private int commentId;
+	private String commentContent;
+	private String postTitleForComment;
+
+    
 }
