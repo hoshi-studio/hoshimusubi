@@ -8,4 +8,6 @@ public interface UserMapper {
     UserVO getUserById(String userId);
     
     void insertUser(UserVO user);
+
+	int countByNickname(String nickname);
 }
