@@ -55,7 +55,7 @@ public class Register {
         
 
      // 2. 프로필 사진 저장 경로 설정
-        String uploadDir = request.getServletContext().getRealPath("/uploads/");
+        String uploadDir = request.getServletContext().getRealPath("/resources/profile/");
         File dir = new File(uploadDir);
         if (!dir.exists()) dir.mkdirs();
 
@@ -96,7 +96,7 @@ public class Register {
             dto.getNickname(),
             dto.getGender(),
             dto.getBirthdate(),
-            "/uploads/" + fileName               // Web 경로
+            "/resources/profile/" + fileName               // Web 경로
         );
 
         // 5. 회원 저장

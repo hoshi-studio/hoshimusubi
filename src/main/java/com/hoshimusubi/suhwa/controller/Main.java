@@ -2,7 +2,9 @@ package com.hoshimusubi.suhwa.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -115,15 +117,23 @@ public class Main {
     public String createPost(@ModelAttribute PostsDTO post,
                              @RequestParam("imageFile") MultipartFile imageFile,
                              HttpServletRequest request,Integer zodiacId) {
-
-    	System.out.println(zodiacId);
         UserVO loginUser = getLoginUser();
         post.setUser_Id(loginUser.getId());
         post.setZodiacId(zodiacId);
 
         if (!imageFile.isEmpty()) {
             String uploadDir = request.getServletContext().getRealPath("/resources/upload/");
-            String fileName = UUID.randomUUID().toString() + "_" + imageFile.getOriginalFilename();
+
+            // 원본 확장자 추출
+            String originalFileName = imageFile.getOriginalFilename();
+            String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
+
+            // 유저이름 + 시간 + UUID 일부로 파일명 생성
+            String username = loginUser.getNickname(); // 또는 getNickname() 등 사용
+            String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+            String uuidPart = UUID.randomUUID().toString().substring(0, 8);
+            String fileName = username + "_" + timestamp + "_" + uuidPart + extension;
+
             File saveFile = new File(uploadDir, fileName);
 
             try {
@@ -307,14 +317,6 @@ public class Main {
         
         return "redirect:/mypage?userId=" + msg.getReceiverId();
     }
-    
-    @PostMapping("/check-image-name")
-    @ResponseBody
-    public Map<String, Boolean> checkImageName(@RequestParam("imageName") String imageName) {
-        boolean isDuplicate = postsService.isImageNameExists(imageName);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("duplicate", isDuplicate);
-        return response;
-    }
+  
 }
 
