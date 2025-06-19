@@ -63,12 +63,38 @@
     </style>
 </head>
 <body>
+<<<<<<< Updated upstream
 	
     <div class="form-container">
         <form action="/register" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <div class="form-label">ID</div>
                 <input type="text" name="email" class="form-input" required>
+=======
+
+    <div class="signup-container">
+        <h2>会員登録</h2>
+
+        <form id="signupForm" action="/register" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			
+            <label for="email">メールアドレス</label>
+            <input type="text" id="email" name="email" class="form-input">
+			
+			<label for="password">パスワード</label>
+			<input type="password" id="password" name="password" class="form-input">
+
+            <label for="birthdate">生年月日</label>
+            <input type="text" id="birthdate" name="birthdate"/>
+
+            <label for="nickname">ニックネーム</label>
+            <input type="text" id="nickname" name="nickname"/>
+
+            <label>性別</label>
+            <div class="gender-options">
+                <label><input type="radio" name="gender" value="male"/> 男性</label>
+                <label><input type="radio" name="gender" value="female" /> 女性</label>
+>>>>>>> Stashed changes
             </div>
 
             <div class="form-group"> 
