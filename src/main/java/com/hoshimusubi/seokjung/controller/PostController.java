@@ -4,7 +4,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hoshimusubi.seokjung.dto.PostDTO;
 import com.hoshimusubi.seokjung.service.PostServiceImplYSJ;
+import com.hoshimusubi.seunga.model.UserVO;
+import com.hoshimusubi.seunga.security.CustomUserDetails;
 
 @Controller
 
@@ -21,12 +27,21 @@ public class PostController {
 		@Autowired
 		private PostServiceImplYSJ postService;
 		
+	    private UserVO getLoginUser() {
+	        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	        CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
+	        return userDetails.getUser();
+	    }
+		
+		
 		@GetMapping("/zodiac/{zodiacId}")
 		public String postsByZodiac(
 				@PathVariable("zodiacId") Integer zodiacId,
 				@RequestParam(name = "sort", defaultValue = "recent") String sort,
 				@RequestParam(name = "page", defaultValue = "1") int page,
-				Model model) {
+				Model model,
+				HttpSession session
+				) {
 			
 			int pageSize = 6;
 			int offset = (page - 1) * pageSize;
@@ -51,6 +66,12 @@ public class PostController {
 			    String postTime = post.getCreatedAt().toLocalTime().format(timeFormat);
 			    post.setFormattedDate(postDate); 
 			    post.setFormattedTime(postTime); 
+			}
+			
+			UserVO loginUser = getLoginUser();
+			
+			if (loginUser != null) {
+				model.addAttribute("myZodiacId", loginUser.getZodiacId());
 			}
 			
 			

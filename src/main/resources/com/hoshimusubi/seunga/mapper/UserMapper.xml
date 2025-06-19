@@ -22,5 +22,11 @@
         VALUES 
             (#{userId}, #{password}, #{zodiacId}, #{nickname}, #{gender}, #{birthDate}, #{profilePic, jdbcType=VARCHAR})
     </insert>
+    
+   <select id="countByNickname" parameterType="string" resultType="int">
+  SELECT COUNT(*) 
+  FROM users
+  WHERE nickname = #{nickname}
+</select>
 
 </mapper>

@@ -157,7 +157,7 @@ public class MyPageController2 {
 
 	        UserVO loginUser = getLoginUser();
 	        if (loginUser == null || receiverId <= 0 || content == null || content.trim().isEmpty()) {
-	            return "redirect:/mypage?error=invalidInput";
+	            return "redirect:/mypage2?error=invalidInput";
 	        }
 	        int senderId = loginUser.getId();
 

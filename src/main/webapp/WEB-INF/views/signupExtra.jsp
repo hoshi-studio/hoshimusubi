@@ -20,6 +20,8 @@
         <h2>追加情報入力</h2>
 
         <form id="signupForm" action="${pageContext.request.contextPath}/dosignupExtra" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			
             <label for="email">メールアドレス</label>
             <input type="email" id="email" name="email" value="${oauth2_email}"  readonly />
 
@@ -60,7 +62,6 @@
 	<script src="${pageContext.request.contextPath}/resources/js/flatpicker.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/fileupload.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/submitcheck.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/modal.js"></script>	
 
 </body>
 
