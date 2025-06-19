@@ -1,0 +1,398 @@
+/* 마이페이지 전체 박스 */
+.mypage-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px;
+    background: linear-gradient(to bottom, #e5d4ff, #f9eaff);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: 1.1rem;
+}
+
+/* 마이페이지 제목 (container 바깥에서 중앙 정렬) */
+.mypage-title {
+    text-align: center;
+    font-size: 40px;
+    color: #663399;
+    margin-top: 60px;
+    margin-bottom: 30px;
+}
+
+/* 통합 박스 (프로필 + 버튼) */
+.profile-summary-wrapper {
+    background: linear-gradient(to bottom, #f1e6ff, #f8eaff);
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* 프로필 카드 - 사진 + 정보 */
+.profile-card {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+/* 왼쪽: 프로필 이미지 + 닉네임 */
+.profile-left {
+    text-align: center;
+    flex: 1;
+}
+
+.profile-pic {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 3px solid #999;
+    object-fit: cover;
+    margin-bottom: 10px;
+    background-color: #e0d3f5;
+}
+
+.nickname {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* 오른쪽: 성별, 이메일, 별자리 */
+.profile-right {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.info-row label {
+    width: 100px;
+    font-weight: bold;
+    background-color: #ffffff;
+    padding: 10px 14px;
+    border-radius: 10px;
+    text-align: center;
+    color: #4b2673;
+}
+
+.info-value {
+    background-color: #ffffff;
+    padding: 10px 14px;
+    border-radius: 10px;
+    flex: 1;
+    color: #333;
+}
+
+/* 버튼 영역 */
+.stat-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.stat-btn {
+    flex: 1;
+    background-color: #d2bbf5;
+    padding: 18px 10px;
+    border-radius: 12px;
+    font-weight: bold;
+    color: #3a2962;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    font-size: 1.1rem;
+    transition: transform 0.2s;
+}
+
+.stat-btn:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+
+/* 정렬 셀렉트박스 */
+.board-controls {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.sort-select {
+    padding: 6px 14px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    background-color: white;
+    font-size: 14px;
+    color: #5c2e91;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 40 L70 110 L140 40 Z' fill='%235c2e91'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+}
+
+/* 게시글 테이블 */
+.post-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.post-table th {
+    background-color: #ede2ff;
+    color: #5c2e91;
+    font-weight: bold;
+    text-align: center;
+}
+
+.post-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+    text-align: center;
+}
+
+.post-table td a {
+    color: #333;
+    text-decoration: none;
+}
+
+.post-table td a:hover {
+    text-decoration: underline;
+}
+
+/* 페이지네이션 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    gap: 5px;
+}
+
+.pagination a,
+.pagination button {
+    border: none;
+    background-color: #f0e6ff;
+    color: #663399;
+    padding: 8px 12px;
+    margin: 0 2px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.pagination a:hover,
+.pagination button:hover {
+    background-color: #d9c2ff;
+}
+
+.pagination a.active,
+.pagination button.active {
+    background-color: #663399;
+    color: white;
+}
+
+/* 모달 공통 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* 모달 안쪽 내용 박스 */
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 30px 40px;
+    border: 2px solid #d1bfff;
+    border-radius: 15px;
+    width: 500px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    font-family: "Noto Sans JP", sans-serif;
+    color: #3a2962;
+}
+
+/* 닫기 버튼 */
+.modal-content .close {
+    color: #aaa;
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-content .close:hover {
+    color: #663399;
+}
+
+/* 메시지 리스트 */
+.message-item {
+    padding: 12px;
+    margin-bottom: 10px;
+    background-color: #f8f1ff;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 1px solid #e0d6f5;
+    transition: background-color 0.2s ease;
+}
+
+.message-item:hover {
+    background-color: #ede2ff;
+}
+
+.message-item .date {
+    float: right;
+    font-size: 12px;
+    color: #888;
+}
+
+/* 모달 내부 메시지 본문 */
+#messageSender {
+    font-size: 18px;
+    font-weight: bold;
+    color: #5c2e91;
+    margin-bottom: 15px;
+}
+
+#messageContent {
+    font-size: 16px;
+    line-height: 1.6;
+    white-space: pre-line;
+}
+
+.logout-btn-container {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+}
+
+.logout-btn {
+    background-color: #663399;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.logout-btn:hover {
+    background-color: #4e267a;
+}
+
+/* 마이페이지 상단 오른쪽에 로그아웃 버튼 위치 고정 */
+.logout-btn-container.mypage-logout {
+    position: absolute;
+    top: 100px; /* 마이페이지 제목 아래 적당한 거리 */
+    right: 60px;
+    z-index: 1000;
+}
+
+/* 답장 폼 컨테이너 */
+#replyForm {
+  background: linear-gradient(to bottom, #f4edff, #fdfbff);
+  padding: 20px;
+  border: 2px solid #e0d6f5;
+  border-radius: 12px;
+  margin-top: 15px;
+  box-shadow: 0 4px 10px rgba(90, 55, 133, 0.08);
+  transition: all 0.3s ease;
+}
+
+/* 텍스트에어리어 */
+#replyForm textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 14px;
+  font-family: "Noto Sans JP", sans-serif;
+  border: 1.5px solid #d0b8f3;
+  border-radius: 8px;
+  background-color: #fff;
+  resize: vertical;
+  transition: border-color 0.3s;
+}
+
+#replyForm textarea:focus {
+  outline: none;
+  border-color: #a98bde;
+}
+
+/* 제출 버튼 */
+#replyForm button[type="submit"] {
+  display: inline-block;
+  background: linear-gradient(to right, #7c4dff, #9575cd);
+  color: white;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  margin-top: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(124, 77, 255, 0.2);
+}
+
+#replyForm button[type="submit"]:hover {
+  background: linear-gradient(to right, #6a3acb, #7e57c2);
+  transform: translateY(-2px);
+}
+
+/* 답장 폼 토글 버튼 */
+#replyToggleBtn {
+  background-color: #6f42c1;
+  color: #fff;
+  border: none;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.2s ease;
+}
+
+#replyToggleBtn:hover {
+  background-color: #563d7c;
+  transform: scale(1.05);
+}
+
+.read-status {
+  display: inline-block;
+  background-color: #d6cef5;
+  color: #5c2e91;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: 10px;
+  font-weight: bold;
+}

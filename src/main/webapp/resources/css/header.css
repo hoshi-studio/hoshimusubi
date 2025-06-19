@@ -106,3 +106,44 @@ body {
     min-height: 100vh;
 }
 
+/* 아이콘 + 텍스트 수직 정렬 컨테이너 */
+.header-login-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none !important; 
+    color: inherit;
+    gap: 4px;
+}
+
+/* 내부 텍스트도 링크 색상 제거 확실하게 */
+.header-login-wrapper span,
+.header-login-wrapper:visited,
+.header-login-wrapper:hover,
+.header-login-wrapper:active {
+    text-decoration: none !important;
+    color: #4a427f;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.header-login-horizontal {
+    display: flex;
+    align-items: center;
+    text-decoration: none !important;
+    color: inherit;
+    gap: 6px;
+    margin-left: 12px;
+}
+
+.header-login-horizontal img {
+    width: 30px;  /* 너가 쓰는 아이콘 크기에 맞게 */
+    height: auto;
+}
+
+.header-login-horizontal .header-login-label {
+    font-size: 13px;
+    color: #4a427f;
+    font-weight: 500;
+    text-decoration: none !important;
+}
