@@ -48,12 +48,20 @@ body {
 
 .zodiac-link {
     display: inline-block;
+    text-decoration: none; /* 링크 자체 밑줄 제거 */
 }
 
-.zodiac-link + .zodiac-name {
-    font-weight: normal;
+.zodiac-link img {
+    display: block; /* 이미지 자체는 블록으로 설정해서 밑줄 영향 없음 */
 }
 
+.zodiac-name {
+    margin-top: 6px;
+    font-size: 13px;
+    color: #5c2e91;
+    font-weight: 500;
+    text-decoration: none !important; /* 밑줄 강제로 제거 */
+}
 .active-zodiac + .zodiac-name {
     font-weight: bold;
     color: #5c2e91;
