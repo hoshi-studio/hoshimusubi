@@ -7,13 +7,13 @@
 <h2 class="mypage-title">マイページ</h2>  <!-- ❗ container 바깥에 위치 -->
 
 <div class="mypage-container">
-
-	<div class="logout-btn-container">
-    <form action="${pageContext.request.contextPath}/logout" method="post">
-        <button type="submit" class="logout-btn">ログアウト</button>
-    </form>
-	</div>
-
+	
+   <div class="logout-btn-container mypage-logout">
+        <form action="${pageContext.request.contextPath}/logout" method="post">
+            <button type="submit" class="logout-btn">ログアウト</button>
+        </form>
+    </div>
+	
     <div class="profile-box">
         <div class="profile-left">
             <img src="${myInfo.profilePic}" class="profile-pic" />
