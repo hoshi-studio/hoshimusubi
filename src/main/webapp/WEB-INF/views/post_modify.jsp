@@ -11,6 +11,7 @@
             <h1 class="page-title">게시글 수정</h1>
 
             <form action="${pageContext.request.contextPath}/post_update" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 <input type="hidden" name="id" value="${post.id}" />
                 <input type="hidden" name="userId" value="${post.user_Id}" />
 

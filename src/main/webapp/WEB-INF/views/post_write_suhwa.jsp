@@ -9,6 +9,7 @@
     <h1 class="page-title">게시글 작성</h1>
 
     <form action="${pageContext.request.contextPath}/post_create" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         <div class="form-group">
             <label for="title">제목</label>
             <input type="text" name="title" id="title" required />

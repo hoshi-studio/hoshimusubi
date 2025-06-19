@@ -396,7 +396,9 @@
       <input type="file" name="profileImage" accept="image/*" /><br><br>
 
       <button type="button" onclick="submitEditForm()">保存</button>
+      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     </form>
+    
   </div>
 </div>
 

@@ -29,6 +29,7 @@
 		            <button type="submit">送信</button>
 		            <a href="${pageContext.request.contextPath}/">キャンセル</a>
 		        </div>
+		        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		    </form>
 		</div>
     </main>

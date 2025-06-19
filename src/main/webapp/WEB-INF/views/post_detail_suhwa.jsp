@@ -82,6 +82,7 @@
 				</div>
 				
                 <form id="commentForm" method="post" class="comment-form">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				    <input type="hidden" name="postId" value="${post.id}" />
 				    <textarea name="content" placeholder="댓글을 입력하세요..." required></textarea>
 				    <button type="submit">댓글 등록</button>
