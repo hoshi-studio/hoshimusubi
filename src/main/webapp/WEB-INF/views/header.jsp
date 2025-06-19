@@ -41,7 +41,10 @@
 			    <img src="${pageContext.request.contextPath}/resources/img/login.png" alt="マイページ" class="header-login" />
 			</a>
 			<div class="mem-actions">
-				        <a href="${pageContext.request.contextPath}/logout" >ログアウト</a>
+				<form action="${pageContext.request.contextPath}/logout" method="post">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					<button type="submit">ログアウト</button>
+					</form>
 				        <a href="${pageContext.request.contextPath}/mypage2" >マイページ</a>
 			</div>
 
