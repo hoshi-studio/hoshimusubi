@@ -47,19 +47,42 @@ public class Register {
         if (memberService.isNicknameDuplicate(dto.getNickname())) {
             return "registerFailnickname";
         }
+        
+        if (memberService.isValidPassword(dto.getPassword())) {
+            return "registerFailpwd";
+        }
+        
+        
 
-        // 2. 프로필 사진 저장 경로 설정
+     // 2. 프로필 사진 저장 경로 설정
         String uploadDir = request.getServletContext().getRealPath("/uploads/");
         File dir = new File(uploadDir);
         if (!dir.exists()) dir.mkdirs();
 
-        String fileName = file.getOriginalFilename();
-        String profilePicPath = uploadDir + File.separator + fileName;
+        String originalFileName = file.getOriginalFilename();
+        String fileName;
 
-        try {
-            file.transferTo(new File(profilePicPath));
-        } catch (IOException e) {
-            return "registerFailpic";
+        if (originalFileName != null && !originalFileName.isEmpty()) {
+            // 확장자 추출
+            String extension = "";
+            int dotIndex = originalFileName.lastIndexOf(".");
+            if (dotIndex > 0) {
+                extension = originalFileName.substring(dotIndex);
+            }
+
+            // 닉네임으로 파일명 설정 (특수문자 제거 등 안전하게 처리 가능)
+            String nickname = dto.getNickname(); // 닉네임 가져오기
+            fileName = nickname + extension;
+
+            String profilePicPath = uploadDir + File.separator + fileName;
+
+            try {
+                file.transferTo(new File(profilePicPath));
+            } catch (IOException e) {
+                return "registerFailpic";
+            }
+        } else {
+            fileName = "default.png";
         }
 
      // 3. 별자리 계산
