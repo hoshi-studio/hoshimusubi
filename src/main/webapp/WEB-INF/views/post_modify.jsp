@@ -8,7 +8,7 @@
     <div class="wrapper">
     <main class="main-content">
         <div class="post-edit-wrapper">
-            <h1 class="page-title">게시글 수정</h1>
+            <h1 class="page-title">修正</h1>
 
             <form action="${pageContext.request.contextPath}/post_update" method="post" enctype="multipart/form-data">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -16,17 +16,17 @@
                 <input type="hidden" name="userId" value="${post.user_Id}" />
 
                 <div class="form-group">
-                    <label for="title">제목</label>
+                    <label for="title">タイトル</label>
                     <input type="text" name="title" id="title" value="${post.title}" required />
                 </div>
 
                 <div class="form-group">
-                    <label for="content">내용</label>
+                    <label for="content">内容</label>
                     <textarea name="content" id="content" rows="10" required>${post.content}</textarea>
                 </div>
 
                 <div class="form-group">
-                    <label>기존 이미지</label>
+                    <label>イメージ</label>
                     <c:if test="${not empty post.imageUrl}">
                         <div class="image-preview">
                             <img src="${post.imageUrl}" alt="첨부 이미지" class="post-image" />
@@ -36,13 +36,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="imageFile">새 이미지 업로드</label>
+                    <label for="imageFile">イメージ アップロード</label>
                     <input type="file" name="imageFile" id="imageFile" accept="image/*" />
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit">수정 완료</button>
-                    <a href="${pageContext.request.contextPath}/post_detail?id=${post.id}">취소</a>
+                    <button type="submit">登録</button>
+                    <a href="${pageContext.request.contextPath}/post_detail?id=${post.id}">キャンセル</a>
                 </div>
             </form>
         </div>

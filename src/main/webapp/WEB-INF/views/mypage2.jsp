@@ -11,14 +11,17 @@
 <h2 class="mypage-title">マイページ</h2>  <!-- ❗ container 바깥에 위치 -->
 
 <div class="mypage-container">
-	<form id="deleteForm" action="${pageContext.request.contextPath}/deleteMem" method="post" style="display:none;"></form>
-		<a href="#" class="delete-user-link" onclick="document.getElementById('deleteForm').submit(); return false;">회원탈퇴</a>
+	<form id="deleteForm" action="${pageContext.request.contextPath}/deleteMem" method="post" style="display:none;">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	</form>
+		
+		<a href="#" class="delete-user-link" onclick="document.getElementById('deleteForm').submit(); return false;">会員脱退</a>
     <div class="profile-box">
         <div class="profile-left">
             <img src="${myInfo.profilePic}" class="profile-pic" />
             <div class="nickname">
 			  <span id="nickname-display">${myInfo.nickname}</span>
-			  <button class="edit-nickname-btn" onclick="openEditModal()">수정</button>
+			  <button class="edit-nickname-btn" onclick="openEditModal()">修整</button>
 			</div>
         </div>
 

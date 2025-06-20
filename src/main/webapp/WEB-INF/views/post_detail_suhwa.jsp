@@ -13,11 +13,11 @@
                 <h2 class="post-title"></h2>
                 <div class="post-meta">
 					<a href="${pageContext.request.contextPath}/mypage?userId=${post.user_Id}" style="text-decoration: none; color: inherit;">
-					    <span>작성자: ${post.nickname}</span>
+					    <span>作成者: ${post.nickname}</span>
 					</a>
 
-                    <span>작성일: ${formattedCreatedAt}</span>
-                    <span>조회수: ${post.views}</span>
+                    <span>作成日: ${formattedCreatedAt}</span>
+                    <span>閲覧数: ${post.views}</span>
                     <c:choose>
 					    <c:when test="${post.likedByCurrentUser}">
 					        <img src="${pageContext.request.contextPath}/resources/img/like.png" 
@@ -60,8 +60,8 @@
                 </div>
 				<c:if test="${loginUserId eq post.user_Id}">
 				    <div class="post-actions">
-				        <a href="${pageContext.request.contextPath}/post_modify?id=${post.id}" >수정</a>
-				        <a href="${pageContext.request.contextPath}/post_delete?id=${post.id}" >삭제</a>
+				        <a href="${pageContext.request.contextPath}/post_modify?id=${post.id}" >修整</a>
+				        <a href="${pageContext.request.contextPath}/post_delete?id=${post.id}" >削除</a>
 				    </div>
 				</c:if>
 
@@ -75,7 +75,7 @@
             </div>
 
             <section class="comments">
-                <h3>댓글</h3>
+                <h3>コメント</h3>
 
 				<div id="comment-list-area">
 				
@@ -85,7 +85,7 @@
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				    <input type="hidden" name="postId" value="${post.id}" />
 				    <textarea name="content" placeholder="댓글을 입력하세요..." required></textarea>
-				    <button type="submit">댓글 등록</button>
+				    <button type="submit">コメント登録</button>
 				</form>
             </section>
         </div>
@@ -95,6 +95,16 @@
 	const postId = $("input[name='postId']").val();
     const userId = "${sessionScope.userId}"; 
 	const contextPath = "${pageContext.request.contextPath}";
+	
+	// CSRF 토큰 설정
+	const token = $("meta[name='_csrf']").attr("content");
+	const header = $("meta[name='_csrf_header']").attr("content");
+
+	// 전역 Ajax 설정
+	$(document).ajaxSend(function (e, xhr, options) {
+	    xhr.setRequestHeader(header, token);
+	});
+
 	
 	// 댓글 목록 로딩 함수
     function loadComments(page) {
@@ -125,7 +135,7 @@
                     loadComments(1);
                 },
                 error: function () {
-                    alert('댓글 등록에 실패했습니다.');
+                    alert('コメントの登録に失敗しました。');
                 }
             });
         });
@@ -149,7 +159,7 @@
                 resize: "vertical"
             });
 
-            const saveBtn = $("<button>").text("저장").addClass("save-edit").data("id", id);
+            const saveBtn = $("<button>").text("登録").addClass("save-edit").data("id", id);
             commentBox.find(".comment-content").replaceWith(textarea);
             $(this).replaceWith(saveBtn);
         });
@@ -168,7 +178,7 @@
                     loadComments(1);
                 },
                 error: function () {
-                    alert("댓글 수정에 실패했습니다.");
+                    alert("コメントの修正に失敗しました。");
                 }
             });
         });
@@ -176,7 +186,7 @@
         // 댓글 삭제
         $(document).on("click", ".delete-btn", function () {
             const id = $(this).data("id");
-            if (confirm("댓글을 삭제하시겠습니까?")) {
+            if (confirm("コメントを削除しますか？")) {
                 $.ajax({
                     type: "POST",
                     url: contextPath + "/comment_delete",
@@ -186,7 +196,7 @@
                         loadComments(1);
                     },
                     error: function () {
-                        alert("댓글 삭제에 실패했습니다.");
+                        alert("コメントの削除に失敗しました。");
                     }
                 });
             }
@@ -216,7 +226,7 @@
                     $('#like-count').text(response.likeCount);
                 },
                 error: function () {
-                    alert("처리 중 오류 발생");
+                    alert("処理中にエラーが発生");
                 }
             });
         });
@@ -234,7 +244,7 @@
                     $img.data('bookmarked', !bookmarked);
                 },
                 error: function () {
-                    alert("북마크 처리 중 오류 발생");
+                    alert("ブックマーク処理中にエラーが発生");
                 }
             });
         });

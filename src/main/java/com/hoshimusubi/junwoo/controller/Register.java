@@ -83,7 +83,7 @@ public class Register {
             }
             fileName="/resources/profile/"+fileName;
         } else {
-            fileName = "/resources/img/default.jpg";
+            fileName = "/resources/img/default.png";
         }
 
      // 3. 별자리 계산
