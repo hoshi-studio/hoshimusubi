@@ -368,6 +368,7 @@
      <!-- 답장 폼 -->
     <div id="replyForm" style="display:none; margin-top:10px;">
       <form action="${pageContext.request.contextPath}/sendMessage2" method="post">
+      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         <input type="hidden" name="receiverId" id="replyReceiverId" />
         <textarea name="content" rows="3" cols="40" placeholder="返信内容を入力してください..."></textarea><br/>
         <button type="submit">送信</button>
