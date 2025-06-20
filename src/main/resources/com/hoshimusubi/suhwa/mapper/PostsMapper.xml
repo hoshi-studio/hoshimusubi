@@ -30,7 +30,7 @@
             zodiac_Id,
             title,
             content,
-            image_Path,
+            image_path,
             views,
             status
         ) VALUES (

@@ -23,6 +23,7 @@
         <h2>会員登録</h2>
 
         <form id="signupForm" action="/register" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <label for="email">メールアドレス</label>
             <input type="text" id="email" name="email" class="form-input">
 			

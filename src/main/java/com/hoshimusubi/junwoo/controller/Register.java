@@ -55,7 +55,7 @@ public class Register {
         
 
      // 2. 프로필 사진 저장 경로 설정
-        String uploadDir = request.getServletContext().getRealPath("/uploads/");
+        String uploadDir = request.getServletContext().getRealPath("/resources/profile/");
         File dir = new File(uploadDir);
         if (!dir.exists()) dir.mkdirs();
 
@@ -72,17 +72,18 @@ public class Register {
 
             // 닉네임으로 파일명 설정 (특수문자 제거 등 안전하게 처리 가능)
             String nickname = dto.getNickname(); // 닉네임 가져오기
-            fileName = nickname + extension;
-
+            fileName =nickname + extension;
+            
             String profilePicPath = uploadDir + File.separator + fileName;
-
+            System.out.println(profilePicPath);
             try {
                 file.transferTo(new File(profilePicPath));
             } catch (IOException e) {
                 return "registerFailpic";
             }
+            fileName="/resources/profile/"+fileName;
         } else {
-            fileName = "default.png";
+            fileName = "/resources/img/default.png";
         }
 
      // 3. 별자리 계산
@@ -96,7 +97,7 @@ public class Register {
             dto.getNickname(),
             dto.getGender(),
             dto.getBirthdate(),
-            "/uploads/" + fileName               // Web 경로
+            fileName               // Web 경로
         );
 
         // 5. 회원 저장

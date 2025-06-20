@@ -266,6 +266,7 @@ body{
 	    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	    <input type="hidden" name="userId" value="${user.user_Id}" />
 	    <button type="submit" class="message-btn">メッセージ</button>
+	    
 	</form>
 
   </div>

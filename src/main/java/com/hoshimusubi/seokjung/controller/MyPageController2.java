@@ -23,6 +23,7 @@ import com.hoshimusubi.seokjung.dto.ReceiveMessageDTO;
 import com.hoshimusubi.seokjung.service.MyPageServiceImplYSJ;
 
 import com.hoshimusubi.seunga.model.UserVO;
+import com.hoshimusubi.seunga.security.CustomPrincipal;
 import com.hoshimusubi.seunga.security.CustomUserDetails;
 
 @Controller
@@ -32,9 +33,9 @@ public class MyPageController2 {
 	    private MyPageServiceImplYSJ myPageService;
 		
 	    private UserVO getLoginUser() {
-	        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	        CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
-	        return userDetails.getUser();
+	    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	        CustomPrincipal principal = (CustomPrincipal) auth.getPrincipal();
+	        return principal.getUser();
 	    }
 	    
 	    @GetMapping("/mypage2")

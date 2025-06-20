@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hoshimusubi.suhwa.mapper.UsersMapper">
+	<update id="updateUser" parameterType="com.hoshimusubi.seunga.model.UserVO">
+	        UPDATE users
+	        SET
+	            nickname = #{nickname},
+	            birth_Date = #{birthDate},
+	            profile_pic = #{profilePic},
+	            gender = #{gender},
+	            zodiac_Id = #{zodiacId},
+	            created_at = SYSDATE
+	        WHERE id = #{id}
+	    </update>
+	
+	    <delete id="deleteUser" parameterType="int">
+	        DELETE FROM users WHERE id = #{userid}
+	    </delete>
+</mapper>

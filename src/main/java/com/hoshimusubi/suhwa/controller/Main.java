@@ -2,7 +2,10 @@ package com.hoshimusubi.suhwa.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,11 +29,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hoshimusubi.suhwa.dto.CommentsDTO;
 import com.hoshimusubi.suhwa.dto.MessageDTO;
 import com.hoshimusubi.suhwa.dto.PostsDTO;
 import com.hoshimusubi.suhwa.dto.UsersDTO;
+import com.hoshimusubi.junwoo.dto.Dto;
+import com.hoshimusubi.junwoo.model.Postvo;
+import com.hoshimusubi.junwoo.service.MemberService;
 import com.hoshimusubi.seunga.model.UserVO;
 import com.hoshimusubi.seunga.security.CustomPrincipal;
 import com.hoshimusubi.seunga.security.CustomUserDetails;
@@ -39,6 +46,7 @@ import com.hoshimusubi.suhwa.service.CommentsService;
 import com.hoshimusubi.suhwa.service.LikeService;
 import com.hoshimusubi.suhwa.service.MessageService;
 import com.hoshimusubi.suhwa.service.PostsService;
+import com.hoshimusubi.suhwa.service.UsersService;
 
 @Controller
 public class Main {
@@ -62,6 +70,13 @@ public class Main {
     @Autowired
     @Qualifier("MessageServiceImpl")
     private MessageService msgService;
+    
+    @Autowired
+    @Qualifier("UsersServiceImpl")
+    private UsersService usersService;
+    
+    @Autowired
+    private MemberService memberService;
 
     private UserVO getLoginUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -115,15 +130,23 @@ public class Main {
     public String createPost(@ModelAttribute PostsDTO post,
                              @RequestParam("imageFile") MultipartFile imageFile,
                              HttpServletRequest request,Integer zodiacId) {
-
-    	System.out.println(zodiacId);
         UserVO loginUser = getLoginUser();
         post.setUser_Id(loginUser.getId());
         post.setZodiacId(zodiacId);
 
         if (!imageFile.isEmpty()) {
             String uploadDir = request.getServletContext().getRealPath("/resources/upload/");
-            String fileName = UUID.randomUUID().toString() + "_" + imageFile.getOriginalFilename();
+
+            // 원본 확장자 추출
+            String originalFileName = imageFile.getOriginalFilename();
+            String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
+
+            // 유저이름 + 시간 + UUID 일부로 파일명 생성
+            String username = loginUser.getNickname(); // 또는 getNickname() 등 사용
+            String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+            String uuidPart = UUID.randomUUID().toString().substring(0, 8);
+            String fileName = username + "_" + timestamp + "_" + uuidPart + extension;
+
             File saveFile = new File(uploadDir, fileName);
 
             try {
@@ -303,18 +326,86 @@ public class Main {
         UserVO loginUser = getLoginUser();
         msg.setSenderId(loginUser.getId());
         msgService.sendMessage(msg);
-
-        
-        return "redirect:/mypage?userId=" + msg.getReceiverId();
+        return "redirect:/mypage2";
     }
     
-    @PostMapping("/check-image-name")
+    @PostMapping(value = "/updateMem", produces = "application/json")
     @ResponseBody
-    public Map<String, Boolean> checkImageName(@RequestParam("imageName") String imageName) {
-        boolean isDuplicate = postsService.isImageNameExists(imageName);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("duplicate", isDuplicate);
-        return response;
+    public Map<String, Object> updateUser(@RequestParam("birthDate") String birthDate,
+					            @RequestParam("nickname") String nickname,
+					            @RequestParam("gender") String gender,
+					            @RequestParam("profileImage") MultipartFile file,
+					            HttpServletRequest request,
+					            Model model) {
+    	UserVO loginUser1 = getLoginUser();
+    	Map<String, Object> result = new HashMap<>();
+    	try {
+            // 1. 프로필 사진 저장 경로 설정
+            String uploadDir = request.getServletContext().getRealPath("/resources/profile/");
+            File dir = new File(uploadDir);
+            if (!dir.exists()) dir.mkdirs();
+
+            String originalFileName = (file != null) ? file.getOriginalFilename() : "";
+            String fileName;
+
+            if (file != null && originalFileName != null && !originalFileName.isEmpty()) {
+                // 확장자 추출
+                String extension = "";
+                int dotIndex = originalFileName.lastIndexOf(".");
+                if (dotIndex > 0) {
+                    extension = originalFileName.substring(dotIndex);
+                }
+
+                // 닉네임 기반 파일명
+                fileName = nickname + extension;
+                String profilePicPath = uploadDir + File.separator + fileName;
+                file.transferTo(new File(profilePicPath));
+                fileName = "/resources/profile/" + fileName;
+            } else {
+                fileName = "/resources/img/default.jpg"; // 기본 이미지
+            }
+
+            // 2. 별자리 계산
+            int zodiacId = memberService.calculateZodiacId(birthDate);
+
+            // 3. VO 세팅
+            UserVO member = new UserVO();
+            try {
+                java.util.Date utilDate = new SimpleDateFormat("yyyy-MM-dd").parse(birthDate);
+                java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+                member.setBirthDate(sqlDate);
+            } catch (ParseException e) {
+                throw new RuntimeException("생년월일 형식 오류", e);
+            }
+
+            member.setGender(gender);
+            member.setNickname(nickname);
+            member.setZodiacId(zodiacId);
+            member.setProfilePic(fileName);
+            member.setId(getLoginUser().getId());
+
+            usersService.updateUser(member);
+
+            result.put("success", true);
+            result.put("message", "회원정보가 수정되었습니다.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("success", false);
+            result.put("message", "수정 실패: " + e.getMessage());
+        }
+
+        return result;
     }
+
+    @PostMapping("/deleteMem")
+    public String deleteUser(HttpSession session) {
+    	UserVO loginUser1 = getLoginUser();
+        usersService.deleteUser(loginUser1.getId());
+        session.invalidate(); // 로그아웃 처리
+        return "redirect:/";
+    }
+    
+    
+  
 }
 
