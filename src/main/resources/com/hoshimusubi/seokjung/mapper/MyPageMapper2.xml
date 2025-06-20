@@ -39,7 +39,7 @@
     
      <select id="getMyPosts" resultType="com.hoshimusubi.seokjung.dto.MyPageContentDTO">
 	      SELECT
-	        p.id AS postId,
+	        p.id,
 	        p.title AS postTitle,
 	        p.content,
 	        p.created_at AS createdAt,
@@ -83,7 +83,7 @@
     </select>
 
     <select id="getMyLikes" resultType="com.hoshimusubi.seokjung.dto.MyPageContentDTO">
-        SELECT l.post_id AS postId, p.title AS postTitle, p.views, l.created_at
+        SELECT l.post_id AS id, p.title AS postTitle, p.views, l.created_at
         FROM Likes l
         JOIN Posts p ON l.post_id = p.id
         WHERE l.user_id = #{userId}
@@ -91,7 +91,7 @@
     </select>
 
     <select id="getMyBookmarks" resultType="com.hoshimusubi.seokjung.dto.MyPageContentDTO">
-        SELECT b.post_id AS postId, p.title AS postTitle, p.views, b.created_at
+        SELECT b.post_id AS id, p.title AS postTitle, p.views, b.created_at
         FROM BookMark b
         JOIN Posts p ON b.post_id = p.id
         WHERE b.user_id = #{userId}
@@ -100,7 +100,7 @@
     
     <select id="getPostsCommentedByUser" resultType="com.hoshimusubi.seokjung.dto.MyPageContentDTO">
    	      SELECT
-	        p.id AS postId,
+	        p.id AS id,
 	        p.title AS postTitle,
 	        p.content,
 	        p.created_at AS createdAt,
@@ -133,7 +133,7 @@
  
 <select id="getPostsLikedByUser" resultType="com.hoshimusubi.seokjung.dto.MyPageContentDTO">
       SELECT
-	        p.id AS postId,
+	        p.id AS id,
 	        p.title AS postTitle,
 	        p.content,
 	        p.created_at AS createdAt,
@@ -166,7 +166,7 @@
 
 <select id="getPostsBookMarkedByUser" resultType="com.hoshimusubi.seokjung.dto.MyPageContentDTO">
       SELECT
-	        p.id AS postId,
+	        p.id AS id,
 	        p.title AS postTitle,
 	        p.content,
 	        p.created_at AS createdAt,
