@@ -3,6 +3,7 @@ package com.hoshimusubi.seunga.security;
 import java.io.IOException;
 import java.io.InputStream;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -43,7 +44,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.customOAuth2UserService = customOAuth2UserService;
     }
 	
-	
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -58,6 +58,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 	.userService(customOAuth2UserService)
             .and()
             .defaultSuccessUrl("/oauth2Redirect")
+            .failureHandler((request, response, exception) -> {
+                // ✅ 실패 원인 콘솔에 찍기
+                exception.printStackTrace();
+                // ✅ 실패 시 이동할 URL
+                response.sendRedirect("/login?error=true");
+            })
             .and() 
             .formLogin()
                 .loginPage("/login")
@@ -102,6 +108,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         String clientId = googleNode.path("clientId").asText();
         String clientSecret = googleNode.path("clientSecret").asText();
+        String baseUrl = root.path("google").path("baseUrl").asText();
     	
     	
         ClientRegistration google = ClientRegistration.withRegistrationId("google")
@@ -113,12 +120,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .userInfoUri("https://openidconnect.googleapis.com/v1/userinfo")
             .userNameAttributeName("sub")
             .clientName("Google")
-            .redirectUriTemplate("{baseUrl}/login/oauth2/code/{registrationId}")
+            .redirectUriTemplate(baseUrl + "/login/oauth2/code/{registrationId}")
             .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
             .build();
 
         return new InMemoryClientRegistrationRepository(google);
     }
+    
    
 
 }
