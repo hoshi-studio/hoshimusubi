@@ -3,7 +3,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: "Noto Sans JP", sans-serif;
-    background: linear-gradient(to bottom, #d2c3f3, #f5e9ff);
+    /* background: linear-gradient(to bottom, #d2c3f3, #f5e9ff); */
     color: #333;
 }
 

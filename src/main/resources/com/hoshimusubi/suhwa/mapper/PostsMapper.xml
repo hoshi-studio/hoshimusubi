@@ -38,7 +38,7 @@
             #{zodiacId, jdbcType=INTEGER},
             #{title},
             #{content},
-            #{imageUrl},
+            #{imageUrl, jdbcType=VARCHAR},
             0,
             0
         )

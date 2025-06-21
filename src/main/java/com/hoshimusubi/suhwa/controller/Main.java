@@ -362,7 +362,7 @@ public class Main {
                 file.transferTo(new File(profilePicPath));
                 fileName = "/resources/profile/" + fileName;
             } else {
-                fileName = "/resources/img/default.jpg"; // 기본 이미지
+                fileName = "/resources/img/default.png"; // 기본 이미지
             }
 
             // 2. 별자리 계산
