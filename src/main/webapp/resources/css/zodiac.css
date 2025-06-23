@@ -1,0 +1,58 @@
+/* ✅ 카드 스타일: 배경/둥근모서리/블러는 #zodiac-description */
+#zodiac-description {
+  background: #ffffff10;   /* 반투명 흰색 */
+  border-radius: 16px;
+  padding: 30px;
+  max-width: 900px;
+  margin: 40px auto;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(10px);  /* 유리창 효과 */
+}
+
+/* ✅ 내용 레이아웃만 담당 */
+.zodiac-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+/* 왼쪽: 이미지 + per 세로 */
+.zodiac-header-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* 오른쪽: 이름 + 설명 세로 */
+.zodiac-header-right {
+  flex: 1;
+}
+
+.zodiac-header-icon {
+  width: 200px;
+  height: auto;
+}
+
+.zodiac-header-per {
+  font-size: 15px;
+  line-height: 1.8;
+  text-align: center;
+  color: #333;
+}
+
+.zodiac-header-name {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 24px 0;
+  color: #4a427f;
+  text-align: left;
+}
+
+.zodiac-header-desc {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #555;
+  margin: 0;
+  text-align: left;
+}
