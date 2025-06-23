@@ -245,7 +245,7 @@ background:#866de7;
 				  🧭 左下の <strong>三角形ボタン</strong> をタップして、星座をめぐってみよう！
 				  </p>
 				  
-				  ✔️I AGREEを必ず押さないと！
+				  ✔️ I AGREEを必ず押さないと！
 				  </p>
 			  </div>
 
