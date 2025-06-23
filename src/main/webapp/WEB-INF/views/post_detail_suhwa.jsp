@@ -12,8 +12,12 @@
             <div class="post-box">
                 <h2 class="post-title"></h2>
                 <div class="post-meta">
+                	<span>作成者: ${post.nickname}</span>
+                	
 					<a href="${pageContext.request.contextPath}/mypage?userId=${post.user_Id}" style="text-decoration: none; color: inherit;">
-					    <span>作成者: ${post.nickname}</span>
+					    <img src="${pageContext.request.contextPath}/resources/img/message.png" 
+					             id="message-btn"
+					             style="width: 24px; height: 24px; cursor: pointer;" />
 					</a>
 
                     <span>作成日: ${formattedCreatedAt}</span>
@@ -249,6 +253,8 @@
             });
         });
     });
+	
+	
 	</script>
     <%@ include file="footer.jsp" %>
 </div>

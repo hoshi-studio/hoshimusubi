@@ -195,7 +195,7 @@ background:#866de7;
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 40px;">
 
 	<!-- 왼쪽: 별자리 카드 -->
-	<div style="flex: 1; min-width: 320px; max-width: 500px; text-align: center; background: rgba(255,255,255,0.6); padding: 24px; border-radius: 18px;">
+	<div class="zodiac-card-left" style="flex: 1; min-width: 320px; max-width: 500px; text-align: center; background: rgba(255,255,255,0.6); padding: 24px; border-radius: 18px;">
 	  <h2>📅 <%= today %> の星座</h2>
 	  <h3>🌞 今月の星座は <strong><%= zodiac %></strong> です！</h3>
 	  <img src="<%= path %>/resources/img/<%= img %>" alt="<%= zodiac %>"
@@ -209,7 +209,7 @@ background:#866de7;
   
   
   <!-- Stellarium Web 임베드 -->
-  <div style="width:100%; max-width:800px; margin:0 auto; border-radius:18px; overflow:hidden; box-shadow:0 2px 10px rgba(70,70,130,0.13);">
+  <div class="zodiac-stellarium-center" style="width:100%; max-width:800px; margin:0 auto; border-radius:18px; overflow:hidden; box-shadow:0 2px 10px rgba(70,70,130,0.13);">
     <iframe
       src="https://stellarium-web.org/"
       width="100%"
@@ -235,7 +235,7 @@ background:#866de7;
 			  
 			  
 			  <!-- 🔮 오른쪽 운세 설명 박스 -->
-			  <div style="flex: 1 1 400px; max-width: 500px; background: rgba(255, 255, 255, 0.7); padding: 25px 30px; border-radius: 18px; box-shadow: 0 0 12px rgba(0,0,0,0.1);">
+			  <div class="zodiac-card-right" style="flex: 1 1 400px; max-width: 500px; background: rgba(255, 255, 255, 0.7); padding: 25px 30px; border-radius: 18px; box-shadow: 0 0 12px rgba(0,0,0,0.1);">
 			    <h3 style="font-size: 1.5rem; margin-bottom: 14px;">🔮 今日の運勢</h3>
 			    <p style="font-size: 1.05rem; color: #333; line-height: 1.7;">
 			      今日の星座は<strong> <%= zodiac %> </strong>です！<br><br>

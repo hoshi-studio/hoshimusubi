@@ -12,10 +12,11 @@
 
 <div class="mypage-container">
 	<form id="deleteForm" action="${pageContext.request.contextPath}/deleteMem" method="post" style="display:none;">
-	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
 		
-		<a href="#" class="delete-user-link" onclick="document.getElementById('deleteForm').submit(); return false;">会員脱退</a>
+	<a href="#" class="delete-user-link" onclick="confirmAndDelete(); return false;">会員脱退</a>
+    
     <div class="profile-box">
         <div class="profile-left">
             <img src="${myInfo.profilePic}" class="profile-pic" />
@@ -593,6 +594,15 @@ function submitEditForm() {
 		    if (callback) callback();
 		  };
 		}
-}
+	}
+	
+	function confirmAndDelete() {
+	    const result = confirm("本当に退会しますか？");
+	    if (result) {
+	      document.getElementById('deleteForm').submit();
+	    } else {
+	      // 아무 것도 하지 않음
+	    }
+	  }
 </script>
 <%@ include file="footer.jsp" %>
