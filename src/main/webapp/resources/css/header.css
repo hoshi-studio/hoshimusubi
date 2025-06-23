@@ -151,12 +151,17 @@ body {
 }
 .mem-actions {
     margin-top: 10px;
+    display: flex;
+  flex-direction: row;   /* 수평 정렬 */
+  gap: 12px;  
 }
 .mem-actions a {
     margin-right: 10px;
     font-size: 0.95em;
     color: #444;
     text-decoration: none;
+    white-space: nowrap;
+    
 }
 .mem-actions a:hover {
     color: #000;
@@ -178,3 +183,15 @@ body {
   color: #000;             /* hover 시 a와 동일 효과 */
   text-decoration: underline;
 }
+
+
+/* .mem-actions a {
+  white-space: nowrap;   줄바꿈 방지
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+} */
