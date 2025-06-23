@@ -13,6 +13,7 @@ public class MessageDTO {
 	private int id;
     private int senderId;
     private int receiverId;
+    private String ninckname;
     private String content;
     private Integer isRead;             // 0 or 1
     private LocalDateTime sentAt;

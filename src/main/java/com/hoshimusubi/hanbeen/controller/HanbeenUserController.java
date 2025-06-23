@@ -36,15 +36,16 @@ public class HanbeenUserController {
     
     
     @GetMapping("/mypage")
-    public String myPage(Model model) {
+    public String myPage(@RequestParam("userId") int userId,Model model) {
     	
-    	UserVO loginUser = getLoginUser();
-        int userid = loginUser.getId();
+		/*
+		 * UserVO loginUser = getLoginUser(); int userid = loginUser.getId();
+		 */
         // 테스트용으로 1번 사용자 ID 하드코딩
-    	System.out.println("id값 : "+userid);
+		/* System.out.println("id값 : "+userid); */
         
         // 서비스 호출
-        UserProfileDTO userProfile = userService.getUserProfile(userid);
+        UserProfileDTO userProfile = userService.getUserProfile(userId);
         // 모델에 담아서 JSP로
         System.out.println(userProfile);
         model.addAttribute("user", userProfile);
