@@ -157,9 +157,10 @@ public class MyPageController2 {
 	                              ){
 
 	        UserVO loginUser = getLoginUser();
-	        if (loginUser == null || receiverId <= 0 || content == null || content.trim().isEmpty()) {
+	        if (loginUser == null || receiverId <= 0 || content == null || content.trim().isEmpty() || content.length() > 300) {
 	            return "redirect:/mypage2?error=invalidInput";
 	        }
+	        
 	        int senderId = loginUser.getId();
 
 	        // 메시지 객체 생성
