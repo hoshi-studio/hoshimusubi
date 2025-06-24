@@ -368,17 +368,28 @@
     <button id="replyToggleBtn" onclick="toggleReplyForm()">返信する</button>
      <!-- 답장 폼 -->
     <div id="replyForm" style="display:none; margin-top:10px;">
-      <form action="${pageContext.request.contextPath}/sendMessage2" method="post">
+      <form action="${pageContext.request.contextPath}/sendMessage2" method="post" onsubmit="return showSendConfirmModal();">
       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         <input type="hidden" name="receiverId" id="replyReceiverId" />
-        <textarea name="content" rows="3" cols="40" placeholder="返信内容を入力してください..."></textarea><br/>
+        <textarea name="content" rows="3" cols="40" placeholder="返信内容を入力してください..." maxlength="300"></textarea><br/>
         <button type="submit">送信</button>
       </form>
     </div>
   </div>
 </div>    
-<!-- 회원정보 수정 모달 -->
 
+<!-- 전송 확인 모달 -->
+<div id="sendConfirmModal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <p>メッセージを送信しますか？</p>
+    <div style="text-align:center; margin-top:20px;">
+      <button onclick="confirmSend(true)">はい</button>
+      <button onclick="confirmSend(false)">いいえ</button>
+    </div>
+  </div>
+</div>
+
+<!-- 회원정보 수정 모달 -->
 <div id="editInfoModal" class="modal" style="display: none;">
   <div class="modal-content">
     <span class="close" onclick="closeEditModal()">&times;</span>
@@ -459,14 +470,30 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
     const replyForm = document.querySelector("#replyForm form");
-    if (replyForm) {
+    const contentTextarea = replyForm?.querySelector("textarea");
+    
+    if (replyForm && contentTextarea) {
         replyForm.addEventListener("submit", function(e) {
             const receiver = document.getElementById("replyReceiverId").value;
             if (!receiver || isNaN(receiver) || parseInt(receiver) <= 0) {
                 alert("受信者が無効です。メッセージを選択してください。");
                 e.preventDefault();
             }
-        });
+        }
+        
+        	const content = contentTextarea.value.trim();
+        	if (content.length === 0) {
+        		alert("メッセージ内容を入力してください。");
+        		e.preventDefault();
+        		return;
+        	}
+        	
+        	if (content.length > 300) {
+        		alert("メッセージは300文字以内で入力してください。");
+                e.preventDefault();
+        	}
+        
+        );
     }
 });
 </script>
@@ -548,10 +575,27 @@ function toggleReplyForm() {
 </script>
 
 <script>
-  console.log("포맷된 생일: ${myinfo.birthDate}");
+let sendConfirmed = false;
+
+function showSendConfirmModal() {
+  if (!sendConfirmed) {
+    document.getElementById("sendConfirmModal").style.display = "block";
+    return false; // 일단 전송 막기
+  }
+  return true; // 이미 확인한 경우 전송 허용
+}
+
+function confirmSend(yes) {
+  document.getElementById("sendConfirmModal").style.display = "none";
+  if (yes) {
+    sendConfirmed = true;
+    // 강제 폼 전송
+    document.querySelector("#replyForm form").submit();
+  }
+}
 </script>
 
-
+>>>>>>> 72d0282ae04fe5f5e13f47ba9d9b1e1aff7b26f9
 <!-- /*수화 회원 정보 수정*/ -->
 <script>
 const contextPath = "${pageContext.request.contextPath}";

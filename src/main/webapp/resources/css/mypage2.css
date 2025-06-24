@@ -609,3 +609,24 @@
     color: #555;
     text-decoration: none;
 }
+
+#messageContent {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+#sendConfirmModal .modal-content button {
+  margin: 0 10px;
+  padding: 8px 16px;
+  background-color: #7c4dff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+#sendConfirmModal .modal-content button:hover {
+  background-color: #5e35b1;
+}
