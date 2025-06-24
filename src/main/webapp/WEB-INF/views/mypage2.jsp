@@ -387,10 +387,12 @@
     <form id="editForm" enctype="multipart/form-data">
 
       <label>生年月日</label>
-      <input type="text" name="birthDate" id="editBirthDate" value="" /><br>
+      <input type="text" name="birthDate" id="editBirthDate" value="${myInfo.birthDate}"><br>
 
       <label>ニックネーム</label>
-      <input type="text" name="nickname" value="${myInfo.nickname}" /><br>
+      <%-- <input type="text" name="nickname" value="${myInfo.nickname}" /><br> --%>
+      <input type="text" name="nickname" id="nicknameInput" value="${myInfo.nickname}" /><br>
+		<span id="nicknameCheckMsg" style="font-size: 13px; color: red;"></span><br>
 
       <label>性別</label><br>
       <label><input type="radio" name="gender" value="male" ${myInfo.gender eq 'male' ? 'checked' : ''}/> 男性</label>
@@ -545,13 +547,25 @@ function toggleReplyForm() {
 
 </script>
 
+<script>
+  console.log("포맷된 생일: ${myinfo.birthDate}");
+</script>
+
+
 <!-- /*수화 회원 정보 수정*/ -->
 <script>
 const contextPath = "${pageContext.request.contextPath}";
 function openEditModal() {
-  document.getElementById("editInfoModal").style.display = "block";
-  document.getElementById("editBirthDate").value = "${myInfo.birthDate}";
-  flatpickr("#editBirthDate", { locale: "ja" });
+	const birthDate = "${myInfo.birthDate}"; // "yyyy-MM-dd" 형식 보장
+
+	  document.getElementById("editInfoModal").style.display = "block";
+	  document.getElementById("editBirthDate").value = birthDate;
+
+	  flatpickr("#editBirthDate", {
+	    locale: "ja",
+	    dateFormat: "Y-m-d",
+	    defaultDate: birthDate
+	  });
 }
 
 function closeEditModal() {
@@ -604,5 +618,37 @@ function submitEditForm() {
 	      // 아무 것도 하지 않음
 	    }
 	  }
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const nicknameInput = document.getElementById("nicknameInput");
+    const msgSpan = document.getElementById("nicknameCheckMsg");
+
+    nicknameInput.addEventListener("input", function () {
+        const nickname = nicknameInput.value.trim();
+
+        if (nickname.length === 0) {
+            msgSpan.textContent = "";
+            return;
+        }
+
+        fetch(`${contextPath}/checkNick?nickname=` + encodeURIComponent(nickname))
+            .then(res => res.json())
+            .then(data => {
+                if (data.available) {
+                    msgSpan.textContent = "✅ 使用可能なニックネームです。";
+                    msgSpan.style.color = "green";
+                } else {
+                    msgSpan.textContent = "❌ すでに使われているニックネームです。";
+                    msgSpan.style.color = "red";
+                }
+            })
+            .catch(err => {
+                console.error("닉네임 확인 중 오류 발생:", err);
+                msgSpan.textContent = "⚠️ 確認に失敗しました。";
+                msgSpan.style.color = "orange";
+            });
+    });
+});
 </script>
 <%@ include file="footer.jsp" %>

@@ -7,8 +7,10 @@ import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -91,12 +93,24 @@ public class Main {
     }
 
     @GetMapping("/post_detail")
-    public String postDetail(@RequestParam("id") int id,Model model) {
+    public String postDetail(@RequestParam("id") int id,Model model,HttpSession session) {
         UserVO loginUser = getLoginUser();
         int userid = loginUser.getId();
         PostsDTO post = postsService.getPostById(id);
         
-        postsService.increaseViewCount(id);
+     // ✅ 세션에서 조회한 게시글 목록 가져오기
+        @SuppressWarnings("unchecked")
+        Set<Integer> viewedPostIds = (Set<Integer>) session.getAttribute("viewedPostIds");
+        if (viewedPostIds == null) {
+            viewedPostIds = new HashSet<>();
+            session.setAttribute("viewedPostIds", viewedPostIds);
+        }
+
+        // ✅ 중복 조회 방지 로직
+        if (!viewedPostIds.contains(id)) {
+            postsService.increaseViewCount(id);  // 조회수 증가
+            viewedPostIds.add(id);               // 세션에 저장
+        }
         
         model.addAttribute("loginUserId", userid);
 
@@ -329,6 +343,17 @@ public class Main {
         return "redirect:/mypage2";
     }
     
+    @GetMapping(value = "/checkNick", produces = "application/json")
+    @ResponseBody
+    public Map<String, Object> checkNickname(@RequestParam("nickname") String nickname) {
+        UserVO loginUser = getLoginUser(); // 로그인 사용자 정보
+        Map<String, Object> result = new HashMap<>();
+
+        boolean isTaken = usersService.isNicknameTaken(nickname, loginUser.getId()); // 본인 제외
+        result.put("available", !isTaken);
+        return result;
+    }
+    
     @PostMapping(value = "/updateMem", produces = "application/json")
     @ResponseBody
     public Map<String, Object> updateUser(@RequestParam("birthDate") String birthDate,
@@ -339,7 +364,17 @@ public class Main {
 					            Model model) {
     	UserVO loginUser1 = getLoginUser();
     	Map<String, Object> result = new HashMap<>();
+ 
+    	
+    	
     	try {
+    		boolean isTaken = usersService.isNicknameTaken(nickname, loginUser1.getId());
+            if (isTaken) {
+                result.put("success", false);
+                result.put("message", "既に使用中のニックネームです。");
+                return result;  // ✅ 중복이면 더 이상 진행하지 않음
+            }
+    		
             // 1. 프로필 사진 저장 경로 설정
             String uploadDir = request.getServletContext().getRealPath("/resources/profile/");
             File dir = new File(uploadDir);

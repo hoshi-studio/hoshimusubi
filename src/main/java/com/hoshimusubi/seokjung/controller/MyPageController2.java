@@ -123,7 +123,6 @@ public class MyPageController2 {
 	        
 	        MyPageDTO2 myInfo = myPageService.getMyPageInfo(userId);
 	        
-	        
 	        model.addAttribute("myInfo", myInfo);
 	        model.addAttribute("myPosts", myPosts);
 	        model.addAttribute("commentedPosts", commentedPosts);

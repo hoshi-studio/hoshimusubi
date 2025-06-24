@@ -6,5 +6,6 @@ public interface UsersService {
 
 	void updateUser(UserVO user);
     void deleteUser(int id);
+	boolean isNicknameTaken(String nickname, int userId);
 
 }

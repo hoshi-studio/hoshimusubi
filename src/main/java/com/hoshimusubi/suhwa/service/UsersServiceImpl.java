@@ -23,4 +23,9 @@ public class UsersServiceImpl implements UsersService{
     public void updateUser(UserVO user) {
 		UsersMapper.updateUser(user);
     }
+	
+	@Override
+    public boolean isNicknameTaken(String nickname, int userId) {
+        return UsersMapper.isNicknameTaken(nickname, userId)>0;
+    }
 }
