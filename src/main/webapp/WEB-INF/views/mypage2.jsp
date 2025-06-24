@@ -12,10 +12,11 @@
 
 <div class="mypage-container">
 	<form id="deleteForm" action="${pageContext.request.contextPath}/deleteMem" method="post" style="display:none;">
-	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
 		
-		<a href="#" class="delete-user-link" onclick="document.getElementById('deleteForm').submit(); return false;">会員脱退</a>
+	<a href="#" class="delete-user-link" onclick="confirmAndDelete(); return false;">会員脱退</a>
+    
     <div class="profile-box">
         <div class="profile-left">
             <img src="${myInfo.profilePic}" class="profile-pic" />
@@ -397,10 +398,12 @@
     <form id="editForm" enctype="multipart/form-data">
 
       <label>生年月日</label>
-      <input type="text" name="birthDate" id="editBirthDate" value="" /><br>
+      <input type="text" name="birthDate" id="editBirthDate" value="${myInfo.birthDate}"><br>
 
       <label>ニックネーム</label>
-      <input type="text" name="nickname" value="${myInfo.nickname}" /><br>
+      <%-- <input type="text" name="nickname" value="${myInfo.nickname}" /><br> --%>
+      <input type="text" name="nickname" id="nicknameInput" value="${myInfo.nickname}" /><br>
+		<span id="nicknameCheckMsg" style="font-size: 13px; color: red;"></span><br>
 
       <label>性別</label><br>
       <label><input type="radio" name="gender" value="male" ${myInfo.gender eq 'male' ? 'checked' : ''}/> 男性</label>
@@ -571,7 +574,6 @@ function toggleReplyForm() {
 
 </script>
 
-
 <script>
 let sendConfirmed = false;
 
@@ -593,13 +595,21 @@ function confirmSend(yes) {
 }
 </script>
 
+>>>>>>> 72d0282ae04fe5f5e13f47ba9d9b1e1aff7b26f9
 <!-- /*수화 회원 정보 수정*/ -->
 <script>
 const contextPath = "${pageContext.request.contextPath}";
 function openEditModal() {
-  document.getElementById("editInfoModal").style.display = "block";
-  document.getElementById("editBirthDate").value = "${myInfo.birthDate}";
-  flatpickr("#editBirthDate", { locale: "ja" });
+	const birthDate = "${myInfo.birthDate}"; // "yyyy-MM-dd" 형식 보장
+
+	  document.getElementById("editInfoModal").style.display = "block";
+	  document.getElementById("editBirthDate").value = birthDate;
+
+	  flatpickr("#editBirthDate", {
+	    locale: "ja",
+	    dateFormat: "Y-m-d",
+	    defaultDate: birthDate
+	  });
 }
 
 function closeEditModal() {
@@ -642,6 +652,47 @@ function submitEditForm() {
 		    if (callback) callback();
 		  };
 		}
-}
+	}
+	
+	function confirmAndDelete() {
+	    const result = confirm("本当に退会しますか？");
+	    if (result) {
+	      document.getElementById('deleteForm').submit();
+	    } else {
+	      // 아무 것도 하지 않음
+	    }
+	  }
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const nicknameInput = document.getElementById("nicknameInput");
+    const msgSpan = document.getElementById("nicknameCheckMsg");
+
+    nicknameInput.addEventListener("input", function () {
+        const nickname = nicknameInput.value.trim();
+
+        if (nickname.length === 0) {
+            msgSpan.textContent = "";
+            return;
+        }
+
+        fetch(`${contextPath}/checkNick?nickname=` + encodeURIComponent(nickname))
+            .then(res => res.json())
+            .then(data => {
+                if (data.available) {
+                    msgSpan.textContent = "✅ 使用可能なニックネームです。";
+                    msgSpan.style.color = "green";
+                } else {
+                    msgSpan.textContent = "❌ すでに使われているニックネームです。";
+                    msgSpan.style.color = "red";
+                }
+            })
+            .catch(err => {
+                console.error("닉네임 확인 중 오류 발생:", err);
+                msgSpan.textContent = "⚠️ 確認に失敗しました。";
+                msgSpan.style.color = "orange";
+            });
+    });
+});
 </script>
 <%@ include file="footer.jsp" %>

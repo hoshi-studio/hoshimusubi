@@ -7,7 +7,7 @@
 
 	<select id="getUserProfile" parameterType="int" resultType="com.hoshimusubi.seokjung.dto.MyPageDTO2">
         SELECT
-        	u.birth_Date,
+        	u.birth_Date As birthDate,
             u.profile_pic AS profilePic,
             u.nickname,
             u.gender,

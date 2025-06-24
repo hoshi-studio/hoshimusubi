@@ -13,9 +13,16 @@
 	            zodiac_Id = #{zodiacId},
 	            created_at = SYSDATE
 	        WHERE id = #{id}
-	    </update>
+	 </update>
 	
-	    <delete id="deleteUser" parameterType="int">
+	 <delete id="deleteUser" parameterType="int">
 	        DELETE FROM users WHERE id = #{userid}
-	    </delete>
+	 </delete>
+	    
+	 <select id="isNicknameTaken" resultType="int">
+	  SELECT COUNT(*)
+	  FROM users
+	  WHERE nickname = #{nickname}
+	    AND id != #{userId}
+	</select>
 </mapper>
