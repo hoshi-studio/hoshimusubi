@@ -49,7 +49,7 @@
             <div class="stat-btn" onclick="showSection('section-bookmarks')">スクラップ<br><span class="count">${myInfo.bookmarkCount}</span></div>
             <div class="stat-btn" onclick="openModal()">メッセージ<br><span class="count">${myInfo.messageCount}</span></div>
         </div>
-    </div>
+     </div>
 	
 	
 	
@@ -595,7 +595,6 @@ function confirmSend(yes) {
 }
 </script>
 
->>>>>>> 72d0282ae04fe5f5e13f47ba9d9b1e1aff7b26f9
 <!-- /*수화 회원 정보 수정*/ -->
 <script>
 const contextPath = "${pageContext.request.contextPath}";
