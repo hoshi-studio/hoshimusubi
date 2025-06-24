@@ -37,7 +37,7 @@
             #{user_Id},
             #{zodiacId, jdbcType=INTEGER},
             #{title},
-            #{content},
+            #{content, jdbcType=CLOB},
             #{imageUrl, jdbcType=VARCHAR},
             0,
             0
