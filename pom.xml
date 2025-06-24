@@ -240,6 +240,13 @@
     		<artifactId>spring-security-oauth2-core</artifactId>
     		<version>5.0.7.RELEASE</version>
 		</dependency>
+		
+		<dependency>
+    		<groupId>org.springframework.security</groupId>
+    		<artifactId>spring-security-test</artifactId>
+    		<version>5.0.7.RELEASE</version>
+    		<scope>test</scope>
+		</dependency>
         
         <!-- Test (JUnit) -->
         <dependency>
