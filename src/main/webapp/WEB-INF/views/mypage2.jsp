@@ -595,7 +595,6 @@ function confirmSend(yes) {
 }
 </script>
 
->>>>>>> 72d0282ae04fe5f5e13f47ba9d9b1e1aff7b26f9
 <!-- /*수화 회원 정보 수정*/ -->
 <script>
 const contextPath = "${pageContext.request.contextPath}";
