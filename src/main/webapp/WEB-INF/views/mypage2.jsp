@@ -48,7 +48,7 @@
             <div class="stat-btn" onclick="showSection('section-bookmarks')">スクラップ<br><span class="count">${myInfo.bookmarkCount}</span></div>
             <div class="stat-btn" onclick="openModal()">メッセージ<br><span class="count">${myInfo.messageCount}</span></div>
         </div>
-    </div>
+     </div>
 	
 	
 	
