@@ -4,14 +4,22 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/postseokjung.css" />
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/zodiac.css" />
+
+
 
 <div class="container">
+	
+	<!-- 설명이 표시될 영역 -->
+	  <div id="zodiac-description" data-selected="${selectedZodiacId}">여기에 설명</div>
 
     <!-- 별자리 아이콘 리스트 -->
 <div class="zodiac-grid">
     <c:forEach var="zodiac" items="${zodiacs}">
         <div class="zodiac-item">
             <a href="${pageContext.request.contextPath}/zodiac/${zodiac.id}" 
+			   data-id="${zodiac.id}"
                class="zodiac-link ${zodiac.id == selectedZodiacId ? 'active-zodiac' : ''}">
                 <img src="${pageContext.request.contextPath}${zodiac.symbol}" 
                      alt="${zodiac.koname_ja}" class="zodiac-icon" />
@@ -90,6 +98,8 @@
 </div>
 
 <%@ include file="footer.jsp" %>
+
+<script src="${pageContext.request.contextPath}/resources/js/zodiacDescription.js"></script>
 
 <script>
     console.log("myZodiacId: ${myZodiacId}");

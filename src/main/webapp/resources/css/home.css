@@ -1,10 +1,10 @@
 /* 전체 화면을 꽉 채우는 유연한 레이아웃 */
-html, body {
+/* html, body {
     margin: 0;
     padding: 0;
     height: 100%;
     font-family: sans-serif;
-}
+} */
 
 /* 바디 전체를 감싸는 wrapper: flex 컬럼 레이아웃 */
 /*.wrapper {
@@ -62,7 +62,21 @@ html, body {
     color: inherit; /* 혹시 모를 링크색 남아 있을 때 방지 */
 }
 
-
-
-
+.zodiac-row {
+  display: flex;
+  justify-content: center;       /* 가운데 정렬 */
+  gap: 20px;                     /* 카드 간 간격 */
+  padding: 0 40px;               /* 양쪽 여백 */
+  margin-top: 30px;
+  flex-wrap: wrap;              /* 작은 화면에서 줄바꿈 가능 (선택) */
 }
+
+.zodiac-card {
+  width: 300px;                  /* 카드 너비 고정 */
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
