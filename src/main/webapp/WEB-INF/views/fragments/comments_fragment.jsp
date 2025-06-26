@@ -10,8 +10,8 @@
 
         <c:if test="${loginUserId eq comment.userId}">
             <div class="comment-actions">
-                <a href="javascript:void(0);" class="edit-btn" data-id="${comment.id}">수정</a>
-                <a href="javascript:void(0);" class="delete-btn" data-id="${comment.id}">삭제</a>
+                <a href="javascript:void(0);" class="edit-btn" data-id="${comment.id}">修整</a>
+                <a href="javascript:void(0);" class="delete-btn" data-id="${comment.id}">削除</a>
             </div>
         </c:if>
     </div>
@@ -20,16 +20,16 @@
 <!-- 댓글 페이징 -->
 <div class="comment-pagination" style="margin-top: 15px;">
     <c:if test="${currentPage > 1}">
-        <a href="#" class="comment-page-link" data-page="${currentPage - 1}">◀ 이전</a>
+        <a href="#" class="comment-page-link" data-page="${currentPage - 1}">◀ 以前</a>
     </c:if>
 
     <span style="margin: 0 10px;">${currentPage} / ${totalPages}</span>
 
     <c:if test="${currentPage < totalPages}">
-        <a href="#" class="comment-page-link" data-page="${currentPage + 1}">다음 ▶</a>
+        <a href="#" class="comment-page-link" data-page="${currentPage + 1}">次 ▶</a>
     </c:if>
 </div>
 </c:if>
 <c:if test="${empty comments}">
-    <p style="text-align:center; color: #999;">아직 등록된 댓글이 없습니다.</p>
+    <p style="text-align:center; color: #999;">まだ登録されたコメントがありません。</p>
 </c:if>

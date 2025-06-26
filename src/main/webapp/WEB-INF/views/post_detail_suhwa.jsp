@@ -109,7 +109,17 @@
 	    xhr.setRequestHeader(header, token);
 	});
 
-	
+	function updateCommentCount() {
+	    $.ajax({
+	        type: "GET",
+	        url: contextPath + "/commentCount", // ← 새로운 컨트롤러 URL 필요
+	        data: { postId: postId },
+	        dataType: "json",
+	        success: function (data) {
+	            $("#comment-count").text(data.count);
+	        }
+	    });
+	}
 	// 댓글 목록 로딩 함수
     function loadComments(page) {
         $.ajax({
@@ -120,7 +130,7 @@
                 $("#comment-list-area").html(html);
             },
             error: function () {
-                alert("댓글 목록을 불러오지 못했습니다.");
+                alert("コメントリストを読み込めませんでした。");
             }
         });
     }
@@ -137,6 +147,7 @@
                 success: function () {
                     $('textarea[name="content"]').val('');
                     loadComments(1);
+                    updateCommentCount();
                 },
                 error: function () {
                     alert('コメントの登録に失敗しました。');
@@ -198,6 +209,8 @@
                     dataType: "json",
                     success: function () {
                         loadComments(1);
+                        updateCommentCount();
+                      
                     },
                     error: function () {
                         alert("コメントの削除に失敗しました。");

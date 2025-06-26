@@ -203,13 +203,22 @@ public class Main {
         int totalPages = (int) Math.ceil((double) totalCount / pageSize);	
 
         List<CommentsDTO> pagedComments = commentsService.getCommentsPaged(postId, page, pageSize);
-
+        
         model.addAttribute("comments", pagedComments);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("loginUserId", loginUser.getId());
 
         return "fragments/comments_fragment"; // /WEB-INF/views/fragments/comments_fragment.jsp
+    }
+    
+    @GetMapping("/commentCount")
+    @ResponseBody
+    public Map<String, Object> getCommentCount(@RequestParam("postId") int postId) {
+        int count = commentsService.getcommentCount(postId);
+        Map<String, Object> result = new HashMap<>();
+        result.put("count", count);
+        return result;
     }
 
     @GetMapping("/post_modify")
